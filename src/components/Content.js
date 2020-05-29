@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import './css/Content.css'
 
-const Content = (props) => {
+const Content = ({ content }) => {
 
-    let content = props.content;
-    let colors = props.content.colors
+    let colors = content.colors
 
     let [title, setTitle] = useState(content.title)
     let [updated, setUpdated] = useState(content.updated)
