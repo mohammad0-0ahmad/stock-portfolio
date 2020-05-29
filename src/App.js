@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import Button from './Components.js';
+import Button from './components/Button.js';
 
 
 function App() {
   return (
     <div className="App">
     <div>
-    <Button buttonText="Redigera" color="black"/>
-    <Button buttonText="Spara" color="yellow"/>
+    <Button buttonText="Redigera" bgColor="#FDCC6B" handleClick={()=>console.log("no")}/>
+    <Button buttonText="Spara" bgColor="#3C3C3B" handleClick={()=>console.log("yes")}/>
     </div>
     </div>
   );
