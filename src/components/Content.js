@@ -20,6 +20,7 @@ const Content = ({ content }) => {
                 <h2 className="title" style={titleColor}>{title}</h2>
                 {content.showLatestUpdate && <p className="updated" style={updatedColor}>Senast uppdaterat {updated}</p>}
             </header>
+            <div id="contentItems"></div>
         </div>
     )
 }
