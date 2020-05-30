@@ -1,0 +1,12 @@
+.ContentItemHeader{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: .5vw 1vw ;
+    padding-left: 1.5vw;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+.ContentItemHeader > *:last-child{
+    margin-left: auto;
+}
