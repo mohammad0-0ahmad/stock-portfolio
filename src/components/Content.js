@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './css/Content.css'
 import WelcomeBar from './WelcomeBar.js'
+import PreferedIndustries from './PreferedIndustries'
 
 const Content = ({ content }) => {
 
@@ -17,6 +18,8 @@ const Content = ({ content }) => {
     }
 
     let hasStocks = true;
+    let industries = ['Tech', 'Finance', 'Health', 'Materials']
+
 
     return (
         <div id="Content" >
@@ -26,6 +29,7 @@ const Content = ({ content }) => {
             </header>
             <br/>
             <WelcomeBar bgColor={colors.greetingBarBg} updated={updated} name={content.name} hasStocks={hasStocks}/>
+            <PreferedIndustries headingColor={colors.homeText[1]} indColor={colors.homeText[0]} industries={industries}/>
         </div>
     )
 }
