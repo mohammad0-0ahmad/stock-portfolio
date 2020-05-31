@@ -1,6 +1,7 @@
-.indGrid {
+
+.contGrid {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto 90%;
     grid-row-gap: 25px;
     padding-top: 25px;
 }

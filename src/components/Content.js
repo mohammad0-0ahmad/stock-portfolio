@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './css/Content.css'
 import WelcomeBar from './WelcomeBar.js'
 import PreferedIndustries from './PreferedIndustries'
+import ContactInfo from './ContactInfo'
 
 const Content = ({ content }) => {
 
@@ -19,7 +20,13 @@ const Content = ({ content }) => {
 
     let hasStocks = true;
     let industries = ['Tech', 'Finance', 'Health', 'Materials']
-
+    let person = {
+        phone:'079 946 3654',
+        mail:'magnus.persson@hotmail.com',
+        adress:'Lantmilsgatan 7',
+        zipCode: '415 01',
+        city: 'Göteborg'
+    }
 
     return (
         <div id="Content" >
@@ -30,6 +37,8 @@ const Content = ({ content }) => {
             <br/>
             <WelcomeBar bgColor={colors.greetingBarBg} updated={updated} name={content.name} hasStocks={hasStocks}/>
             <PreferedIndustries headingColor={colors.homeText[1]} indColor={colors.homeText[0]} industries={industries}/>
+            <br/>
+            <ContactInfo headingColor={colors.homeText[1]} indColor={colors.homeText[0]} person={person}/>
         </div>
     )
 }

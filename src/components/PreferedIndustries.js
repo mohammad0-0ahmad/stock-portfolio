@@ -10,9 +10,9 @@ const PreferedIndustries = ({headingColor, industriesColor,industries}) => {
     }
 
 
-industries =industries.map(sector => <p>{sector}</p>)
+industries =industries.map(sector => <p key={sector}>{sector}</p>)
 
-    return <div><p style={style}>Föredragna Industrier</p><div className='grid' style={indStyle}>{industries.length>0 ? industries : 'Inga industrier valda än'}</div>
+    return <div><p style={style}>Föredragna Industrier</p><div className='indGrid' style={indStyle}>{industries.length>0 ? industries : 'Inga industrier valda än'}</div>
     
        </div>
         
