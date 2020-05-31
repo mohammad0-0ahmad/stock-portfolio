@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './css/Content.css'
+import WelcomeBar from './WelcomeBar.js'
 
 const Content = ({ content }) => {
 
@@ -14,12 +15,17 @@ const Content = ({ content }) => {
     let updatedColor = {
         color: colors.contentUpdate
     }
+
+    let hasStocks = true;
+
     return (
         <div id="Content" >
             <header>
                 <h2 className="title" style={titleColor}>{title}</h2>
                 {content.showLatestUpdate && <p className="updated" style={updatedColor}>Senast uppdaterat {updated}</p>}
             </header>
+            <br/>
+            <WelcomeBar bgColor={colors.greetingBarBg} updated={updated} name={content.name} hasStocks={hasStocks}/>
         </div>
     )
 }

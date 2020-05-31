@@ -5,6 +5,7 @@ import Content from './Content';
 const Dashboard = (props) => {
     let content = {
         title: "Hem",
+        name: "Magnus",
         updated: "2020-02-26",
         showLatestUpdate:true,
         colors: colors
