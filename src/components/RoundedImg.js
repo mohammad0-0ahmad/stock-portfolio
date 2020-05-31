@@ -1,12 +1,8 @@
 import React from 'react';
+import './css/RoundedImg.css'
 
-const RoundedImg = ({ src, Diameter, alt }) => {
-    const myStyle = {
-        width: Diameter,
-        height: Diameter,
-        borderRadius: Diameter
-    }
-    return (<img src={src} alt={alt} style={myStyle} />)
+const RoundedImg = ({ src , alt }) => {
+    return (<img className='RoundedImg' src={src} alt={alt}/>)
 }
 
 export default RoundedImg;

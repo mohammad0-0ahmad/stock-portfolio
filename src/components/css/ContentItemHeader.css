@@ -1,12 +1,14 @@
-.ContentItemHeader{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    padding: .5vw 1vw ;
-    padding-left: 1.5vw;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
+.ContentItemHeader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
-.ContentItemHeader > *:last-child{
-    margin-left: auto;
+.ContentItemHeader > *:first-child {
+  font-size: 1.1vw;
+  font-weight: 500;
+}
+.ContentItemHeader > *:last-child {
+  margin-left: auto;
 }
