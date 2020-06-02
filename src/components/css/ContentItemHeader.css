@@ -1,0 +1,14 @@
+.ContentItemHeader {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.ContentItemHeader > *:first-child {
+  font-size: 1.1vw;
+  font-weight: 500;
+}
+.ContentItemHeader > *:last-child {
+  margin-left: auto;
+}

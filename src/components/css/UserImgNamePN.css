@@ -1,0 +1,33 @@
+.UserImgNamePN {
+  display: flex;
+  height: 10vw;
+  align-items: center;
+}
+
+.UserImgNamePN > .RoundedImg {
+  height: 100%;
+}
+
+.UserImgNamePN > div {
+  display: flex;
+  flex-direction: column;
+  margin-left: 2vw;
+}
+.UserImgNamePN > div > * {
+  margin: 0.25vw 0;
+}
+
+.UserImgNamePN > div > h2 {
+  font-weight: 400;
+  font-size: 1.5vw;
+}
+
+.UserImgNamePN > div > p:first-of-type{
+  font-weight: 400;
+  font-size: .9vw;
+}
+
+.UserImgNamePN > div > p:last-of-type{
+  font-weight: 400;
+  font-size: 1vw;
+}
