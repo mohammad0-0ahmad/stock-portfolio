@@ -7,6 +7,7 @@ import userimg from '../user.png'
 import ContentItem from './ContentItem'
 import ContetItemHeader from './ContentItemHeader'
 import UserImgNamePN from './UserImgNamePN'
+import BarChart from './BarChart'
 
 
 const Content = ({ content }) => {
@@ -41,7 +42,7 @@ const Content = ({ content }) => {
         <ContactInfo key='3' headingColor={colors.homeText[1]} indColor={colors.homeText[0]} person={person} />]
     const myOwn = [
         <ContetItemHeader key='0' title={{ titleText: 'Mitt Innehav', color: '#3C4368' }} button={{ buttonText: 'Min portfölj', bgColor: '#3C3C3B' }} borderColor='#45414E14' />,
-
+        <BarChart key='1' amountSectorsToShow={5} colors={colors.chart} sectors={[50,10,20,15,20]}/>
     ]
     return (
         <div id="Content" >
