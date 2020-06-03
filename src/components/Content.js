@@ -63,7 +63,7 @@ const Content = ({ content }) => {
         <BarChartSectorDetails key='6'
             data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
             colors={{ sectorColor: '#A1A8C3', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
-        />,
+        />
     ]
     return (
         <div id="Content" >
