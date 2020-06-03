@@ -1,12 +1,12 @@
 import React from 'react'
 import "./css/PreferedIndustries.css";
 
-const PreferedIndustries = ({headingColor, industriesColor,industries}) => {
+const PreferedIndustries = ({headingColor, indColor,industries}) => {
     let style = {
         color: headingColor
     }
     let indStyle = {
-        color: industriesColor
+        color: indColor
     }
 
 
