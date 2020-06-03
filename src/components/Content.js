@@ -44,23 +44,23 @@ const Content = ({ content }) => {
     const myOwn = [
         <ContetItemHeader key='0' title={{ titleText: 'Mitt Innehav', color: '#3C4368' }} button={{ buttonText: 'Min portfölj', bgColor: '#3C3C3B' }} borderColor='#45414E14' />,
         <BarChart key='1' amountSectorsToShow={5} colors={colors.chart} sectors={[50, 10, 20, 15, 20]} />,
-        <BarChartSectorDetails
+        <BarChartSectorDetails key='2'
             data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
             colors={{ sectorColor: '#5B74FF', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
         />,
-        <BarChartSectorDetails
+        <BarChartSectorDetails key='3'
             data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
             colors={{ sectorColor: '#34BFA3', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
         />,
-        <BarChartSectorDetails
+        <BarChartSectorDetails key='4'
             data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
             colors={{ sectorColor: '#FD397A', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
         />,
-        <BarChartSectorDetails
+        <BarChartSectorDetails key='5'
             data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
             colors={{ sectorColor: '#3D4465', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
         />,
-        <BarChartSectorDetails
+        <BarChartSectorDetails key='6'
             data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
             colors={{ sectorColor: '#A1A8C3', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
         />,
