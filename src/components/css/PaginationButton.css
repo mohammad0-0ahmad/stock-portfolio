@@ -1,0 +1,12 @@
+.PaginationButton {
+  padding: 0.5vw;
+  border: none;
+  width: min-content;
+  background-color: #ffffff00;
+}
+.PaginationButton:hover {
+  background-color: #feebc4;
+}
+#selectedPaginationButton {
+  background-color: #fdcc6b;
+}

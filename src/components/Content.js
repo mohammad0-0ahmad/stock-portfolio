@@ -78,6 +78,27 @@ const Content = ({ content }) => {
         <LabelAndInput key={phone} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Telefonnummer" text={phone} handleChange={(e) => {setPhone(e.target.value)}} />,
         <LabelAndInput key={mail} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="mail" labelText="Email" text={mail} handleChange={(e) => {setMail(e.target.value)}} />,
         <Button bgColor='#FDCC6B' width='10%' marginleft= '60%' buttonText='Spara' handleClick={() => {console.log("change")}}   />
+        /*<BarChart key='1' amountSectorsToShow={5} colors={colors.chart} sectors={[50, 10, 20, 15, 20]} />,
+        <BarChartSectorDetails key='2'
+            data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
+            colors={{ sectorColor: '#5B74FF', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
+        />,
+        <BarChartSectorDetails key='3'
+            data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
+            colors={{ sectorColor: '#34BFA3', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
+        />,
+        <BarChartSectorDetails key='4'
+            data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
+            colors={{ sectorColor: '#FD397A', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
+        />,
+        <BarChartSectorDetails key='5'
+            data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
+            colors={{ sectorColor: '#3D4465', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
+        />,
+        <BarChartSectorDetails key='6'
+            data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
+            colors={{ sectorColor: '#A1A8C3', titleColor: '#3D4465', detailsColor: '#A1A8C3' }}
+        />*/
     ]
 
     const preferencesChangePassWord = [
