@@ -1,0 +1,13 @@
+.Button {
+  border-radius: .3vw;
+  color: var(--color2);
+  padding: 0.5vw;
+  width: min-content;
+  min-width: 7vw;
+  font-size: 0.8vw;
+  background-color: var(--color19);
+}
+
+.saveButton {
+  background-color: var(--color3);
+}

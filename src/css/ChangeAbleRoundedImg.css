@@ -1,0 +1,23 @@
+.ChangeAbleRoundedImg {
+  width: 12vw;
+  height: 12vw;
+}
+.ChangeAbleRoundedImg .RoundedImg {
+  width: 100%;
+  height: 100%;
+}
+.ChangeAbleRoundedImg > button {
+  height: 2.2vw;
+  width: 2.2vw;
+  border-radius: 50%;
+  position: relative;
+  top: -85%;
+  left: 90%;
+  background-size: 50%;
+  background-position: center;
+  transform: translate(-50%, -50%);
+  background-repeat: no-repeat;
+  cursor: pointer;
+  background-color: var(--color3);
+  background-image: url("../imgs/edit.png");
+}

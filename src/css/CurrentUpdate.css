@@ -1,0 +1,17 @@
+.CurrentUpdate {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+.CurrentUpdate h1{
+    color: var(--color13);
+    font-size: 34px;
+    margin-right: 5px;
+    font-weight: 500;
+    font-size: 2.8vw;
+}
+.CurrentUpdate p{
+    color: var(--color8);
+    font-size: 1vw;
+    margin-left: 1vw;
+}

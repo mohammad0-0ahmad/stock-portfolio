@@ -1,5 +1,5 @@
 import React from 'react'
-import './css/PaginationButton.css'
+import '../css/PaginationButton.css'
 
 const PaginationButton = ({ text, handleClick, selected }) => {
 

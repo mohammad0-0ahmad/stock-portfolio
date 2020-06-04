@@ -1,16 +1,16 @@
 import React from "react";
 
-function AktieRow({color,info}) {
+function AktieRow({ info }) {
   return (
-        <tr>
-          <td>{info.a}</td>
-          <td>{info.b}</td>
-          <td>{info.c}</td>
-          <td>{info.d}</td>
-          <td>{info.e}</td>
-          <td>{info.f}</td>
-          <td>{info.g}</td>
-        </tr>
+    <tr className='AktieRow'>
+      <td>{info.a}</td>
+      <td>{info.b}</td>
+      <td>{info.c}</td>
+      <td>{info.d}</td>
+      <td>{info.e}</td>
+      <td>{info.f}</td>
+      <td>{info.g}</td>
+    </tr>
   )
 }
 export default AktieRow;

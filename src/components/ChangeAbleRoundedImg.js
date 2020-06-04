@@ -1,16 +1,14 @@
 import React from 'react'
-import './css/ChangeAbleRoundedImg.css'
+import '../css/ChangeAbleRoundedImg.css'
 import RoundedImg from './RoundedImg'
 
-const ChangeAbleRoundedImg = ({ src, alt, edit }) => {
-
-    const { bgColor, handleClick } = edit
-
+const ChangeAbleRoundedImg = ({ src, alt, handleClick }) => {
     return (
         <div className='ChangeAbleRoundedImg'>
             <RoundedImg src={src} alt={alt} />
-            <div onClick={handleClick} style={{ backgroundColor: bgColor }}></div>
+            <button onClick={handleClick}></button>
         </div>
     )
 }
+
 export default ChangeAbleRoundedImg;

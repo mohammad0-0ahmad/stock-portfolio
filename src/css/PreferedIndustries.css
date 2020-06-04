@@ -1,0 +1,15 @@
+.PreferedIndustries {
+  font-size: 0.8vw;
+  font-weight: 500;
+}
+.PreferedIndustries > p {
+  color: var(--color8);
+}
+.PreferedIndustries > div {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-row-gap: 2vw;
+  padding-top: 2vw;
+  color: var(--color17);
+  font-weight: 400;
+}

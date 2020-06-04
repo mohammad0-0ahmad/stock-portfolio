@@ -1,0 +1,15 @@
+.LabelAndInput > label {
+  display: grid;
+  grid-row-gap: 1vw;
+  width: 50%;
+  font-size: 1vw;
+  margin-bottom: 0.5vw;
+  color: var(--color8);
+}
+.LabelAndInput > input {
+  padding: 0.5vw;
+  opacity: 0.6;
+  font-size: 1vw;
+  width: 50%;
+  outline-color: var(--color3);
+}

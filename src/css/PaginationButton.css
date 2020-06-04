@@ -2,11 +2,11 @@
   padding: 0.5vw;
   border: none;
   width: min-content;
-  background-color: #ffffff00;
+  background-color: var(--color2);
 }
 .PaginationButton:hover {
-  background-color: #feebc4;
+  background-color: var(--color21);
 }
 #selectedPaginationButton {
-  background-color: #fdcc6b;
+  background-color: var(--color3);
 }

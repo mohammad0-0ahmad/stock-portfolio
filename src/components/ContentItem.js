@@ -1,9 +1,9 @@
 import React from 'react'
-import './css/ContentItem.css'
+import '../css/ContentItem.css'
 
-const ContentItem = ({ bgColor, shdowColor, innerComponents }) => {
+const ContentItem = ({ innerComponents }) => {
     return (
-        <div className='ContentItem' style={{ backgroundColor: bgColor, boxShadow: `0px 0px 5px ${shdowColor}` }}>
+        <div className='ContentItem'>
             {innerComponents}
         </div>
     )

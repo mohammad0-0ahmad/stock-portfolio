@@ -1,17 +1,13 @@
 import React from 'react';
-import './css/WelcomeBar.css'
+import '../css/WelcomeBar.css'
 
-const WelcomeBar = ({bgColor, name, updated,hasStocks}) => {
-    let style = {
-        backgroundColor: bgColor,
-    }
+const WelcomeBar = ({ name, updated, hasStocks }) => {
     if (hasStocks) {
-        return <div id= 'WelcomeBar' style={style}><p>Välkommen </p><p className='bold'>{name}!</p><p> Ditt innehav blev senast uppdaterat </p><p className='bold'>{updated}</p><p>. Ta gärna en titt!</p></div>
+        return <div id='WelcomeBar' >Välkommen<span>{name}!</span>Ditt innehav blev senast uppdaterat<span>{updated}.</span> Ta gärna en titt!</div>
     }
     else {
-        return <div id= 'WelcomeBar' style={style}><p>Välkommen </p><p className='bold'>{name}!</p><p> Du har inte något innehav tillagt ännu. Du får ett mail så fort det är uppdaterat!</p></div>
-
+        return <div id='WelcomeBar'>Välkommen<span>{name}!</span> Du har inte något innehav tillagt ännu. Du får ett mail så fort det är uppdaterat!</div>
     }
-} 
+}
 
 export default WelcomeBar;

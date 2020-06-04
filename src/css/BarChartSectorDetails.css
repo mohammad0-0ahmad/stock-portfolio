@@ -1,0 +1,32 @@
+.BarChartSectorDetails {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  padding-top: 1vw;
+  padding-bottom: 1vw;
+  font-weight: 500;
+}
+.BarChartSectorDetails > div:first-child {
+  width: 1vw;
+  height: 1vw;
+  margin-right: 1vw;
+}
+.BarChartSectorDetails > div:nth-child(2) > *:first-child {
+  color: var(--color17);
+  font-size: 1vw;
+  font-weight: 500;
+}
+.BarChartSectorDetails > div:nth-child(2) > *:last-child {
+  color: var(--color8);
+  font-size: .7vw;
+}
+.BarChartSectorDetails > div:last-child {
+  margin-left: auto;
+  font-size: .8vw;
+}
+.BarChartSectorDetails > div:last-child > *:first-child {
+  color: var(--color17);
+}
+.BarChartSectorDetails > div:last-child > *:last-child {
+  color: var(--color8);
+}

@@ -1,0 +1,15 @@
+#WelcomeBar {
+  height: 8%;
+  width: 100%;
+  padding: 1.2vw;
+  vertical-align: middle;
+  border-radius: 0.2vw;
+  display: flex;
+  background-color: var(--color11);
+  font-size: 1.2vw;
+  color: var(--color17);
+}
+#WelcomeBar > span {
+  font-weight: bolder;
+  margin: 0 0.3vw;
+}

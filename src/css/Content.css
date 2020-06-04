@@ -1,6 +1,6 @@
 #Content {
-  height: 100%;
   width: 80%;
+  min-height: -webkit-fill-available;
   padding: 1vw;
   display: flex;
   flex-direction: column;
@@ -16,11 +16,13 @@
 #Content > header > .title {
   font-weight: 500;
   font-size: 1.5vw;
+  color: var(--color7);
 }
 
 #Content > header > .updated {
   font-size: 0.7vw;
   margin-left: 1.5vw;
+  color: var(--color8);
 }
 #Content > header > .updated::before {
   content: "|";
@@ -30,12 +32,12 @@
   display: grid;
   grid-auto-flow: column;
   column-gap: 1vw;
-  height:-webkit-fill-available;
+  height: fit-content;
 }
 .contactLabelInputSameLine {
   display: flex;
   width: 100%;
 }
-.contactLabelInputSameLine >div:last-child {
+.contactLabelInputSameLine > div:last-child {
   margin-left: 2vw;
 }

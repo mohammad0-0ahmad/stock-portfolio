@@ -1,0 +1,28 @@
+.BarChart {
+  height: 0.8vw;
+  width: 100%;
+  display: flex;
+  display: flex;
+  align-items: center;
+}
+.BarChart > div {
+  height: inherit;
+  display: inline-block;
+}
+.BarChart > div:first-child {
+  border-radius: 0.2vw 0 0 0.2vw;
+  background-color: var(--color14);
+}
+.BarChart > div:nth-child(2) {
+  background-color: var(--color15);
+}
+.BarChart > div:nth-child(3) {
+  background-color: var(--color16);
+}
+.BarChart > div:nth-child(4) {
+  background-color: var(--color17);
+}
+.BarChart > div:last-child {
+  border-radius: 0 0.2vw 0.2vw 0;
+  background-color: var(--color8);
+}

@@ -2,12 +2,13 @@
   display: flex;
   width: 100%;
   align-items: center;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
+  border-bottom: .05vw solid var(--color20);
+  margin: 0;
 }
 .ContentItemHeader > *:first-child {
   font-size: 1.1vw;
   font-weight: 500;
+  color: var(--color13);
 }
 .ContentItemHeader > *:last-child {
   margin-left: auto;

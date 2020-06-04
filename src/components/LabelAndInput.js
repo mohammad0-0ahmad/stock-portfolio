@@ -1,32 +1,17 @@
 import React from "react";
-import "./css/LabelAndInput.css";
+import "../css/LabelAndInput.css";
 
-const LabelAndInput = ({
-  labelColor,
-  textColor,
-  text,
-  labelText,
-  handleChange,
-  type,
-}) => {
-  let labelStyle = {
-    color: labelColor,
-  };
-  let textStyle = {
-    color: textColor,
-  };
-
+const LabelAndInput = ({ text, labelText, handleChange, type }) => {
   return (
-    <div>
-      <label style={labelStyle}>
+    <div className='LabelAndInput'>
+      <label>
         {labelText}
-        <input
-          type={type}
-          value={text}
-          onChange={handleChange}
-          style={textStyle}
-        />
       </label>
+      <input
+        type={type}
+        value={text}
+        onChange={handleChange}
+      />
     </div>
   );
 };

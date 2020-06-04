@@ -5,10 +5,9 @@
 table,
 th,
 td {
-  border-bottom: 0.1px solid rgb(240, 237, 237);
+  border-bottom: 0.05vw solid var(--color20);
 }
 td {
-  color: #3c3c3b;
   font-size: 0.8vw;
   padding: 10px 30px 10px 30px;
   text-align: center;
@@ -16,10 +15,10 @@ td {
 th {
   padding: 10px 30px 10px 30px;
   font-size: 0.8vw;
-  color: #A1A8C3;
+  color: var(--color8);
   opacity: 0.6;
 }
 table {
-    margin-top: 20px;
+  margin-top: 20px;
   border-collapse: collapse;
 }

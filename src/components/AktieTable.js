@@ -1,8 +1,8 @@
 import React from "react";
 import AktieRow from './AktieRow'
-import './css/AktieTable.css'
+import '../css/AktieTable.css'
 
-function AktieTable({ colors, rows }) {
+function AktieTable({ rows }) {
   return (
     <div className="Table-Row">
       <table>
@@ -18,9 +18,9 @@ function AktieTable({ colors, rows }) {
           </tr>
         </thead>
         <tbody>
-        {
-         rows.map(row => <AktieRow info ={row}></AktieRow>)
-        }
+          {
+            rows.map(row => <AktieRow info={row}></AktieRow>)
+          }
         </tbody>
       </table>
     </div>

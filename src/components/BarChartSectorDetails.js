@@ -1,24 +1,22 @@
 import React from 'react'
-import './css/BarChartSectorDetails.css'
+import '../css/BarChartSectorDetails.css'
 
-const BarChartSectorDetails = ({ colors, data }) => {
-    const {title, details, amount} = data
-    const {sectorColor, titleColor, detailsColor} = colors
-
+const BarChartSectorDetails = ({ data }) => {
+    const { title, details, amount } = data
     return (
         <div className='BarChartSectorDetails'>
-            <div style={{ backgroundColor: sectorColor }}></div>
+            <div></div>
             <div>
-                <h3 style={{ color: titleColor }}>
+                <h3>
                     {title}
                 </h3>
-                <p style={{ color: detailsColor }}>
+                <p>
                     {details}
                 </p>
             </div>
             <div>
-                <span style={{ color: titleColor }}>{amount}</span>
-                <span style={{ color: detailsColor }}>SEK</span>
+                <span>{amount}</span>
+                <span> SEK</span>
             </div>
         </div>
     )

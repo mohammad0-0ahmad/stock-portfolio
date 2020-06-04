@@ -1,8 +1,8 @@
 import React from 'react'
-import './css/BarChart.css'
+import '../css/BarChart.css'
 
-const BarChart = ({ amountSectorsToShow, colors, sectors }) => {
-
+const BarChart = ({ sectors }) => {
+    const amountSectorsToShow = 5;
     const calc = () => {
         const sectorsSum = sectors.reduce((result, number) => result + number)
         const result = []
@@ -14,30 +14,28 @@ const BarChart = ({ amountSectorsToShow, colors, sectors }) => {
             } else {
                 percent = `${sectors[i] * 100 / sectorsSum}%`
             }
-            result.push({ percent, bgColor: colors[i] })
+            result.push({ percent })
         }
         return result
     }
 
-    if (amountSectorsToShow !== colors.length || amountSectorsToShow > sectors.length) {
-        return <div>{undefined}</div>
-    } else
-        return (
-            <div className='BarChart'>
-                {
-                    calc().map(sector => {
-                        return (
-                            <div
-                                key={sector.bgColor + sector.bgColor}
-                                style={{
-                                    width: sector.percent,
-                                    backgroundColor: sector.bgColor
-                                }}
-                            ></div>
-                        )
-                    })
-                }
-            </div>
-        )
+    let i = 1;
+    return (
+        <div className='BarChart'>
+            {
+                calc().map(sector => {
+                    i++;
+                    return (
+                        <div
+                            key={i}
+                            style={{
+                                width: sector.percent
+                            }}
+                        ></div>
+                    )
+                })
+            }
+        </div>
+    )
 }
 export default BarChart;

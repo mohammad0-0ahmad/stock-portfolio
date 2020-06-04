@@ -1,0 +1,19 @@
+.ContactInfo {
+  font-size: 0.8vw;
+  font-weight: 500;
+}
+.ContactInfo > p {
+  color: var(--color8);
+}
+.ContactInfo > div {
+  display: grid;
+  grid-template-columns: auto 80%;
+  grid-row-gap: 2vw;
+  padding-top: 2vw;
+}
+.ContactInfo > div > div {
+  color: var(--color17);
+}
+.ContactInfo > div > div:nth-child(2) {
+  font-weight: 400;
+}

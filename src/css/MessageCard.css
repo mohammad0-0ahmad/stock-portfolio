@@ -4,7 +4,9 @@
   align-items: center;
   justify-content: center;
 }
-.MessageCard > h1{
-    font-weight: 500;
-    font-size: 1.5vw;
+.MessageCard > h1 {
+  font-weight: 500;
+  font-size: 1.5vw;
+  color: var(--color17);
+  opacity: 0.4;
 }

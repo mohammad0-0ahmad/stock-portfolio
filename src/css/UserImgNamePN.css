@@ -20,14 +20,17 @@
 .UserImgNamePN > div > h2 {
   font-weight: 400;
   font-size: 1.5vw;
+  color: var(--color17);
 }
 
-.UserImgNamePN > div > p:first-of-type{
+.UserImgNamePN > div > p:first-of-type {
   font-weight: 400;
-  font-size: .9vw;
+  font-size: 0.9vw;
+  color: var(--color8);
 }
 
-.UserImgNamePN > div > p:last-of-type{
+.UserImgNamePN > div > p:last-of-type {
   font-weight: 400;
   font-size: 1vw;
+  color: var(--color17);
 }

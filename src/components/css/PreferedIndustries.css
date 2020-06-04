@@ -1,6 +1,0 @@
-.indGrid {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-row-gap: 25px;
-    padding-top: 25px;
-}
