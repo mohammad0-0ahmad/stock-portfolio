@@ -1,9 +1,11 @@
 import React from "react";
 import "./css/Button.css";
 
-const Button = ({ bgColor, buttonText, handleClick }) => {
+const Button = ({ bgColor, buttonText, handleClick, width,marginleft }) => {
   let style = {
     backgroundColor: bgColor,
+    width: width,
+    marginLeft: marginleft
   };
   
   return (
