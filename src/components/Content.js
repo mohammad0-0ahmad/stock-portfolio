@@ -68,11 +68,11 @@ const Content = ({ content }) => {
 
     const preferencesMyProfile = [
         <ChangeAbleRoundedImg src={userimg} edit={edit} alt='User picture'/>,
-        <div className='contactLabelInputSameLine'><LabelAndInput key={firstName} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Förnamn" text={firstName} handleChange={(e) => {setFirstName(e.target.value)}} />, 
+        <div className='contactLabelInputSameLine'><LabelAndInput key={firstName} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Förnamn" text={firstName} handleChange={(e) => {setFirstName(e.target.value)}} /> 
         <LabelAndInput key={lastName} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Efternamn" text={lastName} handleChange={(e) => {setLastName(e.target.value)}} /></div>,
         <LabelAndInput key={personNumber} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Personnummer" text={personNumber} handleChange={(e) => {setPersonNumber(e.target.value)}} />,
         <LabelAndInput key={adress} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Adress" text={adress} handleChange={(e) => {setAdress(e.target.value)}} />,
-        <div className='contactLabelInputSameLine'><LabelAndInput key={city} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Stad" text={city} handleChange={(e) => {setCity(e.target.value)}} />,
+        <div className='contactLabelInputSameLine'><LabelAndInput key={city} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Stad" text={city} handleChange={(e) => {setCity(e.target.value)}} />
         <LabelAndInput key={zipCode} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Postnummer" text={zipCode} handleChange={(e) => {setZipCode(e.target.value)}} /></div>,
         <LabelAndInput key={phone} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="text" labelText="Telefonnummer" text={phone} handleChange={(e) => {setPhone(e.target.value)}} />,
         <LabelAndInput key={mail} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="mail" labelText="Email" text={mail} handleChange={(e) => {setMail(e.target.value)}} />,
@@ -80,7 +80,7 @@ const Content = ({ content }) => {
     ]
 
     const preferencesChangePassWord = [
-        <LabelAndInput key={'nuvarande'} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="checkBox" labelText="Nuvarande lösenord" text={''} handleChange={(e) => {setLastName(e.target.value)}} />,
+        <LabelAndInput key={'nuvarande'} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="password" labelText="Nuvarande lösenord" text={''} handleChange={(e) => {setLastName(e.target.value)}} />,
         <LabelAndInput key={'nytt'} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="password" labelText="Nytt lösenord" text={''} handleChange={(e) => {setLastName(e.target.value)}} />,
         <LabelAndInput key={'Bekräfta'} labelColor={colors.homeText[1]} textColor={colors.homeText[0]} type="password" labelText="Bekräfta nytt lösenord" text={''} handleChange={(e) => {setLastName(e.target.value)}} />
 
@@ -98,7 +98,7 @@ const Content = ({ content }) => {
                {/* <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={myProfile} />
     <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={myOwn} />
                 <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={preferencesMyProfile} />*/}
-            <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={preferencesChangePassWord} />
+            <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={preferencesMyProfile} />
             </div>
         </div>
     )
