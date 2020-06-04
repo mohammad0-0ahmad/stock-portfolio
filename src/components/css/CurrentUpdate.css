@@ -1,0 +1,16 @@
+#cUpdate {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+#cUpdate h1{
+    color: #3C4368;
+    font-size: 34px;
+    margin-right: 5px;
+    font-weight: 500;
+}
+#cUpdate p{
+    color: #A1A8C3;
+    font-size: 13px;
+}

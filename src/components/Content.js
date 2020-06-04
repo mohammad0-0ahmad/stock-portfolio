@@ -7,6 +7,7 @@ import userimg from '../user.png'
 import ContentItem from './ContentItem'
 import ContetItemHeader from './ContentItemHeader'
 import UserImgNamePN from './UserImgNamePN'
+import CurrentUpdate from './CurrentUpdate'
 
 
 const Content = ({ content }) => {
@@ -41,7 +42,7 @@ const Content = ({ content }) => {
         <ContactInfo key='3' headingColor={colors.homeText[1]} indColor={colors.homeText[0]} person={person} />]
     const myOwn = [
         <ContetItemHeader key='0' title={{ titleText: 'Mitt Innehav', color: '#3C4368' }} button={{ buttonText: 'Min portfölj', bgColor: '#3C3C3B' }} borderColor='#45414E14' />,
-
+        <CurrentUpdate value="827,300 SEK" date= "Uppdaterat 2020-02-26" />
     ]
     return (
         <div id="Content" >
