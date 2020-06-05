@@ -1,0 +1,23 @@
+.Table-Row {
+  display: flex;
+  justify-content: center;
+}
+table {
+  margin-top: 2vw;
+  border-collapse: collapse;
+}
+td {
+  font-size: 0.8vw;
+  padding: 1vw 3.5vw 1vw 3.5vw;
+  text-align: center;
+}
+th {
+  padding: 1px 3.5px 1px 3.5px;
+  font-size: 0.7vw;
+  color: var(--color8);
+  opacity: 0.6;
+}
+tr{
+  border-bottom: solid 0.1vw var(--color20);
+}
+

@@ -1,6 +1,6 @@
 import React from "react";
 
-function AktieRow({ info }) {
+const StockRow =({ info }) => {
   return (
     <tr className='AktieRow'>
       <td>{info.a}</td>
@@ -13,4 +13,4 @@ function AktieRow({ info }) {
     </tr>
   )
 }
-export default AktieRow;
+export default StockRow;
