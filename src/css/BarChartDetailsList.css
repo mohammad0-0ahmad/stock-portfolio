@@ -1,0 +1,20 @@
+.BarChartDetailsList {
+  display: grid;
+  grid-auto-flow: row;
+  row-gap: 1vw;
+}
+.BarChartDetailsList > div:last-child > div:first-child {
+  background-color: var(--color8);
+}
+.BarChartDetailsList > div:first-child > div:first-child {
+  background-color: var(--color14);
+}
+.BarChartDetailsList > div:nth-child(2) > div:first-child {
+  background-color: var(--color15);
+}
+.BarChartDetailsList > div:nth-child(3) > div:first-child {
+  background-color: var(--color16);
+}
+.BarChartDetailsList > div:nth-child(4) > div:first-child {
+  background-color: var(--color17);
+}

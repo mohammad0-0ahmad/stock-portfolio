@@ -2,13 +2,19 @@ import React from 'react'
 import '../css/BarChart.css'
 
 const BarChart = ({ sectors }) => {
-    const amountSectorsToShow = 5;
+    const AMOUNT_SECTORS_TO_SHOW = 5;
+
     const calc = () => {
+
+        if (!sectors || sectors.length === 0) {
+            return <div className='emptyBarChar'></div>
+        }
+
         const sectorsSum = sectors.reduce((result, number) => result + number)
         const result = []
-        for (let i = 0; i < amountSectorsToShow; i++) {
+        for (let i = 0; i < sectors.length; i++) {
             let percent;
-            if (i === amountSectorsToShow - 1 && amountSectorsToShow !== sectors.length) {
+            if (i === AMOUNT_SECTORS_TO_SHOW - 1 && AMOUNT_SECTORS_TO_SHOW < sectors.length) {
                 const restSum = sectors.splice(i, sectors.length).reduce((result, number) => result + number)
                 percent = `${restSum * 100 / sectorsSum}%`
             } else {
@@ -16,25 +22,21 @@ const BarChart = ({ sectors }) => {
             }
             result.push({ percent })
         }
-        return result
+        return result.map((sector, key) => {
+            return (
+                <div
+                    key={key}
+                    style={{
+                        width: sector.percent
+                    }}
+                ></div>
+            )
+        })
     }
 
-    let i = 1;
     return (
         <div className='BarChart'>
-            {
-                calc().map(sector => {
-                    i++;
-                    return (
-                        <div
-                            key={i}
-                            style={{
-                                width: sector.percent
-                            }}
-                        ></div>
-                    )
-                })
-            }
+            {calc()}
         </div>
     )
 }
