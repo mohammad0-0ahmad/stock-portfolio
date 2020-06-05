@@ -10,4 +10,5 @@
 
 .saveButton {
   background-color: var(--color3);
+  margin-left: 90%;
 }

@@ -29,7 +29,8 @@ const Content = ({ content }) => {
         adress: 'Lantmilsgatan 7',
         zipCode: '415 01',
         city: 'Göteborg',
-        personNumber: '780717-4444'
+        personNumber: '780717-4444',
+        passWord: 'henrik'
     }
 
     // Testing some components
@@ -55,6 +56,7 @@ const Content = ({ content }) => {
         <BarChart key='1' amountSectorsToShow={5} sectors={[50, 10, 20, 15, 20]} />,
         <BarChartDetailsList key='2' data={tabData} />
     ]
+
     const [firstName, setFirstName] = useState(person.firstName)
     const [lastName, setLastName] = useState(person.lastName)
     const [personNumber, setPersonNumber] = useState(person.personNumber)
@@ -63,31 +65,61 @@ const Content = ({ content }) => {
     const [zipCode, setZipCode] = useState(person.zipCode)
     const [phone, setPhone] = useState(person.phone)
     const [mail, setMail] = useState(person.mail)
+    const [passWord, setPassWord] = useState(person.passWord)
 
-    let edit = {
-        bgColor: '#FDCC6B',
-        handleClick: () => { console.log("change") }
-    }
 
-    const preferencesMyProfile = [
-        <ChangeAbleRoundedImg src={userimg} edit={edit} alt='User picture' />,
-        <div className='contactLabelInputSameLine'><LabelAndInput key={firstName} type="text" labelText="Förnamn" text={firstName} handleChange={(e) => { setFirstName(e.target.value) }} />
-            <LabelAndInput key={lastName} type="text" labelText="Efternamn" text={lastName} handleChange={(e) => { setLastName(e.target.value) }} /></div>,
-        <LabelAndInput key={personNumber} type="text" labelText="Personnummer" text={personNumber} handleChange={(e) => { setPersonNumber(e.target.value) }} />,
-        <LabelAndInput key={adress} type="text" labelText="Adress" text={adress} handleChange={(e) => { setAdress(e.target.value) }} />,
-        <div className='contactLabelInputSameLine'><LabelAndInput key={city} type="text" labelText="Stad" text={city} handleChange={(e) => { setCity(e.target.value) }} />
-            <LabelAndInput key={zipCode} type="text" labelText="Postnummer" text={zipCode} handleChange={(e) => { setZipCode(e.target.value) }} /></div>,
-        <LabelAndInput key={phone} type="text" labelText="Telefonnummer" text={phone} handleChange={(e) => { setPhone(e.target.value) }} />,
-        <LabelAndInput key={mail} type="mail" labelText="Email" text={mail} handleChange={(e) => { setMail(e.target.value) }} />,
+
+
+    const preferencesMyProfile = (
+        <div>
+        <ChangeAbleRoundedImg src={userimg} handleClick={() =>{ console.log("change")}} alt='User picture' />
+        <div className='contactLabelInputSameLine'><LabelAndInput className='LabelAndInput' type="text" labelText="Förnamn" text={firstName} handleChange={(e) => { setFirstName(e.target.value) }} />
+            <LabelAndInput className='LabelAndInput' type="text" labelText="Efternamn" text={lastName} handleChange={(e) => { setLastName(e.target.value) }} /></div>
+        <LabelAndInput className='LabelAndInput' type="text" labelText="Personnummer" text={personNumber} handleChange={(e) => { setPersonNumber(e.target.value) }} />
+        <LabelAndInput className='LabelAndInput' type="text" labelText="Adress" text={adress} handleChange={(e) => { setAdress(e.target.value) }} />
+        <div className='contactLabelInputSameLine'><LabelAndInput className='LabelAndInput' type="text" labelText="Stad" text={city} handleChange={(e) => { setCity(e.target.value) }} />
+            <LabelAndInput className='LabelAndInput' type="text" labelText="Postnummer" text={zipCode} handleChange={(e) => { setZipCode(e.target.value) }} /></div>
+        <LabelAndInput className='LabelAndInput' type="text" labelText="Telefonnummer" text={phone} handleChange={(e) => { setPhone(e.target.value) }} />
+        <LabelAndInput className='LabelAndInput' type="mail" labelText="Email" text={mail} handleChange={(e) => { setMail(e.target.value) }} />
         <Button bgColor='#FDCC6B' width='10%' marginleft='60%' buttonText='Spara' handleClick={() => { console.log("change") }} className='saveButton' />
-    ]
+        </div>)
 
-    const preferencesChangePassWord = [
-        <LabelAndInput key={'nuvarande'} type="password" labelText="Nuvarande lösenord" text={''} handleChange={(e) => { setLastName(e.target.value) }} />,
-        <LabelAndInput key={'nytt'} type="password" labelText="Nytt lösenord" text={''} handleChange={(e) => { setLastName(e.target.value) }} />,
-        <LabelAndInput key={'Bekräfta'} type="password" labelText="Bekräfta nytt lösenord" text={''} handleChange={(e) => { setLastName(e.target.value) }} />
+    const preferencesChangePassWord = (
+        <div>
+        <LabelAndInput className='LabelAndInput' type="password" labelText="Nuvarande lösenord" text={passWord}/>
+        <LabelAndInput className='LabelAndInput' type="password" labelText="Nytt lösenord"/>
+        <LabelAndInput className='LabelAndInput' type="password" labelText="Bekräfta nytt lösenord"/>
+        <Button bgColor='#FDCC6B' width='10%' marginleft='60%' buttonText='Spara' handleClick={() => { setPassWord('nytt lösen') }} className='saveButton' />
+        </div>)
+    const preferedIndustries = ['Bygg','Teknik','Hälsa','Dagligvaror','Råvaror','Finans','Fastigheter','Verkstad']
+    
 
-    ]
+    const [bygg, setBygg] = useState(true)
+    const [teknik, setTeknik] = useState(false)
+    const [hälsa, setHälsa] = useState(true)
+    const [dagligvaror, setDagligvaror] = useState(false)
+    const [råvaror, setRåvaror] = useState(true)
+    const [finans, setFinans] = useState(false)
+    const [fastigheter, setFastigheter] = useState(true)
+    const [verkstad, setVerkstad] = useState(true)
+
+
+
+    const preferencesPreferedIndustries = (
+        <div>
+        <p>Mina prefererade industrier att investera inom:</p>
+        <div className='preferencesPreferedIndustries'>
+        <LabelAndInput key={preferedIndustries[0]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={bygg} labelText={preferedIndustries[0]} handleChange={(e) => {setBygg(!bygg)}}/>
+        <LabelAndInput key={preferedIndustries[1]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={teknik} labelText={preferedIndustries[1]} handleChange={(e) => {setTeknik(!teknik)}}/>
+        <LabelAndInput key={preferedIndustries[2]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={hälsa} labelText={preferedIndustries[2]} handleChange={(e) => {setHälsa(!hälsa)}}/>
+        <LabelAndInput key={preferedIndustries[3]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={dagligvaror} labelText={preferedIndustries[3]} handleChange={(e) => {setDagligvaror(!dagligvaror)}}/>
+        <LabelAndInput key={preferedIndustries[4]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={råvaror} labelText={preferedIndustries[4]} handleChange={(e) => {setRåvaror(!råvaror)}}/>
+        <LabelAndInput key={preferedIndustries[5]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={finans} labelText={preferedIndustries[5]} handleChange={(e) => {setFinans(!finans)}}/>
+        <LabelAndInput key={preferedIndustries[6]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={fastigheter} labelText={preferedIndustries[6]} handleChange={(e) => {setFastigheter(!fastigheter)}}/>
+        <LabelAndInput key={preferedIndustries[7]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={verkstad} labelText={preferedIndustries[7]} handleChange={(e) => {setVerkstad(!verkstad)}}/>
+        </div>
+        <Button bgColor='#FDCC6B' width='10%' marginleft='60%' buttonText='Spara' handleClick={() => { setPassWord('nytt lösen') }} className='saveButton' />
+        </div>)
 
 
     return (
@@ -98,9 +130,12 @@ const Content = ({ content }) => {
             </header>
             <WelcomeBar updated={updated} name={content.name} hasStocks={hasStocks} />
             <div id="contentItems">
-                <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={myProfile} />
+              {/*  <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={myProfile} />
                 <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={myOwn} />
-                {/*<ContentItem innerComponents={preferencesMyProfile} />*/}
+                <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={preferencesMyProfile}/>
+                <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={preferencesChangePassWord}/>*/}
+                <ContentItem bgColor='#fff' shdowColor='#45414E14' innerComponents={preferencesPreferedIndustries}/>
+
             </div>
         </div>
     )
