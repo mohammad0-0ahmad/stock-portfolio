@@ -1,15 +1,28 @@
 .LabelAndInput > label {
   display: grid;
   grid-row-gap: 1vw;
-  width: 50%;
+  width: 100%;
   font-size: 1vw;
   margin-bottom: 0.5vw;
   color: var(--color8);
 }
-.LabelAndInput > input {
+.LabelAndInput > label > input {
   padding: 0.5vw;
   opacity: 0.6;
   font-size: 1vw;
-  width: 50%;
   outline-color: var(--color3);
 }
+.LabelAndInput {
+  width: 50%;
+  
+}
+
+.preferencesPreferedIndustriesItems > label{
+  display: block;
+  }
+
+  .preferencesPreferedIndustriesItems label > input {
+  margin-left: 1vw;
+  }
+
+

@@ -34,10 +34,18 @@
   column-gap: 1vw;
   height: fit-content;
 }
+
 .contactLabelInputSameLine {
   display: flex;
-  width: 100%;
+  width: 50%;
 }
 .contactLabelInputSameLine > div:last-child {
   margin-left: 2vw;
+}
+.preferencesPreferedIndustries {
+  display:grid;
+  grid-template-columns: auto 80%;
+  row-gap: 2vw;
+  margin-top: 1vw;
+  color: var(--color8);
 }
