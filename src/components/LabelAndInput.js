@@ -1,20 +1,18 @@
 import React from "react";
 import "../css/LabelAndInput.css";
 
-const LabelAndInput = ({ text, labelText, handleChange, type,
-  checked,
-  className }) => {
+const LabelAndInput = ({ text, labelText, handleChange, type, checked }) => {
   return (
-    <div className={className}>
+    <div className='LabelAndInput'>
       <label>
         {labelText}
-      <input
-        checked={checked}
-        type={type}
-        value={text}
-        onChange={handleChange}
-        key={labelText}
-      />
+        <input
+          checked={checked}
+          type={type}
+          value={text}
+          onChange={handleChange}
+          key={labelText}
+        />
       </label>
     </div>
   );

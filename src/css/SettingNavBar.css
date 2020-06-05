@@ -15,8 +15,7 @@
     font-size: 1vw;
   }
   .inactive {
-    background-color: var(--color2);
-    color: var(--color22);
+    color: var(--color19);
     cursor: pointer;
     opacity: 0.4;
   }

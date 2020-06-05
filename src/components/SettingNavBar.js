@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import SettingNavItem from "./SettingNavItem";
 
-const SettingNavBar = ({ items,selected = items[0].text,handleSelect }) => {
+const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
   let navItem = items.map((item) => (
     <SettingNavItem
-      key={item.text}
-      text={item.text}
+      key={item}
+      text={item}
       handleClick={() => {
-        handleSelect(item.text);
+        handleSelect(item);
       }}
-      selected={item.text === selected}
+      selected={item === selected}
     />
   ));
   return <nav id="Setting-Nav">{navItem}</nav>;

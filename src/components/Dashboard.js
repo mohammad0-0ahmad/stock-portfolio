@@ -2,6 +2,8 @@ import React from 'react';
 import '../css/Dashboard.css'
 import Content from './Content';
 
+export const PAGES = ['Hem', 'Min Portfölj', 'Inställningar']
+
 const Dashboard = (props) => {
     let content = {
         title: "Hem",

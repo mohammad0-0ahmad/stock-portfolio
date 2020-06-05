@@ -4,6 +4,7 @@
   padding: 1vw;
   display: flex;
   flex-direction: column;
+  margin-left: auto;
 }
 #Content > * {
   margin: 1vh 0;
@@ -43,7 +44,7 @@
   margin-left: 2vw;
 }
 .preferencesPreferedIndustries {
-  display:grid;
+  display: grid;
   grid-template-columns: auto 80%;
   row-gap: 2vw;
   margin-top: 1vw;

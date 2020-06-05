@@ -1,10 +1,10 @@
 import React from 'react'
 import '../css/ContentItem.css'
 
-const ContentItem = ({ innerComponents }) => {
+const ContentItem = ({ children }) => {
     return (
         <div className='ContentItem'>
-            {innerComponents}
+            {children}
         </div>
     )
 }
