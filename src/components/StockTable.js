@@ -1,8 +1,8 @@
 import React from "react";
-import AktieRow from './AktieRow'
-import '../css/AktieTable.css'
+import StockRow from './StockRow'
+import '../css/StockTable.css'
 
-function AktieTable({ rows }) {
+const StockTable = ({ rows }) => {
   return (
     <div className="Table-Row">
       <table>
@@ -19,11 +19,11 @@ function AktieTable({ rows }) {
         </thead>
         <tbody>
           {
-            rows.map(row => <AktieRow info={row}></AktieRow>)
+            rows.map(row => <StockRow info={row}></StockRow>)
           }
         </tbody>
       </table>
     </div>
   );
 }
-export default AktieTable;
+export default StockTable;
