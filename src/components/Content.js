@@ -12,7 +12,7 @@ import LabelAndInput from './LabelAndInput';
 import ChangeAbleRoundedImg from './ChangeAbleRoundedImg';
 import Button from './Button'
 import BarChart from './BarChart'
-import BarChartSectorDetails from './BarChartSectorDetails'
+import BarChartDetailsList from './BarChartDetailsList';
 
 const Content = ({ content }) => {
 
@@ -41,17 +41,19 @@ const Content = ({ content }) => {
 
     ]
 
+    const tabData = [
+        { title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
+        { title: 'Medtech', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
+        { title: 'Fintech', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
+        { title: 'Industri', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
+        { title: 'Övrigt', details: 'Företag 1, Företag 2 +4', amount: '32 244' }
+    ]
+
     const myOwn = [
         <ContetItemHeader key='0' title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', bgColor: '#3C3C3B' }} borderColor='#45414E14' />,
         <CurrentUpdate key='8' value="827,300 SEK" date="Uppdaterat 2020-02-26" />,
         <BarChart key='1' amountSectorsToShow={5} sectors={[50, 10, 20, 15, 20]} />,
-        <BarChartSectorDetails key='2' data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }} />,
-        <BarChartSectorDetails key='3' data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }} />,
-        <BarChartSectorDetails key='4' data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }} />,
-        <BarChartSectorDetails key='5' data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }} />,
-        <BarChartSectorDetails key='6'
-            data={{ title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' }}
-        />
+        <BarChartDetailsList key='2' data={tabData} />
     ]
     const [firstName, setFirstName] = useState(person.firstName)
     const [lastName, setLastName] = useState(person.lastName)

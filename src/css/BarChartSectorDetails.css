@@ -10,6 +10,7 @@
   width: 1vw;
   height: 1vw;
   margin-right: 1vw;
+  border-radius: 0.2vw;
 }
 .BarChartSectorDetails > div:nth-child(2) > *:first-child {
   color: var(--color17);

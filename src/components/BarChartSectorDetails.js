@@ -1,8 +1,7 @@
 import React from 'react'
 import '../css/BarChartSectorDetails.css'
 
-const BarChartSectorDetails = ({ data }) => {
-    const { title, details, amount } = data
+const BarChartSectorDetails = ({ title, details, amount }) => {
     return (
         <div className='BarChartSectorDetails'>
             <div></div>
