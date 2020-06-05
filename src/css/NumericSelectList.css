@@ -1,0 +1,28 @@
+.NumericSelectList {
+  display: grid;
+  grid-auto-flow: column;
+  align-items: center;
+  width: fit-content;
+  column-gap: 0.5vw;
+}
+.NumericSelectList > select {
+  background-color: var(--color21);
+  padding: 0.5vw 1vw;
+  border: none;
+  outline: none;
+  font-size: 0.7vw;
+  color: var(--color19);
+  font-weight: 500;
+}
+.NumericSelectList > select:focus {
+  background-color: var(--color3);
+}
+.NumericSelectList > select > option {
+  background-color: var(--color21);
+  font-size: 0.7vw;
+}
+.NumericSelectList > p {
+  font-size: 0.7vw;
+  font-weight: 500;
+  color: var(--color19);
+}
