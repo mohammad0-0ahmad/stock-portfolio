@@ -1,10 +1,11 @@
 import React from "react";
 import "../css/LabelAndInput.css";
 
-const LabelAndInput = ({ text, labelText, handleChange, type, checked }) => {
+const LabelAndInput = ({ text, labelText, handleChange, type, checked, twoInOneRow }) => {
   return (
-    <div className='LabelAndInput'>
-      <label>
+    <div className={[type==='checkbox' ? 'LabelAndInputCheckboxItems' : 'LabelAndInput',  twoInOneRow===true ? 'LabelAndInputTwoInOneRow' : ''].join(" ")}>
+      
+    <label>
         {labelText}
         <input
           checked={checked}

@@ -122,15 +122,15 @@ const Content = ({ content }) => {
                             selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[0] &&
                             <div>
                                 <ChangeAbleRoundedImg src={userimg} handleClick={() => { console.log("change") }} alt='User picture' />
-                                <div className='contactLabelInputSameLine'>
-                                    <LabelAndInput type="text" labelText="Förnamn" text={firstName} handleChange={(e) => { setFirstName(e.target.value) }} />
-                                    <LabelAndInput type="text" labelText="Efternamn" text={lastName} handleChange={(e) => { setLastName(e.target.value) }} />
+                                <div>
+                                    <LabelAndInput type="text" labelText="Förnamn" text={firstName} twoInOneRow={true} handleChange={(e) => { setFirstName(e.target.value) }} />
+                                    <LabelAndInput type="text" labelText="Efternamn" text={lastName} twoInOneRow={true} handleChange={(e) => { setLastName(e.target.value) }} />
                                 </div>
                                 <LabelAndInput type="text" labelText="Personnummer" text={personNumber} handleChange={(e) => { setPersonNumber(e.target.value) }} />
                                 <LabelAndInput type="text" labelText="Adress" text={adress} handleChange={(e) => { setAdress(e.target.value) }} />
-                                <div className='contactLabelInputSameLine'>
-                                    <LabelAndInput type="text" labelText="Stad" text={city} handleChange={(e) => { setCity(e.target.value) }} />
-                                    <LabelAndInput type="text" labelText="Postnummer" text={zipCode} handleChange={(e) => { setZipCode(e.target.value) }} />
+                                <div>
+                                    <LabelAndInput type="text" labelText="Stad" text={city} twoInOneRow={true} handleChange={(e) => { setCity(e.target.value) }} />
+                                    <LabelAndInput type="text" labelText="Postnummer" text={zipCode} twoInOneRow={true} handleChange={(e) => { setZipCode(e.target.value) }} />
                                 </div>
                                 <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={(e) => { setPhone(e.target.value) }} />
                                 <LabelAndInput type="mail" labelText="Email" text={mail} handleChange={(e) => { setMail(e.target.value) }} />
@@ -150,15 +150,15 @@ const Content = ({ content }) => {
                             selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[2] &&
                             <div>
                                 <p>Mina prefererade industrier att investera inom:</p>
-                                <div className='preferencesPreferedIndustries'>
-                                    <LabelAndInput key={preferedIndustries[0]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={bygg} labelText={preferedIndustries[0]} handleChange={(e) => { setBygg(!bygg) }} />
-                                    <LabelAndInput key={preferedIndustries[1]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={teknik} labelText={preferedIndustries[1]} handleChange={(e) => { setTeknik(!teknik) }} />
-                                    <LabelAndInput key={preferedIndustries[2]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={hälsa} labelText={preferedIndustries[2]} handleChange={(e) => { setHälsa(!hälsa) }} />
-                                    <LabelAndInput key={preferedIndustries[3]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={dagligvaror} labelText={preferedIndustries[3]} handleChange={(e) => { setDagligvaror(!dagligvaror) }} />
-                                    <LabelAndInput key={preferedIndustries[4]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={råvaror} labelText={preferedIndustries[4]} handleChange={(e) => { setRåvaror(!råvaror) }} />
-                                    <LabelAndInput key={preferedIndustries[5]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={finans} labelText={preferedIndustries[5]} handleChange={(e) => { setFinans(!finans) }} />
-                                    <LabelAndInput key={preferedIndustries[6]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={fastigheter} labelText={preferedIndustries[6]} handleChange={(e) => { setFastigheter(!fastigheter) }} />
-                                    <LabelAndInput key={preferedIndustries[7]} className='preferencesPreferedIndustriesItems' type='checkbox' checked={verkstad} labelText={preferedIndustries[7]} handleChange={(e) => { setVerkstad(!verkstad) }} />
+                                <div id='preferencesPreferedIndustries'>
+                                    <LabelAndInput type='checkbox' checked={bygg} labelText={preferedIndustries[0]} handleChange={(e) => { setBygg(!bygg) }} />
+                                    <LabelAndInput type='checkbox' checked={teknik} labelText={preferedIndustries[1]} handleChange={(e) => { setTeknik(!teknik) }} />
+                                    <LabelAndInput type='checkbox' checked={hälsa} labelText={preferedIndustries[2]} handleChange={(e) => { setHälsa(!hälsa) }} />
+                                    <LabelAndInput type='checkbox' checked={dagligvaror} labelText={preferedIndustries[3]} handleChange={(e) => { setDagligvaror(!dagligvaror) }} />
+                                    <LabelAndInput type='checkbox' checked={råvaror} labelText={preferedIndustries[4]} handleChange={(e) => { setRåvaror(!råvaror) }} />
+                                    <LabelAndInput type='checkbox' checked={finans} labelText={preferedIndustries[5]} handleChange={(e) => { setFinans(!finans) }} />
+                                    <LabelAndInput type='checkbox' checked={fastigheter} labelText={preferedIndustries[6]} handleChange={(e) => { setFastigheter(!fastigheter) }} />
+                                    <LabelAndInput type='checkbox' checked={verkstad} labelText={preferedIndustries[7]} handleChange={(e) => { setVerkstad(!verkstad) }} />
                                 </div>
                                 <Button buttonText='Spara' handleClick={() => { setPassWord('nytt lösen') }} className='saveButton' />
                             </div>

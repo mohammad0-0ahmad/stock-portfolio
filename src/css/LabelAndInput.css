@@ -14,15 +14,17 @@
 }
 .LabelAndInput {
   width: 50%;
-  
+}
+.LabelAndInputTwoInOneRow {
+    width: 24%;
+    display: inline-flex;
+    margin-right: 2%;
 }
 
-.preferencesPreferedIndustriesItems > label{
+.LabelAndInputCheckboxItems > label{
   display: block;
   }
 
-  .preferencesPreferedIndustriesItems label > input {
+.LabelAndInputCheckboxItems label > input {
   margin-left: 1vw;
   }
-
-
