@@ -1,14 +1,17 @@
 import React from 'react'
 import '../css/PaginationButton.css'
 
-const PaginationButton = ({ text, handleClick, selected }) => {
+const PaginationButton = ({ text, handleClick, selected, disabled }) => {
 
     return (
-        <button
-            className='PaginationButton'
-            id={selected && 'selectedPaginationButton'}
-            onClick={handleClick}>{text}
+        <button className='PaginationButton'
+            disabled={disabled}
+            id={selected ? 'selectedPaginationButton' : ''}
+            onClick={() => handleClick(parseInt(text))}
+        >
+            {text}
         </button>
+
     )
 }
 

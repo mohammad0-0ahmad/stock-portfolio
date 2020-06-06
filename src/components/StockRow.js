@@ -1,8 +1,8 @@
 import React from "react";
 
-const StockRow =({ info }) => {
+const StockRow = ({ info }) => {
   return (
-    <tr className='AktieRow'>
+    <tr>
       <td>{info.a}</td>
       <td>{info.b}</td>
       <td>{info.c}</td>
