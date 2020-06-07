@@ -57,7 +57,7 @@ const Content = ({ content }) => {
         { a: 'Företag X', b: '20 000', c: 'A', d: '3000st', e: '1-3000', f: '1.0%', g: '1.0%' },
         { a: 'Företag X', b: '20 000', c: 'A', d: '3000st', e: '1-3000', f: '1.0%', g: '1.0%' },
         { a: 'Företag X', b: '20 000', c: 'A', d: '3000st', e: '1-3000', f: '1.0%', g: '1.0%' },
-]
+    ]
 
     const [firstName, setFirstName] = useState(person.firstName)
     const [lastName, setLastName] = useState(person.lastName)

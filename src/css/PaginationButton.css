@@ -3,10 +3,24 @@
   border: none;
   width: min-content;
   background-color: var(--color2);
+  border-radius: 0.1vw;
+  color: var(--color19);
+  min-width: 2vw;
+  font-family: monospace;
+  font-weight: 600;
+  font-size: 0.7vw;
 }
 .PaginationButton:hover {
   background-color: var(--color21);
 }
 #selectedPaginationButton {
   background-color: var(--color3);
+}
+
+.PaginationButton:disabled {
+  color: var(--color19);
+  cursor: auto;
+}
+.PaginationButton:disabled:hover {
+  background-color: var(--color2);
 }
