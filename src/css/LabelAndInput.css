@@ -15,12 +15,6 @@
 .LabelAndInput {
   width: 50%;
 }
-.LabelAndInputTwoInOneRow {
-    width: 24%;
-    display: inline-flex;
-    margin-right: 2%;
-}
-
 .LabelAndInputCheckboxItems > label{
   display: block;
   }

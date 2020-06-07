@@ -123,14 +123,14 @@ const Content = ({ content }) => {
                             <div>
                                 <ChangeAbleRoundedImg src={userimg} handleClick={() => { console.log("change") }} alt='User picture' />
                                 <div>
-                                    <LabelAndInput type="text" labelText="Förnamn" text={firstName} twoInOneRow={true} handleChange={(e) => { setFirstName(e.target.value) }} />
-                                    <LabelAndInput type="text" labelText="Efternamn" text={lastName} twoInOneRow={true} handleChange={(e) => { setLastName(e.target.value) }} />
+                                    <LabelAndInput type="text" labelText="Förnamn" text={firstName} handleChange={(e) => { setFirstName(e.target.value) }} />
+                                    <LabelAndInput type="text" labelText="Efternamn" text={lastName} handleChange={(e) => { setLastName(e.target.value) }} />
                                 </div>
                                 <LabelAndInput type="text" labelText="Personnummer" text={personNumber} handleChange={(e) => { setPersonNumber(e.target.value) }} />
                                 <LabelAndInput type="text" labelText="Adress" text={adress} handleChange={(e) => { setAdress(e.target.value) }} />
                                 <div>
-                                    <LabelAndInput type="text" labelText="Stad" text={city} twoInOneRow={true} handleChange={(e) => { setCity(e.target.value) }} />
-                                    <LabelAndInput type="text" labelText="Postnummer" text={zipCode} twoInOneRow={true} handleChange={(e) => { setZipCode(e.target.value) }} />
+                                    <LabelAndInput type="text" labelText="Stad" text={city} handleChange={(e) => { setCity(e.target.value) }} />
+                                    <LabelAndInput type="text" labelText="Postnummer" text={zipCode} handleChange={(e) => { setZipCode(e.target.value) }} />
                                 </div>
                                 <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={(e) => { setPhone(e.target.value) }} />
                                 <LabelAndInput type="mail" labelText="Email" text={mail} handleChange={(e) => { setMail(e.target.value) }} />
