@@ -1,5 +1,6 @@
 .LabelAndInput {
   width: 50%;
+  position: relative;
 }
 .LabelAndInput label {
   display: grid;
@@ -35,7 +36,20 @@
 .logInLabelAndInput input:focus {
   background-color: #00000020;
 }
-
+.logInLabelAndInput .showHiddenPassword {
+  cursor: pointer;
+  position: absolute;
+  bottom: 1.2vw;
+  right: 0.5vw;
+  font-size: 1.2vw;
+  opacity: 0;
+}
+.logInLabelAndInput input:focus ~ .showHiddenPassword {
+  opacity: 0.5;
+}
+.logInLabelAndInput .showHiddenPassword:hover {
+  opacity: 1 !important;
+}
 .LabelAndInputCheckboxItems > label {
   display: block;
 }

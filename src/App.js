@@ -5,7 +5,7 @@ import LogIn from './components/EnteryPage'
 
 function App() {
   return (
-    <Dashboard />
+    <LogIn />
   );
 }
 
