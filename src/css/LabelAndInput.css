@@ -1,4 +1,7 @@
-.LabelAndInput > label {
+.LabelAndInput {
+  width: 50%;
+}
+.LabelAndInput label {
   display: grid;
   grid-row-gap: 1vw;
   width: 100%;
@@ -6,19 +9,36 @@
   margin-bottom: 0.5vw;
   color: var(--color8);
 }
-.LabelAndInput > label > input {
+.LabelAndInput input {
   padding: 0.5vw;
-  opacity: 0.6;
+  color: var(--color23);
   font-size: 1vw;
   outline-color: var(--color3);
+  border: 0.08vw solid var(--color22);
+  border-radius: 0.2vw;
+  font-weight: 300;
+  font-family: unset;
 }
-.LabelAndInput {
-  width: 50%;
-}
-.LabelAndInputCheckboxItems > label{
-  display: block;
-  }
 
+.logInLabelAndInput label {
+  color: #ffffff;
+}
+.logInLabelAndInput input {
+  background-color: #ffffff00;
+  border: 0.2vw solid #ffffff;
+  color: #ffffff;
+  outline: none;
+}
+.logInLabelAndInput input::placeholder {
+  color: #ffffff;
+}
+.logInLabelAndInput input:focus {
+  background-color: #00000020;
+}
+
+.LabelAndInputCheckboxItems > label {
+  display: block;
+}
 .LabelAndInputCheckboxItems label > input {
   margin-left: 1vw;
-  }
+}
