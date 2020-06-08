@@ -1,0 +1,20 @@
+.Inactive-Nav{
+    color: var(--color5);
+    background-color: var(--color6);
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+.Inactive-Nav:hover{
+    color: var(--color3);
+    background-color: var(--color4);
+}
+.Active-Nav{
+    color: var(--color3);
+    background-color: var(--color4);
+    transition: 0.5s ease;
+    cursor: pointer;
+}
+.icon{
+    margin-left: 0.4vw;
+    margin-right: 0.4vw;
+}
