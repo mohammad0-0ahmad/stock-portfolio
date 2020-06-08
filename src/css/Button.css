@@ -1,5 +1,5 @@
 .Button {
-  border-radius: .3vw;
+  border-radius: 0.3vw;
   color: var(--color2);
   padding: 0.5vw;
   width: min-content;
@@ -11,4 +11,13 @@
 .saveButton {
   background-color: var(--color3);
   margin-left: 90%;
+}
+
+.logInButton {
+  background-color: #ffffff00;
+  border: 0.2vw solid #ffffff;
+  color: #ffffff;
+}
+.logInButton:hover {
+  background-color: #00000020;
 }

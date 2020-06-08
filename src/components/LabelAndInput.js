@@ -1,18 +1,18 @@
 import React from "react";
 import "../css/LabelAndInput.css";
 
-const LabelAndInput = ({ text, labelText, handleChange, type, checked }) => {
+const LabelAndInput = ({ text, labelText, handleChange, type, checked, placeHolder, className }) => {
   return (
-    <div className={type==='checkbox' ? 'LabelAndInputCheckboxItems' : 'LabelAndInput'}>
-      
-    <label>
+    <div className={type === 'checkbox' ? 'LabelAndInputCheckboxItems' : `LabelAndInput ${className}`}>
+      <label>
         {labelText}
         <input
           checked={checked}
           type={type}
           value={text}
-          onChange={handleChange}
+          onChange={(e) => handleChange(e.target.value)}
           key={labelText}
+          placeholder={placeHolder}
         />
       </label>
     </div>

@@ -1,0 +1,52 @@
+#EnteryPage {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  background: linear-gradient(45deg, #5b74ff, #34bfa3, #5b74ff);
+  background-size: 300% 300%;
+  animation: backgroundColor 30s ease infinite;
+}
+#EnteryPage h1 {
+  font-size: 3vw;
+  color: #ffffff;
+}
+#EnteryPage .Button {
+  margin-right: 1vw;
+}
+#EnteryPage > div {
+  display: grid;
+  grid-auto-flow: column;
+  width: 100%;
+}
+#EnteryPage > div > div:first-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5vw;
+}
+#EnteryPage > div > div:first-child > div {
+  margin: 1vw 0;
+}
+#EnteryPage > div > div:last-child {
+  background-image: url("../imgs/login.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%;
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+}
+
+/*Animations*/
+@keyframes backgroundColor {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

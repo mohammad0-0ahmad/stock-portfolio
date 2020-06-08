@@ -1,0 +1,10 @@
+.TextAsLink {
+  color: var(--color3);
+  font-size: 0.8vw;
+  text-decoration: underline;
+  display: inline-block;
+  cursor: pointer;
+}
+.logInTextAsLink {
+  color: #ffffff;
+}
