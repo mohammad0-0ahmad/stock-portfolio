@@ -19,11 +19,11 @@ import StockTable from './StockTable'
 
 const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser']
 
-const Content = ({ content }) => {
+const Content = ({ content, shownContent, handleChange }) => {
+    console.log(shownContent)
     const [selectedSettingSection, setSelectedSettingSection] = useState(SETTING_SUB_NAV_BAR_TITLES[0])
 
     // Testing some components
-    const [selectedContent, setSelectedContent] = useState(PAGES[0])
     let updated = content.updated
     let hasStocks = true;
     let industries = ['Tech', 'Finance', 'Health', 'Materials']
@@ -82,21 +82,21 @@ const Content = ({ content }) => {
     return (
         <div id="Content" >
             <header>
-                <h2 className="title">{selectedContent}</h2>
-                {PAGES[1] === selectedContent && <p className="updated">Senast uppdaterat {updated}</p>}
+                <h2 className="title">{shownContent}</h2>
+                {PAGES[1] === shownContent && <p className="updated">Senast uppdaterat {updated}</p>}
             </header>
-            {PAGES[0] === selectedContent && <WelcomeBar updated={updated} name={content.name} hasStocks={hasStocks} />}
+            {PAGES[0] === shownContent && <WelcomeBar updated={updated} name={content.name} hasStocks={hasStocks} />}
             {
-                PAGES[0] === selectedContent &&
+                PAGES[0] === shownContent &&
                 <div id="contentItems">
                     <ContentItem>
-                        <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => setSelectedContent(PAGES[2]) }} />
+                        <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => handleChange(PAGES[2]) }} />
                         <UserImgNamePN userData={{ img: userimg, name: 'Magnus Persson', personNr: '197808176331' }} />
                         <PreferedIndustries industries={industries} />
                         <ContactInfo person={person} />
                     </ContentItem>
                     <ContentItem>
-                        <ContetItemHeader key='0' title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', handleClick: () => setSelectedContent(PAGES[1]) }} />
+                        <ContetItemHeader key='0' title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', handleClick: () => handleChange(PAGES[1]) }} />
                         <CurrentUpdate key='8' value="827,300 SEK" date="Uppdaterat 2020-02-26" />
                         <BarChart key='1' amountSectorsToShow={5} sectors={[50, 10, 20, 15, 20]} />
                         <BarChartDetailsList key='2' data={tabData} />
@@ -104,7 +104,7 @@ const Content = ({ content }) => {
                 </div>
             }
             {
-                PAGES[1] === selectedContent &&
+                PAGES[1] === shownContent &&
                 <div id="contentItems">
                     <ContentItem>
                         <StockTable rows={stockTableData} />
@@ -112,7 +112,7 @@ const Content = ({ content }) => {
                 </div>
             }
             {
-                PAGES[2] === selectedContent &&
+                PAGES[2] === shownContent &&
                 <div id="contentItems">
                     <ContentItem>
                         <div>
