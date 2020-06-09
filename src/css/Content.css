@@ -58,5 +58,5 @@
   width: calc(100% - 1vw);
 }
 #saveSetteingChangesBar {
-  border-top: 0.05vw solid var(--color20);
+  border-top: 0.1vw solid var(--color20);
 }

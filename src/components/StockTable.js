@@ -3,6 +3,7 @@ import StockRow from './StockRow'
 import '../css/StockTable.css'
 import PaginationBar from './PaginationBar'
 import NumericSelectList from './NumericSelectList'
+import MessageCard from './MessageCard'
 
 const StockTable = ({ rows }) => {
   const [page, setPage] = useState(1);
@@ -22,9 +23,10 @@ const StockTable = ({ rows }) => {
     setPage(selectedPage);
     setFirstShownRowIndex((selectedPage - 1) * rowsPerPage + 1);
   }
-  const handleDropList = (firstSI, rowsPP) => {
-    setFirstShownRowIndex(firstSI);
+  const handleDropList = (rowsPP) => {
+    setFirstShownRowIndex(rows ? 1 : 0);
     setRowsPerPage(rowsPP);
+    setPage(1);
   }
 
   return (
@@ -47,19 +49,27 @@ const StockTable = ({ rows }) => {
           }
         </tbody>
       </table>
-      <div>
-        <PaginationBar
-          amountPages={amountPages}
-          selected={page}
-          handleSelect={handlePaginationBar}
-        />
-        <NumericSelectList
-          firstIndex={firstShownRowIndex}
-          lastIndex={rows.length}
-          selected={rowsPerPage}
-          handleSelect={handleDropList}
-        />
-      </div>
+      {
+        rows.length === 0 &&
+        <div id='emptyTableMessage'>
+          <MessageCard text='Inget innehav tillagt ännu' />
+        </div>
+      }
+      {rows.length > 0 &&
+        <div>
+          <PaginationBar
+            amountPages={amountPages}
+            selected={page}
+            handleSelect={handlePaginationBar}
+          />
+          <NumericSelectList
+            firstIndex={firstShownRowIndex}
+            lastIndex={rows.length}
+            selected={rowsPerPage}
+            handleSelect={handleDropList}
+          />
+        </div>
+      }
     </div>
   );
 }

@@ -22,7 +22,7 @@ const NumericSelectList = ({ firstIndex = 1, lastIndex, selected, handleSelect }
         }
         firstIndex = Math.floor(firstIndex / MIN_POSSIPLE_OPTION) * MIN_POSSIPLE_OPTION + 1
         let lastShownItemIndex;
-        if (firstIndex > lastIndex || lastIndex < MIN_POSSIPLE_OPTION) {
+        if (lastIndex < MIN_POSSIPLE_OPTION) {
             lastShownItemIndex = lastIndex
         } else if (firstIndex > selected) {
             lastShownItemIndex = firstIndex + selected - 1 < lastIndex ? firstIndex + selected - 1 : lastIndex
@@ -34,7 +34,7 @@ const NumericSelectList = ({ firstIndex = 1, lastIndex, selected, handleSelect }
 
     const handleChange = (e) => {
         const selected = parseInt(e.target.value);
-        handleSelect(firstIndex, selected);
+        handleSelect(selected);
         e.target.blur();
     }
 

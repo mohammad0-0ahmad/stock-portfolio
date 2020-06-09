@@ -3,7 +3,6 @@
   padding-right: 0;
 }
 .StockTable table {
-  margin-top: 1vw;
   border-collapse: collapse;
   width: 100%;
   text-align: center;
@@ -34,4 +33,7 @@
 }
 .StockTable > div > div:last-child{
   margin-left: auto;
+}
+.StockTable #emptyTableMessage{
+  min-height: 50vh;
 }
