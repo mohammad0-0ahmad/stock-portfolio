@@ -19,7 +19,30 @@
   border-radius: 0.2vw;
   font-weight: 300;
   font-family: unset;
+  width: 100%;
 }
+
+.LabelAndInput .showHiddenPassword {
+  cursor: pointer;
+  bottom: 1.2vw;
+  font-size: 1.2vw;
+  opacity: 0;
+  margin-left: -2.2vw;
+}
+.LabelAndInput input:focus ~ .showHiddenPassword {
+  opacity: 0.5;
+}
+.LabelAndInput .showHiddenPassword:hover {
+  opacity: 1 !important;
+}
+.LabelAndInputCheckboxItems > label {
+  display: block;
+}
+.LabelAndInputCheckboxItems label > input {
+  margin-left: 1vw;
+}
+
+/*other styles*/
 
 .logInLabelAndInput label {
   color: #ffffff;
@@ -35,24 +58,4 @@
 }
 .logInLabelAndInput input:focus {
   background-color: #00000020;
-}
-.logInLabelAndInput .showHiddenPassword {
-  cursor: pointer;
-  position: absolute;
-  bottom: 1.2vw;
-  right: 0.5vw;
-  font-size: 1.2vw;
-  opacity: 0;
-}
-.logInLabelAndInput input:focus ~ .showHiddenPassword {
-  opacity: 0.5;
-}
-.logInLabelAndInput .showHiddenPassword:hover {
-  opacity: 1 !important;
-}
-.LabelAndInputCheckboxItems > label {
-  display: block;
-}
-.LabelAndInputCheckboxItems label > input {
-  margin-left: 1vw;
 }
