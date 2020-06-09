@@ -14,8 +14,9 @@ const EnteryPage = ({ handleLogin }) => {
     const [password, setPassword] = useState('');
     const [shownCard, SetShownCard] = useState(CARDS[0]);
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        handleLogin()
     }
     return (
         <div id='EnteryPage'>

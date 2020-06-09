@@ -7,19 +7,19 @@
   background-size: 300% 300%;
   animation: backgroundColor 30s ease infinite;
 }
-form {
+#EnteryPage form {
   display: contents;
 }
-.backToLogIn {
+#EnteryPage .backToLogIn {
   margin-right: 1vw;
   margin-left: -4vw;
   cursor: pointer;
 }
-h1 {
+#EnteryPage h1 {
   font-size: 3vw;
   color: #ffffff;
 }
-.Button {
+#EnteryPage .Button {
   margin-right: 1vw;
 }
 #login {
@@ -35,13 +35,13 @@ h1 {
 #register > * {
   margin: 1vw 0;
 }
-.oneLine {
+#EnteryPage .oneLine {
   display: grid;
   grid-template-columns: 50% 50%;
   width: 50%;
   column-gap: 1vw;
 }
-.oneLine > * {
+#EnteryPage .oneLine > * {
   width: calc(100% - 1vw);
 }
 #EnteryPage > div {
@@ -53,10 +53,10 @@ h1 {
   justify-content: center;
   padding: 5vw;
 }
-form > * {
+#EnteryPage form > * {
   margin: 1vw 0;
 }
-.img {
+#EnteryPage .img {
   background-image: url("../imgs/register.svg");
   background-repeat: no-repeat;
   background-position: center;
@@ -70,7 +70,7 @@ form > * {
   transform: translateY(-50%);
   margin: 0 1vw;
 }
-.leftSide {
+#EnteryPage .leftSide {
   background-image: url("../imgs/login.svg");
   grid-column-start: 1;
   position: fixed;

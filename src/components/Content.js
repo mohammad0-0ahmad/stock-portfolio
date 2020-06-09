@@ -20,7 +20,6 @@ import StockTable from './StockTable'
 const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser']
 
 const Content = ({ content, shownContent, handleChange }) => {
-    console.log(shownContent)
     const [selectedSettingSection, setSelectedSettingSection] = useState(SETTING_SUB_NAV_BAR_TITLES[0])
 
     // Testing some components
@@ -86,70 +85,68 @@ const Content = ({ content, shownContent, handleChange }) => {
                 {PAGES[1] === shownContent && <p className="updated">Senast uppdaterat {updated}</p>}
             </header>
             {PAGES[0] === shownContent && <WelcomeBar updated={updated} name={content.name} hasStocks={hasStocks} />}
-            {
-                PAGES[0] === shownContent &&
-                <div id="contentItems">
-                    <ContentItem>
-                        <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => handleChange(PAGES[2]) }} />
-                        <UserImgNamePN userData={{ img: userimg, name: 'Magnus Persson', personNr: '197808176331' }} />
-                        <PreferedIndustries industries={industries} />
-                        <ContactInfo person={person} />
-                    </ContentItem>
-                    <ContentItem>
-                        <ContetItemHeader key='0' title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', handleClick: () => handleChange(PAGES[1]) }} />
-                        <CurrentUpdate key='8' value="827,300 SEK" date="Uppdaterat 2020-02-26" />
-                        <BarChart key='1' amountSectorsToShow={5} sectors={[50, 10, 20, 15, 20]} />
-                        <BarChartDetailsList key='2' data={tabData} />
-                    </ContentItem>
-                </div>
-            }
-            {
-                PAGES[1] === shownContent &&
-                <div id="contentItems">
+            <div id="contentItems">
+                {
+                    PAGES[0] === shownContent &&
+                    <>
+                        <ContentItem>
+                            <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => handleChange(PAGES[2]) }} />
+                            <UserImgNamePN userData={{ img: userimg, name: 'Magnus Persson', personNr: '197808176331' }} />
+                            <PreferedIndustries industries={industries} />
+                            <ContactInfo person={person} />
+                        </ContentItem>
+                        <ContentItem>
+                            <ContetItemHeader key='0' title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', handleClick: () => handleChange(PAGES[1]) }} />
+                            <CurrentUpdate key='8' value="827,300 SEK" date="Uppdaterat 2020-02-26" />
+                            <BarChart key='1' amountSectorsToShow={5} sectors={[50, 10, 20, 15, 20]} />
+                            <BarChartDetailsList key='2' data={tabData} />
+                        </ContentItem>
+                    </>
+                }
+                {
+                    PAGES[1] === shownContent &&
                     <ContentItem>
                         <StockTable rows={stockTableData} />
                     </ContentItem>
-                </div>
-            }
-            {
-                PAGES[2] === shownContent &&
-                <div id="contentItems">
+                }
+                {
+                    PAGES[2] === shownContent &&
                     <ContentItem>
-                        <div>
-                            <SettingNavBar items={SETTING_SUB_NAV_BAR_TITLES} selected={selectedSettingSection} handleSelect={setSelectedSettingSection} />
-                        </div>
+                        <SettingNavBar items={SETTING_SUB_NAV_BAR_TITLES} selected={selectedSettingSection} handleSelect={setSelectedSettingSection} />
                         {
                             selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[0] &&
-                            <div>
+                            <>
                                 <ChangeAbleRoundedImg src={userimg} handleClick={() => { console.log("change") }} alt='User picture' />
                                 <div>
-                                    <LabelAndInput type="text" labelText="Förnamn" text={firstName} handleChange={(e) => { setFirstName(e.target.value) }} />
-                                    <LabelAndInput type="text" labelText="Efternamn" text={lastName} handleChange={(e) => { setLastName(e.target.value) }} />
+                                    <div className='oneLine'>
+                                        <LabelAndInput type="text" labelText="Förnamn" text={firstName} handleChange={setFirstName} />
+                                        <LabelAndInput type="text" labelText="Efternamn" text={lastName} handleChange={setLastName} />
+                                    </div>
+                                    <LabelAndInput type="text" labelText="Personnummer" text={personNumber} handleChange={setPersonNumber} />
+                                    <LabelAndInput type="text" labelText="Adress" text={adress} handleChange={setAdress} />
+                                    <div className='oneLine'>
+                                        <LabelAndInput type="text" labelText="Stad" text={city} handleChange={setCity} />
+                                        <LabelAndInput type="text" labelText="Postnummer" text={zipCode} handleChange={setZipCode} />
+                                    </div>
+                                    <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={setPhone} />
+                                    <LabelAndInput type="mail" labelText="Email" text={mail} handleChange={setMail} />
                                 </div>
-                                <LabelAndInput type="text" labelText="Personnummer" text={personNumber} handleChange={(e) => { setPersonNumber(e.target.value) }} />
-                                <LabelAndInput type="text" labelText="Adress" text={adress} handleChange={(e) => { setAdress(e.target.value) }} />
-                                <div>
-                                    <LabelAndInput type="text" labelText="Stad" text={city} handleChange={(e) => { setCity(e.target.value) }} />
-                                    <LabelAndInput type="text" labelText="Postnummer" text={zipCode} handleChange={(e) => { setZipCode(e.target.value) }} />
-                                </div>
-                                <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={(e) => { setPhone(e.target.value) }} />
-                                <LabelAndInput type="mail" labelText="Email" text={mail} handleChange={(e) => { setMail(e.target.value) }} />
-                                <Button buttonText='Spara' handleClick={() => { console.log("change") }} className='saveButton' />
-                            </div>
+                            </>
                         }
                         {
                             selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[1] &&
-                            <div>
+                            <>
                                 <LabelAndInput type="password" labelText="Nuvarande lösenord" text={passWord} />
-                                <LabelAndInput type="password" labelText="Nytt lösenord" />
-                                <LabelAndInput type="password" labelText="Bekräfta nytt lösenord" />
-                                <Button buttonText='Spara' handleClick={() => { setPassWord('nytt lösen') }} className='saveButton' />
-                            </div>
+                                <div>
+                                    <LabelAndInput type="password" labelText="Nytt lösenord" />
+                                    <LabelAndInput type="password" labelText="Bekräfta nytt lösenord" />
+                                </div>
+                            </>
                         }
                         {
                             selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[2] &&
-                            <div>
-                                <p>Mina prefererade industrier att investera inom:</p>
+                            <>
+                                <p className='preferencesText'>Mina prefererade industrier att investera inom:</p>
                                 <div id='preferencesPreferedIndustries'>
                                     <LabelAndInput type='checkbox' checked={bygg} labelText={preferedIndustries[0]} handleChange={(e) => { setBygg(!bygg) }} />
                                     <LabelAndInput type='checkbox' checked={teknik} labelText={preferedIndustries[1]} handleChange={(e) => { setTeknik(!teknik) }} />
@@ -160,13 +157,15 @@ const Content = ({ content, shownContent, handleChange }) => {
                                     <LabelAndInput type='checkbox' checked={fastigheter} labelText={preferedIndustries[6]} handleChange={(e) => { setFastigheter(!fastigheter) }} />
                                     <LabelAndInput type='checkbox' checked={verkstad} labelText={preferedIndustries[7]} handleChange={(e) => { setVerkstad(!verkstad) }} />
                                 </div>
-                                <Button buttonText='Spara' handleClick={() => { setPassWord('nytt lösen') }} className='saveButton' />
-                            </div>
+                            </>
                         }
-
+                        <div id='saveSetteingChangesBar'>
+                            <Button buttonText='Spara' handleClick={() => { console.log("change") }} className='saveButton' />
+                        </div>
                     </ContentItem>
-                </div>
-            }
+
+                }
+            </div>
         </div>
     )
 }

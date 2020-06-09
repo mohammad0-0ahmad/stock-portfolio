@@ -35,10 +35,28 @@
   column-gap: 1vw;
   height: fit-content;
 }
+.preferencesText {
+  color: var(--color8);
+  font-size: 0.8vw;
+}
 #preferencesPreferedIndustries {
   display: grid;
-  grid-template-columns: auto 80%;
-  row-gap: 2vw;
-  margin-top: 1vw;
-  color: var(--color8);
+  width: min-content;
+  grid-template-columns: auto auto;
+  column-gap: 2vw;
+  padding-top: 0;
+  margin-top: 0;
+}
+#Content .oneLine {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 50%;
+  grid-column-gap: 1vw;
+  column-gap: 1vw;
+}
+#Content .oneLine > * {
+  width: calc(100% - 1vw);
+}
+#saveSetteingChangesBar {
+  border-top: 0.05vw solid var(--color20);
 }
