@@ -7,8 +7,27 @@ import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const LabelAndInput = ({ text, labelText, handleChange, type, checked, placeHolder, className, required = false }) => {
   const [visibleValue, setVissbleValue] = useState(false)
 
+  if (type === 'checkbox') {
+    return (
+      <div className='LabelAndInputCheckboxItems'>
+        <input
+              checked={checked}
+              type={type}
+              value={text}
+              onChange={(e) => handleChange(e.target.value)}
+              key={labelText}
+              
+            />
+        <label>
+          {labelText}
+        </label>
+      </div>
+    );
+  }
+  else {
+
   return (
-    <div className={type === 'checkbox' ? 'LabelAndInputCheckboxItems' : `LabelAndInput ${className}`}>
+    <div className={`LabelAndInput ${className}`}>
       <label>
         {labelText}
         <div>
@@ -37,6 +56,7 @@ const LabelAndInput = ({ text, labelText, handleChange, type, checked, placeHold
       </label>
     </div>
   );
+        }
 };
 
 export default LabelAndInput;
