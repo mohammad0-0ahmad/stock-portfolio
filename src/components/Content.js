@@ -16,6 +16,7 @@ import BarChart from './BarChart'
 import BarChartDetailsList from './BarChartDetailsList';
 import SettingNavBar from './SettingNavBar'
 import StockTable from './StockTable'
+import TextAsLink from './TextAsLink'
 
 const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser']
 
@@ -146,7 +147,7 @@ const Content = ({ content, shownContent, handleChange }) => {
                         {
                             selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[2] &&
                             <>
-                                <p className='preferencesText'>Mina prefererade industrier att investera inom:</p>
+                                <p className='preferencesPreferedIndustriesContent'>Mina prefererade industrier att investera inom:</p>
                                 <div id='preferencesPreferedIndustries'>
                                     <LabelAndInput type='checkbox' checked={bygg} labelText={preferedIndustries[0]} handleChange={(e) => { setBygg(!bygg) }} />
                                     <LabelAndInput type='checkbox' checked={teknik} labelText={preferedIndustries[1]} handleChange={(e) => { setTeknik(!teknik) }} />
@@ -157,6 +158,12 @@ const Content = ({ content, shownContent, handleChange }) => {
                                     <LabelAndInput type='checkbox' checked={fastigheter} labelText={preferedIndustries[6]} handleChange={(e) => { setFastigheter(!fastigheter) }} />
                                     <LabelAndInput type='checkbox' checked={verkstad} labelText={preferedIndustries[7]} handleChange={(e) => { setVerkstad(!verkstad) }} />
                                 </div>
+                                <p className='preferencesTipToUser'>Tips! Ifall du väljer att integrerar din bank så kan vi anpassa dina investeringar utefter din ekonomi och preferenser.</p>
+                                <div className='preferencesPreferedIndustriesContent oneLineLinkAndLabel'>
+                                    <TextAsLink text='Integrera min bank' handleClick={() => console.log("test")}/>
+                                    <p className='preferencesPreferedIndustriesContent'>(detta kommer att skicka dig vidare etc....)</p>
+                                </div>
+
                             </>
                         }
                         <div id='saveSetteingChangesBar'>

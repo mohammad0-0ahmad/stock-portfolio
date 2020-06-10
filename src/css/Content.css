@@ -35,17 +35,25 @@
   column-gap: 1vw;
   height: fit-content;
 }
-.preferencesText {
+.preferencesPreferedIndustriesContent  {
+  width: 30vw;
   color: var(--color8);
+  font-size: 0.8vw;
+}
+.preferencesTipToUser {
+  color: var(--color17);
+  width: 30vw;
   font-size: 0.8vw;
 }
 #preferencesPreferedIndustries {
   display: grid;
-  width: min-content;
+  width: 25vw;
   grid-template-columns: auto auto;
   column-gap: 2vw;
+  row-gap: 1vw;
   padding-top: 0;
-  margin-top: 0;
+  margin-left: 1vw;
+  margin-bottom: -1vw;
 }
 #Content .oneLine {
   display: grid;
@@ -59,4 +67,9 @@
 }
 #saveSetteingChangesBar {
   border-top: 0.05vw solid var(--color20);
+}
+#Content .oneLineLinkAndLabel {
+  display: grid;
+  grid-template-columns: auto 70%;
+  margin-top: -3vh;
 }

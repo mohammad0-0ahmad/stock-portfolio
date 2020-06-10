@@ -35,12 +35,23 @@
 .LabelAndInput .showHiddenPassword:hover {
   opacity: 1 !important;
 }
+.LabelAndInputCheckboxItems  {
+  display: grid;
+  column-gap: 1vw;
+  grid-auto-flow: column;
+  width: min-content;
+}
+
 .LabelAndInputCheckboxItems > label {
-  display: block;
+  color: var(--color17);
+  font-size: 0.8vw;
 }
-.LabelAndInputCheckboxItems label > input {
-  margin-left: 1vw;
+.LabelAndInputCheckboxItems  input{
+  width: 1vw;
+  height: 1vw;
 }
+
+
 
 /*other styles*/
 
