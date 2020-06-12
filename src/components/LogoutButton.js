@@ -1,11 +1,22 @@
 import React from "react";
 import LogoutIcon from "../imgs/logout.png";
-const VALUE = "Logga ut";
-const LogoutButton = ({ handleClick }) => {
+import { useHistory } from "react-router-dom";
+
+const TEXT = "Logga ut";
+const LogoutButton = () => {
+  const history = useHistory()
   return (
-    <button className="logoutButton" onClick={() => handleClick(VALUE)}>
+    <button
+      className="logoutButton"
+      onClick={() => {
+        /** show prombt */
+        localStorage.clear();
+        history.push('/');
+      }}
+
+    >
       <img src={LogoutIcon} alt="Exist"></img>
-      {VALUE}
+      {TEXT}
     </button>
   );
 };

@@ -1,24 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
+import {Switch, Route } from 'react-router-dom';
 import '../css/Dashboard.css'
-import Content from './Content';
 import NavBar from './NavBar'
+import HomeCard from './HomeCard'
+import PortFolio from './PortFolioCard';
+import SettingCard from './SettingCard';
 
-export const PAGES = ['Hem', 'Min Portfölj', 'Inställningar']
-
-const Dashboard = (props) => {
-
-    let content = {
-        title: "Hem",
-        name: "Magnus",
-        updated: "2020-02-26",
-    }
-    const [shownPage, setShownPage] = useState(PAGES[0])
+const Dashboard = () => {
 
     return (
         <div id="Dashboard">
-            {/* Here nav before content element */}
-            <NavBar items={PAGES} select={shownPage} handleSelect={setShownPage} />
-            <Content content={content} shownContent={shownPage} handleChange={setShownPage} />
+            <NavBar/>
+            <Switch>
+            <Route path='/' exact={true} component={HomeCard}/>
+            <Route path='/portfolio' component={PortFolio}/>          
+            <Route path='/settings' component={SettingCard}/>
+            </Switch>
         </div>
     )
 }

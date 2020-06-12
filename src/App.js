@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import EnteryPage from './components/EnteryPage'
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
   return (
-    <>
-      {
-        loggedIn ? <Dashboard /> : <EnteryPage handleLogin={() => setLoggedIn(true)} />
-      }
-    </>
+    <BrowserRouter>
+      <Switch>
+        <Route path='/register' render={() => <EnteryPage shownCard='Registrering' />} />
+        <Route path='/reset-password' component={EnteryPage} />
+        <Route path='/login'>
+          <Redirect to='/' />
+        </Route>
+        <Route path='/logout'>
+          <Redirect to='/' />
+        </Route>
+        <Route path='/' render={() => localStorage.sessionId ? <Dashboard /> : <EnteryPage />} />
+        {/** 404 */}
+      </Switch>
+    </BrowserRouter>
   )
 }
 

@@ -1,20 +1,23 @@
-.Inactive-Nav{
+.NavItem{
     color: var(--color5);
     background-color: var(--color6);
     transition: 0.5s ease;
     cursor: pointer;
+    padding: 1vw 1.5vw;
+    text-decoration: none;
+    font-size: .9vw;
 }
-.Inactive-Nav:hover{
+.NavItem:hover{
     color: var(--color3);
     background-color: var(--color4);
 }
-.Active-Nav{
+.NavItem.active{
     color: var(--color3);
     background-color: var(--color4);
     transition: 0.5s ease;
     cursor: pointer;
 }
-.icon{
+.NavItem > .icon{
     margin-left: 0.4vw;
     margin-right: 0.4vw;
 }

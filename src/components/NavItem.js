@@ -1,15 +1,17 @@
 import React from "react";
 import "../css/NavItem.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const NavItem = ({ text, icon, handleClick, select }) => {
+import { NavLink } from "react-router-dom";
+const NavItem = ({ text, icon, link, exact }) => {
   return (
-    <li
-      className={select ? "Active-Nav" : "Inactive-Nav"}
-      onClick={handleClick}
+    <NavLink
+      to={link}
+      exact={exact}
+      className='NavItem'
     >
       <FontAwesomeIcon icon={icon} className="icon" />
       {text}
-    </li>
+    </NavLink>
   );
 };
 export default NavItem;

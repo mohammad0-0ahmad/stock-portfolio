@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
 import LabelAndInput from './LabelAndInput'
 import Button from './Button'
 import TextAsLink from './TextAsLink'
@@ -9,14 +10,22 @@ import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons'
 
 const CARDS = ['Inloggning', 'Registrering', 'Återställ lösenordet'];
 
-const EnteryPage = ({ handleLogin }) => {
+const EnteryPage = () => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [shownCard, SetShownCard] = useState(CARDS[0]);
+    const history = useHistory();
+
+    let shownCard = (
+        history.location.pathname === '/' ? CARDS[0] : (
+            history.location.pathname === '/register' ? CARDS[1] : (
+                history.location.pathname === '/reset-password' ? CARDS[2] : ''
+            ))
+    )
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        handleLogin()
+        localStorage.setItem('sessionId','1234s56')
+        history.push('/login')
     }
     return (
         <div id='EnteryPage'>
@@ -26,7 +35,7 @@ const EnteryPage = ({ handleLogin }) => {
                 >
                     <h1>
                         {shownCard !== CARDS[0] &&
-                            <FontAwesomeIcon className='backToLogIn' icon={faArrowAltCircleLeft} onClick={() => SetShownCard(CARDS[0])} />
+                            <FontAwesomeIcon className='backToLogIn' icon={faArrowAltCircleLeft} onClick={() => history.push('/')} />
                         }
                         {shownCard}
                     </h1>
@@ -134,7 +143,7 @@ const EnteryPage = ({ handleLogin }) => {
                                 <TextAsLink
                                     className='logInTextAsLink'
                                     text=' Jag har glömt mitt lösenord'
-                                    handleClick={() => SetShownCard(CARDS[2])}
+                                    handleClick={() => history.push('/reset-password')}
                                 />
                             }
                         </div>
@@ -142,7 +151,7 @@ const EnteryPage = ({ handleLogin }) => {
                             <TextAsLink
                                 className='logInTextAsLink'
                                 text='Skaffa ett konto'
-                                handleClick={() => SetShownCard(CARDS[1])}
+                                handleClick={() => history.push('/register')}
                             />
                         }
                     </form>

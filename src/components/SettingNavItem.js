@@ -1,9 +1,9 @@
 import React from "react";
-import "../css/SettingNavBar.css";
+import '../css/SettingNavItem.css'
 
 const SettingNavItem = ({ text, selected, handleClick }) => {
   return (
-    <div className={selected ? "active" : "inactive"} onClick={handleClick}>
+    <div className={'SettingNavItem ' + (selected ? "active" : "inactive")} onClick={handleClick}>
       {text}
     </div>
   );

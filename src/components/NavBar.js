@@ -6,27 +6,31 @@ import "../css/NavBar.css";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faSuitcase } from "@fortawesome/free-solid-svg-icons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { NavLink } from "react-router-dom";
 
-const NavBar = ({ items, select, handleSelect }) => {
-  let icons = [faHome, faSuitcase, faCog];
-  let i = 0;
-  let links = items.map((item) => (
+const ICONS = [faHome, faSuitcase, faCog];
+const TEXTS = ['Hem', 'Min Portfölj', 'Inställningar'];
+const LINKS = ['/', '/portfolio', '/settings'];
+
+const NavBar = () => {
+
+  let navItems = TEXTS.map((text, i) => (
     <NavItem
-      key={item}
-      text={item}
-      icon={icons[i++]}
-      handleClick={() => {
-        handleSelect(item);
-      }}
-      select={item === select}
+      key={i}
+      text={text}
+      icon={ICONS[i]}
+      link={LINKS[i]}
+      exact={true}
     />
   ));
   return (
     <nav id="NavBar">
-      <img className="logo" src={Logo} alt="Logo" />
-      {links}
+      <NavLink to='/' className="logo" >
+        <img src={Logo} alt="Logo" />
+      </NavLink>
+      {navItems}
       <div className="line">_______________</div>
-      <LogoutButton handleClick={handleSelect} />
+      <LogoutButton handleClick={() => localStorage.clear()} />
     </nav>
   );
 };

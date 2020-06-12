@@ -7,10 +7,14 @@
   background-color: var(--color19);
   position: fixed;
 }
-#NavBar > .logo {
+#NavBar .logo {
   width: 10vw;
   height: 10vw;
   margin: 0 auto;
+}
+#NavBar .logo > * {
+  width: 100%;
+  height: 100%;
 }
 .line {
   color: var(--color5);

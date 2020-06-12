@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../css/SettingNavBar.css'
 import SettingNavItem from "./SettingNavItem";
 
 const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
@@ -12,7 +13,7 @@ const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
       selected={item === selected}
     />
   ));
-  return <nav id="Setting-Nav">{navItem}</nav>;
+  return <nav id="SettingNavBar">{navItem}</nav>;
 };
 
 export default SettingNavBar;
