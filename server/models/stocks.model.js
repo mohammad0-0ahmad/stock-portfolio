@@ -1,20 +1,20 @@
 const connection = require("./db");
 
 const Stock = function (stock) {
-    (this.company = stock.company),
-        (this.value = (stock.value).toLocaleString('en').replace(',', ' ') + ' SEK'),
-        (this.type = stock.type),
-        (this.amount = stock.amount + ' St'),
-        (this.nr = stock.reg_nr),
-        (this.ownership = stock.ownership + '%'),
-        (this.votingPower = stock.voting_power + '%');
+    this.company = stock.company;
+    this.value = (stock.value).toLocaleString('en').replace(',', ' ') + ' SEK';
+    this.type = stock.type;
+    this.amount = stock.amount + ' St';
+    this.nr = stock.reg_nr;
+    this.ownership = stock.ownership + '%';
+    this.votingPower = stock.voting_power + '%';
 };
 
 Stock.getUserStocks = (result, owner) => {
     const sql = `SELECT stocks.*,
     (SELECT vote_ability FROM stock_types WHERE symbol = type)*ownership AS voting_power 
     from (SELECT c.name AS company,s.value,s.type,s.amount,s.reg_nr,
-    ((SELECT SUM(value) FROM stocks WHERE company_id=s.company_id)/s.value) As ownership
+    (s.value*100/(SELECT SUM(value) FROM stocks WHERE company_id=s.company_id)) As ownership
     FROM stocks AS s , companies AS c WHERE c.id = s.company_id AND s.owner='${owner}') AS stocks
     `;
     connection.query(sql, (err, res) => {
@@ -22,8 +22,8 @@ Stock.getUserStocks = (result, owner) => {
             console.log("Error:", err.message);
             result(null, 'Wrong request...');
         } else {
-            console.log("stocks:", res);
             res = res.map((stock) => new Stock(stock));
+            console.log("stocks:", res);
             result(null, res);
         }
     });

@@ -46,7 +46,7 @@ const reorganizeStocksOverview = (data) => {
     let userTotalBalance = 0;
     result = data.map((row) => {
         userTotalBalance += row.value;
-        row.value = row.value.toLocaleString('en').replace(',', ' ') + ' SEK';
+        row.value = row.value.toLocaleString('en').replace(',', ' ');
         let companiesArr = row.companies.split(',');
         if (companiesArr.length > 2) {
             row.companies = `${companiesArr[0]},${companiesArr[1]} +${companiesArr.length - 2}`
@@ -56,7 +56,8 @@ const reorganizeStocksOverview = (data) => {
     })
 
     return {
-        totalBalance: userTotalBalance.toLocaleString('en').replace(',', ' ') + ' SEK',
+        currency:'SEK',
+        totalBalance: userTotalBalance.toLocaleString('en').replace(',', ' '),
         industris: result
     };
 }
