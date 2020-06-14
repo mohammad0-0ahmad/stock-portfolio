@@ -18,13 +18,15 @@ const EnteryPage = () => {
     let shownCard = (
         history.location.pathname === '/' ? CARDS[0] : (
             history.location.pathname === '/register' ? CARDS[1] : (
-                history.location.pathname === '/reset-password' ? CARDS[2] : ''
+                history.location.pathname === '/reset-password' ? CARDS[2] : '404'
             ))
     )
 
+    shownCard === '404' && history.push('/404');
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        localStorage.setItem('sessionId','1234s56')
+        localStorage.setItem('sessionId', '1234s56')
         history.push('/login')
     }
     return (

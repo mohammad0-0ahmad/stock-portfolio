@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import EnteryPage from './components/EnteryPage'
+import NotFoundPage from './components/NotFoundPage'
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
         <Route path='/logout'>
           <Redirect to='/' />
         </Route>
+        <Route path='/404' component={NotFoundPage} />
         <Route path='/' render={() => localStorage.sessionId ? <Dashboard /> : <EnteryPage />} />
-        {/** 404 */}
       </Switch>
     </BrowserRouter>
   )
