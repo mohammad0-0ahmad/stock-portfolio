@@ -13,8 +13,8 @@ const Dashboard = () => {
             <NavBar />
             <Switch>
                 <Route path='/' exact={true} component={HomeCard} />
-                <Route path='/portfolio' component={PortFolio} />
-                <Route path='/settings' component={SettingCard} />
+                <Route path='/portfolio' exact={true} component={PortFolio} />
+                <Route path='/settings' exact={true} component={SettingCard} />
                 <Route path='/' render={()=>{history.push('/404')}} />
             </Switch>
         </div>

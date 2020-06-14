@@ -1,0 +1,48 @@
+#UserConfirmation {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #00000080;
+  filter: blur(100%);
+  z-index: 100;
+  display: flex;
+  animation: showMe 0.5s 1;
+}
+#UserConfirmation > div {
+  border: 0.2vw solid var(--color11);
+  border-radius: 2vw;
+  padding: 2vw;
+  width: 70vw;
+  height: 70vh;
+  background-color: var(--color20);
+  align-self: center;
+  justify-self: center;
+  margin: auto;
+  justify-content: center;
+  display: grid;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+#UserConfirmation h1 {
+  color: var(--color17);
+  font-size: 2vw;
+}
+#UserConfirmation #makeDecision {
+  display: flex;
+  width: 30vw;
+}
+#UserConfirmation #makeDecision > *:last-child {
+  margin-left: auto;
+}
+/*Animation*/
+@keyframes showMe {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

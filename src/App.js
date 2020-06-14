@@ -9,15 +9,15 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/register' render={() => <EnteryPage shownCard='Registrering' />} />
-        <Route path='/reset-password' component={EnteryPage} />
-        <Route path='/login'>
+        <Route path='/register' exact={true} render={() => <EnteryPage shownCard='Registrering' />} />
+        <Route path='/reset-password' exact={true} component={EnteryPage} />
+        <Route path='/login' exact={true}>
           <Redirect to='/' />
         </Route>
-        <Route path='/logout'>
+        <Route path='/logout' exact={true}>
           <Redirect to='/' />
         </Route>
-        <Route path='/404' component={NotFoundPage} />
+        <Route path='/404' component={NotFoundPage} exact={true}/>
         <Route path='/' render={() => localStorage.sessionId ? <Dashboard /> : <EnteryPage />} />
       </Switch>
     </BrowserRouter>

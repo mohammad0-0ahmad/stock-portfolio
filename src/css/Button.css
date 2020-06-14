@@ -21,3 +21,19 @@
 .logInButton:hover {
   background-color: #00000020;
 }
+.confirmButton {
+  background-color: #34bfa3;
+}
+.rejectButton {
+  background-color: #dc473c;
+}
+.confirmButton:hover {
+  transition: 1s;
+  filter: brightness(1.1);
+  transform: scale(1.1);
+}
+.rejectButton:hover {
+  transition: 1s;
+  filter: brightness(1.1);
+  transform: scale(1.1);
+}
