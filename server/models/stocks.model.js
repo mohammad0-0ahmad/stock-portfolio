@@ -2,9 +2,9 @@ const connection = require("./db");
 
 const Stock = function (stock) {
     (this.company = stock.company),
-        (this.value = (stock.value).toLocaleString('en').replace(',',' ') + ' SEK'),
+        (this.value = (stock.value).toLocaleString('en').replace(',', ' ') + ' SEK'),
         (this.type = stock.type),
-        (this.amount = stock.amount +' St'),
+        (this.amount = stock.amount + ' St'),
         (this.nr = stock.reg_nr),
         (this.ownership = stock.ownership + '%'),
         (this.votingPower = stock.voting_power + '%');
@@ -22,7 +22,7 @@ Stock.getUserStocks = (result, owner) => {
             console.log("Error:", err.message);
             result(null, 'Wrong request...');
         } else {
-            console.log("stock:", res);
+            console.log("stocks:", res);
             res = res.map((stock) => new Stock(stock));
             result(null, res);
         }
