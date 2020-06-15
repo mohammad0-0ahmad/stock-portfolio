@@ -1,4 +1,10 @@
 module.exports = (app) => {
-    const userInfo = require("../controllers/user.controller");
-    app.get("/settings/userinfo", userInfo.getInfo);
+    const User = require("../controllers/user.controller");
+
+    app.get("/settings/userinfo", User.getInfo);
+    app.get("/settings/deleteinfo", User.deleteInfo);
+    app.get("/settings/changeinfo", User.changeInfo);
+
+
+
   };
