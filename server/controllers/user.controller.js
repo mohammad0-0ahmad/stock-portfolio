@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const utilities = require("../utilities/user.utilities");
 
 exports.getInfo = (req, res) => {
   User.getUserData((err, data) => {
@@ -9,7 +10,7 @@ exports.getInfo = (req, res) => {
     } else {
       res.send(data);
     }
-  },req.query.email);
+  }, req.query.email);
 };
 
 
@@ -22,7 +23,7 @@ exports.deleteInfo = (req, res) => {
     } else {
       res.send(data);
     }
-  },req.query.email);
+  }, req.query.email);
 };
 
 exports.changeInfo = (req, res) => {
@@ -34,5 +35,25 @@ exports.changeInfo = (req, res) => {
     } else {
       res.send(data);
     }
-  },req.query);
+  }, req.query);
 };
+
+exports.newAccount = (req, res) => {
+  const validationRes = utilities.userRegisterationValidation(req.query);
+  if (req.query && validationRes.isValid) {
+    User.addNewUser((err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message,
+        });
+      } else {
+        res.send(data);
+      }
+    }, req.query);
+  } else {
+    res.send({
+      status: validationRes.isValid,
+      msg: validationRes.msg
+    });
+  }
+}
