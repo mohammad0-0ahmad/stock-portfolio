@@ -10,7 +10,7 @@ exports.getIndustries = (req, res) => {
       } else {
         res.send(data);
       }
-    }, req.query.email);
+    }, req.query.owner);
   } else {
     res.status(400).send("");
   }

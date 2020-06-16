@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import '../css/Dashboard.css'
 import NavBar from './NavBar'
@@ -8,6 +8,11 @@ import SettingCard from './SettingCard';
 
 const Dashboard = () => {
     const history = useHistory()
+
+    useEffect(() => {
+        document.documentElement.scrollTop = 0
+    })
+
     return (
         <div id="Dashboard">
             <NavBar />
@@ -15,7 +20,7 @@ const Dashboard = () => {
                 <Route path='/' exact={true} component={HomeCard} />
                 <Route path='/portfolio' exact={true} component={PortFolio} />
                 <Route path='/settings' exact={true} component={SettingCard} />
-                <Route path='/' render={()=>{history.push('/404')}} />
+                <Route path='/' render={() => { history.push('/404') }} />
             </Switch>
         </div>
     )
