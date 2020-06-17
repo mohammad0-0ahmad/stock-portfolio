@@ -1,5 +1,7 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
+const fs = require('../utilities/fs');
+const USERS_IMGS_PATH = './fileSystem/files/usersImgs/';
 
 const isEmailAlreadyExist = (email) => {
   const sql = `SELECT CASE WHEN EXISTS (SELECT * FROM users WHERE email='${email}' LIMIT 1) THEN 'true' ELSE 'false' END AS result`;
@@ -113,6 +115,17 @@ User.addNewUser = async (userData, result) => {
   } else {
     result(null, { status: false, msg: `E-post | personnummer är redan kopplad med ett konto.` })
   }
+}
+
+User.changeImg = async (img, email, result) => {
+  await fs.mkdir(USERS_IMGS_PATH + email)
+  img.mv(`${USERS_IMGS_PATH + email}/img.${img.name.split('.').pop()}`, (err) => {
+    if (err) {
+      result(null, { status: false, msg: 'Det gick inte att byta profilbild.' })
+    } else {
+      result(null, { status: true, msg: 'Din profilbild har bytts.' })
+    }
+  })
 }
 
 module.exports = User;

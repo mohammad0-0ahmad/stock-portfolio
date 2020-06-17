@@ -57,3 +57,15 @@ exports.newAccount = (req, res) => {
     });
   }
 }
+
+exports.uploadImg = (req, res) => {
+  User.changeImg(req.files.img, req.query.email, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message,
+      });
+    } else {
+      res.send(data);
+    }
+  })
+}

@@ -1,6 +1,6 @@
 .ChangeAbleRoundedImg {
   width: 12vw;
-  height: 12vw;
+  height: 11.2vw;
 }
 .ChangeAbleRoundedImg .RoundedImg {
   width: 100%;
@@ -20,4 +20,7 @@
   cursor: pointer;
   background-color: var(--color3);
   background-image: url("../imgs/edit.png");
+}
+.ChangeAbleRoundedImg > input {
+  display: none;
 }

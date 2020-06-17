@@ -9,5 +9,6 @@ module.exports = (app) => {
     app.post("/industries", industries.getIndustries);
     app.post("/settings/deleteinfo", User.deleteInfo);
     app.post("/settings/changeinfo", User.changeInfo);
-    app.post("/register",User.newAccount)
+    app.post("/register",User.newAccount);
+    app.post("/uploadImg",User.uploadImg);
 };

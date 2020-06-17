@@ -1,15 +1,18 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload")
+
 const PORT = process.env.PORT || 3030;
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(fileUpload())
 
 require("./server/router")(app);
 
-app.use(function(req, res){
+app.use(function (req, res) {
   res.redirect("/");
 });
 
