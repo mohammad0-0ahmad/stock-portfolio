@@ -39,9 +39,9 @@ exports.changeInfo = (req, res) => {
 };
 
 exports.newAccount = (req, res) => {
-  const validationRes = utilities.userRegisterationValidation(req.query);
-  if (req.query && validationRes.isValid) {
-    User.addNewUser((err, data) => {
+  const validationRes = utilities.userRegisterationValidation(req.body);
+  if (req.body && validationRes.isValid) {
+    User.addNewUser(req.body, (err, data) => {
       if (err) {
         res.status(500).send({
           message: err.message,
@@ -49,11 +49,11 @@ exports.newAccount = (req, res) => {
       } else {
         res.send(data);
       }
-    }, req.query);
+    });
   } else {
     res.send({
       status: validationRes.isValid,
-      msg: validationRes.msg
+      msg: JSON.stringify(validationRes.msg)
     });
   }
 }

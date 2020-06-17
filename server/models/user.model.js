@@ -1,4 +1,5 @@
 const connection = require("./db");
+const encrypt = require("../utilities/encrypt")
 
 const isEmailAlreadyExist = (email) => {
   const sql = `SELECT CASE WHEN EXISTS (SELECT * FROM users WHERE email='${email}' LIMIT 1) THEN 'true' ELSE 'false' END AS result`;
@@ -83,25 +84,35 @@ User.changeUserData = (result, query) => {
   });
 };
 
-User.addNewUser = async (result, { email, password, f_name, l_name, p_nr, address, city, postal_code, telephone }) => {
+User.addNewUser = async (userData, result) => {
+  const { email, password, f_name, l_name, p_nr, address, city, postal_code, telephone } = userData;
   const availbleEmail = ! await isEmailAlreadyExist(email);
   const availblePersonalNumber = ! await isPersonalNumberAlreadyExist(p_nr);
   if (availbleEmail && availblePersonalNumber) {
-    const sql = `INSERT INTO users VALUES ('${email}','${password}','${f_name}','${l_name}',${p_nr},'${address}','${city}',${postal_code},${telephone},null,now())`;
-    connection.query(sql, (err, res) => {
+    const newUser = {
+      email,
+      password: await encrypt.hash(password),
+      f_name,
+      l_name,
+      p_nr: parseInt(p_nr),
+      address,
+      city,
+      postal_code: parseInt(postal_code),
+      telephone: parseInt(telephone)
+    }
+    const sql = 'INSERT INTO users SET ?';
+    connection.query(sql, newUser, (err, res) => {
       if (err) {
         console.log("Error", err);
         result(null, err);
       } else {
         console.log("userinfo", res);
-        result(null, 'Ditt konto har skapats.');
+        result(null, { status: true, msg: 'Ditt konto har skapats.' });
       }
     });
   } else {
-    result(null, !availbleEmail ? `${email} är redan kopplad med ett konto\n` : '' + !availblePersonalNumber ? `${p_nr} är redan kopplad med ett konto.` : '')
+    result(null, { status: false, msg: `E-post | personnummer är redan kopplad med ett konto.` })
   }
 }
-
-
 
 module.exports = User;
