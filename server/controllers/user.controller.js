@@ -69,3 +69,29 @@ exports.changePassword = (req, res) => {
     }
   }, req.query);
 };
+
+exports.uploadImg = (req, res) => {
+  User.changeImg(req.files.img, req.query.email, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message,
+      });
+    } else {
+      res.send(data);
+    }
+  })
+}
+
+exports.login = (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  User.login({ email, password }, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message,
+      });
+    } else {
+      res.send(data);
+    }
+  })
+}

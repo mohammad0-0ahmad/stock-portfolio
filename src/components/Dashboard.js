@@ -5,12 +5,20 @@ import NavBar from './NavBar'
 import HomeCard from './HomeCard'
 import PortFolio from './PortFolioCard';
 import SettingCard from './SettingCard';
+import { fetchJSON } from '../utilities/fetchData'
 
 const Dashboard = () => {
     const history = useHistory()
 
     useEffect(() => {
         document.documentElement.scrollTop = 0
+    })
+
+    fetchJSON('/verify', { session: localStorage.sessionId }, (data) => {
+        if(!data.status){
+            localStorage.clear()
+            history.push('/logout')
+        }
     })
 
     return (

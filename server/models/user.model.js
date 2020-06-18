@@ -1,6 +1,11 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
 const utilities = require("../utilities/user.utilities")
+const fs = require('../utilities/fs');
+const Sessions = require('./sessions.modell')
+
+
+const USERS_IMGS_PATH = './fileSystem/files/usersImgs/';
 
 const isEmailAlreadyExist = (email) => {
   const sql = `SELECT CASE WHEN EXISTS (SELECT * FROM users WHERE email='${email}' LIMIT 1) THEN 'true' ELSE 'false' END AS result`;
@@ -108,7 +113,7 @@ User.changeUserData = async (result, query) => {
         if (validMail) {
           readyToChangeEmail = ! await isEmailAlreadyExist(query.email)
         }
-        else{
+        else {
           readyToChangeEmail = false
         }
       }
@@ -131,8 +136,9 @@ User.changeUserData = async (result, query) => {
         });
       }
       else {
-        
-        result(null, { status: false, msg: `Något är fel. Det kan vara personnumret eller mailet som är upptaget.
+
+        result(null, {
+          status: false, msg: `Något är fel. Det kan vara personnumret eller mailet som är upptaget.
         Det kan också vara så att du angett fel postnummer eller telefonnummer. Kontrollera all data igen!` })
       }
     }
@@ -183,12 +189,43 @@ User.changePassword = async (result, query) => {
     }
 
     result(null, res);
-    console.log('databas'+JSON.stringify(res[0].password))
+    console.log('databas' + JSON.stringify(res[0].password))
 
   });
-   let newPassword = await encrypt.hash(query.password)
-   console.log('nytt'+ newPassword)
- console.log( await encrypt.hash('Hej'))
+  let newPassword = await encrypt.hash(query.password)
+  console.log('nytt' + newPassword)
+  console.log(await encrypt.hash('Hej'))
+}
+
+User.changeImg = async (img, email, result) => {
+  await fs.mkdir(USERS_IMGS_PATH + email)
+  img.mv(`${USERS_IMGS_PATH + email}/img.${img.name.split('.').pop()}`, (err) => {
+    if (err) {
+      result(null, { status: false, msg: 'Det gick inte att byta profilbild.' })
+    } else {
+      result(null, { status: true, msg: 'Din profilbild har bytts.' })
+    }
+  })
+}
+
+User.login = ({ email, password }, result) => {
+  const sql = `SELECT email,password FROM users where email='${email}' LIMIT 1`
+  connection.query(sql, async (err, res) => {
+    if (err) {
+      console.log(err)
+      result(err, null);
+    } else {
+      if (res.length) {
+        const correctPassword = await encrypt.compare(password, res[0].password);
+        const session = await Sessions.createSession(email);
+        if (correctPassword && session) {
+          result(null, { status: true, session });
+          return;
+        }
+      }
+      result(null, { status: false, msg: 'Felaktiga inloggningsuppgifter.' });
+    }
+  })
 }
 
 module.exports = User;
