@@ -107,3 +107,10 @@ exports.userRegisterationValidation = (userData) => {
         msg
     }
 }
+exports.updateFunctions = {
+    validEmail,
+    validPassword,
+    validPersonalNumber,
+    validPostalCode,
+    validTelephone,
+    }

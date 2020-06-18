@@ -1,5 +1,6 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
+const utilities = require("../utilities/user.utilities")
 
 const isEmailAlreadyExist = (email) => {
   const sql = `SELECT CASE WHEN EXISTS (SELECT * FROM users WHERE email='${email}' LIMIT 1) THEN 'true' ELSE 'false' END AS result`;
@@ -12,7 +13,6 @@ const isEmailAlreadyExist = (email) => {
     })
   })
 }
-
 const isPersonalNumberAlreadyExist = (personalNumber) => {
   const sql = `SELECT CASE WHEN EXISTS (SELECT * FROM users WHERE p_nr='${personalNumber}' LIMIT 1) THEN 'true' ELSE 'false' END AS result`;
   return new Promise((resolve) => {
@@ -69,19 +69,76 @@ User.deleteUserData = (result, email) => {
   });
 };
 
-User.changeUserData = (result, query) => {
-  const sql = `UPDATE users SET f_name='${query.f_name}', l_name='${query.l_name}', p_nr='${query.p_nr}', address='${query.address}', city='${query.city}', postal_code='${query.postal_code}', telephone='${query.telephone}' WHERE email = '${query.email}'`
-  connection.query(sql, (err, res) => {
+User.changeUserData = async (result, query) => {
+  const currentEmail = 'magnus2@gmail.com'
+  let currentPersonalNumber;
+  let newPersonalNumber;
+  let validPersonalNumber;
+  let readyToChangePersonalNumber = true;
+  let newEmail;
+  let validMail;
+  let readyToChangeEmail = true;
+
+  let sql = `SELECT p_nr from users WHERE email = '${currentEmail}'`
+  connection.query(sql, async (err, res) => {
     if (err) {
       console.log("Error", err);
       result(null, err);
       return;
     }
-    console.log("userinfo", res);
+    else {
+      currentPersonalNumber = res[0].p_nr
 
-    result(null, res);
+      currentPersonalNumber != query.p_nr ? newPersonalNumber = true : newPersonalNumber = false
+      if (newPersonalNumber) {
+        validPersonalNumber = utilities.updateFunctions.validPersonalNumber(query.p_nr)
 
+        if (validPersonalNumber) {
+          readyToChangePersonalNumber = ! await isPersonalNumberAlreadyExist(query.p_nr)
+        }
+        else {
+          readyToChangePersonalNumber = false
+        }
+      }
+
+      currentEmail !== query.email ? newEmail = true : newEmail = false
+      if (newEmail) {
+        validMail = utilities.updateFunctions.validEmail(query.email)
+
+        if (validMail) {
+          readyToChangeEmail = ! await isEmailAlreadyExist(query.email)
+        }
+        else{
+          readyToChangeEmail = false
+        }
+      }
+      const validPostalCode = utilities.updateFunctions.validPostalCode(query.postal_code)
+      const validTelephone = utilities.updateFunctions.validTelephone(query.telephone)
+
+      if (readyToChangePersonalNumber && readyToChangeEmail && validPostalCode && validTelephone) {
+        sql = `UPDATE users SET f_name='${query.f_name}', l_name='${query.l_name}',
+     p_nr='${query.p_nr}', address='${query.address}', city='${query.city}',
+       postal_code='${query.postal_code}', telephone='${query.telephone}', email='${query.email}' WHERE email = '${currentEmail}'`
+        connection.query(sql, (err, res) => {
+          if (err) {
+            console.log("Error", err);
+            result(null, err);
+            return;
+          }
+
+          result(null, res);
+
+        });
+      }
+      else {
+        
+        result(null, { status: false, msg: `Något är fel. Det kan vara personnumret eller mailet som är upptaget.
+        Det kan också vara så att du angett fel postnummer eller telefonnummer. Kontrollera all data igen!` })
+      }
+    }
   });
+
+
 };
 
 User.addNewUser = async (userData, result) => {
@@ -113,6 +170,25 @@ User.addNewUser = async (userData, result) => {
   } else {
     result(null, { status: false, msg: `E-post | personnummer är redan kopplad med ett konto.` })
   }
+}
+
+User.changePassword = async (result, query) => {
+  const currentEmail = 'magnus4@gmail.com'
+  const sql = `SELECT password from users WHERE email='${currentEmail}'`
+  connection.query(sql, (err, res) => {
+    if (err) {
+      console.log("Error", err);
+      result(null, err);
+      return;
+    }
+
+    result(null, res);
+    console.log('databas'+JSON.stringify(res[0].password))
+
+  });
+   let newPassword = await encrypt.hash(query.password)
+   console.log('nytt'+ newPassword)
+ console.log( await encrypt.hash('Hej'))
 }
 
 module.exports = User;

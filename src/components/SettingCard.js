@@ -8,6 +8,7 @@ import LabelAndInput from './LabelAndInput';
 import TextAsLink from './TextAsLink'
 import Button from './Button'
 import userimg from '../user.png'
+import UserConfirmation from './UserConfirmation'
 
 
 const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser']
@@ -68,6 +69,9 @@ const SettingCard = () => {
                             </div>
                             <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={setPhone} />
                             <LabelAndInput type="mail" labelText="Email" text={mail} handleChange={setMail} />
+                            <Button buttonText='Radera mitt konto' handleClick={() => {UserConfirmation(
+                                {text:'Är du säker på att du vill radera all data?', confirmAction: () => {alert('hej')}})}} className='rejectButton' />
+    
                         </div>
                     </>
                 }

@@ -57,3 +57,15 @@ exports.newAccount = (req, res) => {
     });
   }
 }
+
+exports.changePassword = (req, res) => {
+  User.changePassword((err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message,
+      });
+    } else {
+      res.send(data);
+    }
+  }, req.query);
+};
