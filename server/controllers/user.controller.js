@@ -69,3 +69,17 @@ exports.uploadImg = (req, res) => {
     }
   })
 }
+
+exports.login = (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  User.login({ email, password }, (err, data) => {
+    if (err) {
+      res.status(500).send({
+        message: err.message,
+      });
+    } else {
+      res.send(data);
+    }
+  })
+}

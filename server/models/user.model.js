@@ -1,6 +1,9 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
 const fs = require('../utilities/fs');
+const Sessions = require('./sessions.modell')
+
+
 const USERS_IMGS_PATH = './fileSystem/files/usersImgs/';
 
 const isEmailAlreadyExist = (email) => {
@@ -124,6 +127,26 @@ User.changeImg = async (img, email, result) => {
       result(null, { status: false, msg: 'Det gick inte att byta profilbild.' })
     } else {
       result(null, { status: true, msg: 'Din profilbild har bytts.' })
+    }
+  })
+}
+
+User.login = ({ email, password }, result) => {
+  const sql = `SELECT email,password FROM users where email='${email}' LIMIT 1`
+  connection.query(sql, async (err, res) => {
+    if (err) {
+      console.log(err)
+      result(err, null);
+    } else {
+      if (res.length) {
+        const correctPassword = await encrypt.compare(password, res[0].password);
+        const session = await Sessions.createSession(email);
+        if (correctPassword && session) {
+          result(null, { status: true, session });
+          return;
+        }
+      }
+      result(null, { status: false, msg: 'Felaktiga inloggningsuppgifter.' });
     }
   })
 }

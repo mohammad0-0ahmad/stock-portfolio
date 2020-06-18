@@ -7,11 +7,13 @@ import { useState } from 'react'
 import '../css/EnteryPage.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons'
+import { json } from 'body-parser';
+import { fetchJSON } from '../utilities/fetchData'
 
 const CARDS = ['Inloggning', 'Registrering', 'Återställ lösenordet'];
 
 const EnteryPage = () => {
-    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
 
@@ -24,11 +26,25 @@ const EnteryPage = () => {
 
     shownCard === '404' && history.push('/404');
 
+    const handelLogin = () => {
+        if (history.location.pathname === '/') {
+            fetchJSON('/login', { email: userEmail, password }, (data) => {
+                if (data.status) {
+                    localStorage.setItem('sessionId', data.session)
+                    history.push('/login');
+                } else {
+                    //show a response for user
+                }
+            })
+        }
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        localStorage.setItem('sessionId', '1234s56')
-        history.push('/login')
+        handelLogin()
+        //
     }
+
     return (
         <div id='EnteryPage'>
             <div>
@@ -48,8 +64,8 @@ const EnteryPage = () => {
                                     <LabelAndInput
                                         className='logInLabelAndInput'
                                         labelText='Förnamn'
-                                        text={userName}
-                                        handleChange={setUserName}
+                                        text={userEmail}
+                                        handleChange={setUserEmail}
                                         type='text'
                                         placeHolder='Skriv in ditt förnamn'
                                         required={true}
@@ -57,8 +73,8 @@ const EnteryPage = () => {
                                     <LabelAndInput
                                         className='logInLabelAndInput'
                                         labelText='Efternamn'
-                                        text={userName}
-                                        handleChange={setUserName}
+                                        text={userEmail}
+                                        handleChange={setUserEmail}
                                         type='text'
                                         placeHolder='Skriv in ditt efternamn'
                                         required={true}
@@ -67,8 +83,8 @@ const EnteryPage = () => {
                                 <LabelAndInput
                                     className='logInLabelAndInput'
                                     labelText='Personnummer'
-                                    text={userName}
-                                    handleChange={setUserName}
+                                    text={userEmail}
+                                    handleChange={setUserEmail}
                                     type='text'
                                     placeHolder='Skriv in ditt personnummer'
                                     required={true}
@@ -76,8 +92,8 @@ const EnteryPage = () => {
                                 <LabelAndInput
                                     className='logInLabelAndInput'
                                     labelText='Adress'
-                                    text={userName}
-                                    handleChange={setUserName}
+                                    text={userEmail}
+                                    handleChange={setUserEmail}
                                     type='text'
                                     placeHolder='Skriv in din adress'
                                     required={true}
@@ -86,8 +102,8 @@ const EnteryPage = () => {
                                     <LabelAndInput
                                         className='logInLabelAndInput'
                                         labelText='Postort'
-                                        text={userName}
-                                        handleChange={setUserName}
+                                        text={userEmail}
+                                        handleChange={setUserEmail}
                                         type='text'
                                         placeHolder='Skriv in din postort'
                                         required={true}
@@ -95,8 +111,8 @@ const EnteryPage = () => {
                                     <LabelAndInput
                                         className='logInLabelAndInput'
                                         labelText='Postnummer'
-                                        text={userName}
-                                        handleChange={setUserName}
+                                        text={userEmail}
+                                        handleChange={setUserEmail}
                                         type='text'
                                         placeHolder='Skriv in ditt postnummer'
                                         required={true}
@@ -105,8 +121,8 @@ const EnteryPage = () => {
                                 <LabelAndInput
                                     className='logInLabelAndInput'
                                     labelText='Telefonnummer'
-                                    text={userName}
-                                    handleChange={setUserName}
+                                    text={userEmail}
+                                    handleChange={setUserEmail}
                                     type='tel'
                                     placeHolder='Skriv in ditt telefonnummer'
                                     required={true}
@@ -116,8 +132,8 @@ const EnteryPage = () => {
                         <LabelAndInput
                             className='logInLabelAndInput'
                             labelText='E-postadress'
-                            text={userName}
-                            handleChange={setUserName}
+                            text={userEmail}
+                            handleChange={setUserEmail}
                             type='email'
                             placeHolder='Skriv in ditt e-post'
                             required={true}

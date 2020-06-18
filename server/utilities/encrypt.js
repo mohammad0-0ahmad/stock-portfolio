@@ -8,3 +8,6 @@ exports.hash = (string) => {
         })
     })
 }
+exports.compare =(string,hash)=>{
+    return bcrypt.compare(string,hash)
+}
