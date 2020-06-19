@@ -11,9 +11,10 @@ module.exports = (app) => {
     app.post("/settings/deleteinfo", User.deleteInfo);
     app.post("/settings/changeinfo", User.changeInfo);
     app.post("/settings/changePassword", User.changePassword);
-    app.post("/register",User.newAccount)
+    app.post("/register", User.newAccount)
     app.post("/register", User.newAccount);
     app.post("/uploadImg", User.uploadImg);
     app.post("/login", User.login);
     app.post("/verify", Sessions.verifySession);
+    app.get("/img/:sessionId", User.getImg)
 };

@@ -7,7 +7,7 @@ import ChangeAbleRoundedImg from './ChangeAbleRoundedImg';
 import LabelAndInput from './LabelAndInput';
 import TextAsLink from './TextAsLink'
 import Button from './Button'
-import userimg from '../user.png'
+import userimg from '../imgs/user.png'
 import UserConfirmation from './UserConfirmation'
 
 

@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const utilities = require("../utilities/user.utilities");
+const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmail;
 
 exports.getInfo = (req, res) => {
   User.getUserData((err, data) => {
@@ -94,4 +95,21 @@ exports.login = (req, res) => {
       res.send(data);
     }
   })
+}
+
+exports.getImg = async (req, res) => {
+  const email = req.params.sessionId ? await getUserEmailBySessionId(req.params.sessionId) : false
+  if (email) {
+    User.retrieveImg(email, (err, data) => {
+      if (err) {
+        res.status(204).send({
+          message: err.message,
+        });
+      } else {
+        res.writeHead(200, { 'Content-Type': 'image/png' }).end(data, 'binary');
+      }
+    })
+  }else{
+    res.status(403).end();
+  }
 }

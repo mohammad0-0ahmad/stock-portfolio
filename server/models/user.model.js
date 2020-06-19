@@ -1,8 +1,9 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
 const utilities = require("../utilities/user.utilities")
-const fs = require('../utilities/fs');
+const fs = require("fs");
 const Sessions = require('./sessions.modell')
+
 
 
 const USERS_IMGS_PATH = './fileSystem/files/usersImgs/';
@@ -198,7 +199,7 @@ User.changePassword = async (result, query) => {
 }
 
 User.changeImg = async (img, email, result) => {
-  await fs.mkdir(USERS_IMGS_PATH + email)
+  fs.mkdirSync(USERS_IMGS_PATH + email, { recursive: true })
   img.mv(`${USERS_IMGS_PATH + email}/img.${img.name.split('.').pop()}`, (err) => {
     if (err) {
       result(null, { status: false, msg: 'Det gick inte att byta profilbild.' })
@@ -228,4 +229,12 @@ User.login = ({ email, password }, result) => {
   })
 }
 
+User.retrieveImg = (email, result) => {
+  try{
+  var img = fs.readFileSync(`${USERS_IMGS_PATH + email}/img.png`);
+  result(null,img)
+  }catch(err){
+    result( {message: 'Not found'},null)
+  }
+}
 module.exports = User;
