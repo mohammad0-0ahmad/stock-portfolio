@@ -59,7 +59,20 @@ exports.newAccount = (req, res) => {
   }
 }
 
-exports.changePassword = (req, res) => {
+exports.changePassword = async (req, res) => {
+  const sessionId = req.query.id
+  const email = await getUserEmailBySessionId(sessionId)
+  if (  req.query.newPassword1 !== req.query.newPassword2) {
+    res.send('Var vänlig att se till så att du skriver ditt nya lösenord på exakt samma sätt två gånger.')
+    return
+  }
+  if (!utilities.updateFunctions.validPassword(req.query.newPassword1)) {
+    res.send('Ditt nya lösenord är inte giltigt, det måste innehålla stor bokstav, siffror och vara 8 bokstäver långt.')
+    return
+  }
+
+
+  const emailPassword = {'email':email, 'oldPassword': req.query.oldPassword, 'newPassword': req.query.newPassword1}
   User.changePassword((err, data) => {
     if (err) {
       res.status(500).send({
@@ -68,7 +81,7 @@ exports.changePassword = (req, res) => {
     } else {
       res.send(data);
     }
-  }, req.query);
+  }, emailPassword);
 };
 
 exports.uploadImg = (req, res) => {
