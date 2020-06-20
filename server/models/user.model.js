@@ -178,23 +178,37 @@ User.addNewUser = async (userData, result) => {
   }
 }
 
-User.changePassword = async (result, query) => {
-  const currentEmail = 'magnus4@gmail.com'
-  const sql = `SELECT password from users WHERE email='${currentEmail}'`
-  connection.query(sql, (err, res) => {
+User.changePassword = async (result, emailPassword) => {
+  let sql = `SELECT password from users WHERE email='${emailPassword.email}'`
+  connection.query(sql, async (err, res) => {
     if (err) {
       console.log("Error", err);
       result(null, err);
       return;
     }
+    else {
+      const passwordMatching = await encrypt.compare(emailPassword.oldPassword, res[0].password)
 
-    result(null, res);
-    console.log('databas' + JSON.stringify(res[0].password))
+      if (passwordMatching) {
+        const newHashedPassword = await encrypt.hash(emailPassword.newPassword)
+        sql = `UPDATE  users set password='${newHashedPassword}' WHERE email='${emailPassword.email}'`
+        connection.query(sql, async (err, res) => {
+          if (err) {
+            console.log("Error", err);
+            result(null, err);
+            return;
+          }
+          else {
+            result(null, { status: true, msg: 'Ditt lösenord har ändrats.' });
+          }
+        })
+      }
+      else {
+        result(null, { status: true, msg: 'Ditt gamla lösenord stämde inte.' });
+      }
 
+    }
   });
-  let newPassword = await encrypt.hash(query.password)
-  console.log('nytt' + newPassword)
-  console.log(await encrypt.hash('Hej'))
 }
 
 User.changeImg = async (img, email, result) => {
