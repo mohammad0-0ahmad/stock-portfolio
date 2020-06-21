@@ -113,4 +113,6 @@ exports.updateFunctions = {
     validPersonalNumber,
     validPostalCode,
     validTelephone,
-    }
+}
+//temp
+exports.isValidEmail = validEmail;
