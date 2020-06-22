@@ -15,7 +15,10 @@ exports.getInfo = (req, res) => {
 };
 
 
-exports.deleteInfo = (req, res) => {
+exports.deleteInfo = async (req, res) => {
+  const sessionId = req.body.session
+  const email = await getUserEmailBySessionId(sessionId)
+
   User.deleteUserData((err, data) => {
     if (err) {
       res.status(500).send({
@@ -24,7 +27,7 @@ exports.deleteInfo = (req, res) => {
     } else {
       res.send(data);
     }
-  }, req.query.email);
+  }, email);
 };
 
 exports.changeInfo = (req, res) => {

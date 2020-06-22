@@ -61,20 +61,22 @@ User.getUserData = (result, email) => {
 };
 
 User.deleteUserData = (result, email) => {
-  const sql = `DELETE FROM users WHERE email = '${email}'`
+  const sql = `DELETE FROM users WHERE email = '${ email }'`
   connection.query(sql, (err, res) => {
     if (err) {
       console.log("Error", err);
       result(null, err);
       return;
     }
-    console.log("userinfo", res);
+    else {
+      console.log("userinfo", res);
+      fs.rmdirSync(USERS_IMGS_PATH + { email }, { recursive: true });
 
-    result(null, res);
 
-  });
-};
 
+    };
+  })
+}
 User.changeUserData = async (result, query) => {
   const currentEmail = 'magnus2@gmail.com'
   let currentPersonalNumber;
@@ -244,11 +246,12 @@ User.login = ({ email, password }, result) => {
 }
 
 User.retrieveImg = (email, result) => {
-  try{
-  var img = fs.readFileSync(`${USERS_IMGS_PATH + email}/img.png`);
-  result(null,img)
-  }catch(err){
-    result( {message: 'Not found'},null)
+  try {
+    var img = fs.readFileSync(`${USERS_IMGS_PATH + email}/img.png`);
+    result(null, img)
+  } catch (err) {
+    result({ message: 'Not found' }, null)
   }
 }
+
 module.exports = User;
