@@ -2,7 +2,9 @@ const User = require("../models/user.model").User;
 const utilities = require("../utilities/user.utilities");
 const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmail;
 
-exports.getInfo = (req, res) => {
+exports.getInfo = async (req, res) => {
+  const sessionId = req.body.session
+  const email = await getUserEmailBySessionId(sessionId)
   User.getUserData((err, data) => {
     if (err) {
       res.status(500).send({
@@ -11,11 +13,14 @@ exports.getInfo = (req, res) => {
     } else {
       res.send(data);
     }
-  }, req.query.email);
+  }, email);
 };
 
 
-exports.deleteInfo = (req, res) => {
+exports.deleteInfo = async (req, res) => {
+  const sessionId = req.body.session
+  const email = await getUserEmailBySessionId(sessionId)
+
   User.deleteUserData((err, data) => {
     if (err) {
       res.status(500).send({
@@ -24,7 +29,7 @@ exports.deleteInfo = (req, res) => {
     } else {
       res.send(data);
     }
-  }, req.query.email);
+  }, email);
 };
 
 exports.changeInfo = (req, res) => {
