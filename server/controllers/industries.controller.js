@@ -15,3 +15,15 @@ exports.getIndustries = (req, res) => {
     res.status(400).send("");
   }
 };
+
+exports.getChangePreferedIndustry = (req, res) => {
+    Preferred_Industries.getChange((err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message,
+        });
+      } else {
+        res.send(data);
+      }
+    }, req.body);
+};

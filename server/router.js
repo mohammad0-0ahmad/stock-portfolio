@@ -8,6 +8,7 @@ module.exports = (app) => {
     app.post("/stocks_overview", stocks.userStocksOverview);
     app.post("/userinfo", User.getInfo);
     app.post("/industries", industries.getIndustries);
+    app.post("/changePreferredIndustries", industries.getChangePreferedIndustry)
     app.post("/settings/deleteinfo", User.deleteInfo);
     app.post("/settings/changeinfo", User.changeInfo);
     app.post("/settings/changePassword", User.changePassword);
