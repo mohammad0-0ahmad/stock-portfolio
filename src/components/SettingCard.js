@@ -25,7 +25,11 @@ const SettingCard = () => {
     const [zipCode, setZipCode] = useState('')
     const [phone, setPhone] = useState('')
     const [mail, setMail] = useState('')
-    const [passWord, setPassWord] = useState('')
+    const [password, setPassword] = useState('')
+    const [newPassword1, setNewPassword1] = useState('')
+    const [newPassword2, setNewPassword2] = useState('')
+
+
     const preferedIndustries = ['Bygg', 'Teknik', 'Hälsa', 'Dagligvaror', 'Råvaror', 'Finans', 'Fastigheter', 'Verkstad']
 
     const [bygg, setBygg] = useState(true)
@@ -55,8 +59,8 @@ const SettingCard = () => {
             }
         })
     }, [])
-    
-    
+
+
     const deleteData = () => {
 
         fetchJSON('/settings/deleteinfo', { session: localStorage.sessionId }, (data) => {
@@ -66,6 +70,15 @@ const SettingCard = () => {
             }
         })
 
+    }
+    const changePassword = () => {
+
+        fetchJSON('/settings/changePassword', {session: localStorage.sessionId, password: password, newPassword1: newPassword1, newPassword2: newPassword2},(data) => {
+            if (data.status) {
+                console.log('Change password succesful')
+            } else {
+            }
+        })
     }
 
     return (
@@ -100,10 +113,10 @@ const SettingCard = () => {
                 {
                     selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[1] &&
                     <>
-                        <LabelAndInput type="password" labelText="Nuvarande lösenord" text={passWord} />
+                        <LabelAndInput type="password" labelText="Nuvarande lösenord" text={password} handleChange={setPassword} />
                         <div>
-                            <LabelAndInput type="password" labelText="Nytt lösenord" />
-                            <LabelAndInput type="password" labelText="Bekräfta nytt lösenord" />
+                            <LabelAndInput type="password" labelText="Nytt lösenord" text={newPassword1} handleChange={setNewPassword1} />
+                            <LabelAndInput type="password" labelText="Bekräfta nytt lösenord" text={newPassword2} handleChange={setNewPassword2} />
                         </div>
                     </>
                 }
@@ -130,7 +143,19 @@ const SettingCard = () => {
                     </>
                 }
                 <div id='saveSetteingChangesBar'>
-                    <Button buttonText='Spara' handleClick={() => { console.log("change") }} className='saveButton' />
+                    <Button buttonText='Spara' handleClick={() => {
+                        switch (selectedSettingSection) {
+                            case SETTING_SUB_NAV_BAR_TITLES[0]: { UserConfirmation(
+                                { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () => { console.log('hej') } }); break} 
+                            case SETTING_SUB_NAV_BAR_TITLES[1]: { UserConfirmation(
+                                { text: 'Är du säker på att du vill ändra lösenord?', confirmAction: () => { changePassword() } }); break } 
+                            case SETTING_SUB_NAV_BAR_TITLES[2]: { UserConfirmation(
+                                { text: 'Är du säker på att du vill ändra industrier?', confirmAction: () => { console.log('hej') } }); break } 
+                            default:
+                        }
+                    }}
+
+                        className='saveButton' />
                 </div>
             </ContentItem>
         </Content>
