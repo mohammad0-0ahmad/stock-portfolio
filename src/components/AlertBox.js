@@ -1,34 +1,28 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Button from './Button'
-import '../css/UserConfirmation.css'
+import '../css/AlertBox.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons"
+import { faExclamationCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 
 
-const UserConfirmation = ({ text, confirmAction, rejectAction, duration = 10 }) => {
+const AlertBox = ({ text, confirmAction, success = true, duration = 1000 }) => {
     var div = document.createElement('div');
-    div.setAttribute('id', 'UserConfirmation');
+    div.setAttribute('id', 'AlertBox');
+    div.setAttribute('class', success ? 'success' : 'fail');
     ReactDOM.render(
         <div>
-            <FontAwesomeIcon icon={faQuestionCircle} id='logo' />
+            <FontAwesomeIcon icon={success ? faCheckCircle : faExclamationCircle} id='logo' />
             <h1>{text}</h1>
             <div id='makeDecision'>
                 <Button
-                    buttonText='Ja'
-                    className='confirmButton'
+                    buttonText='Okej'
+                    className={success ? 'confirmButton' : 'rejectButton'}
                     handleClick={() => {
                         confirmAction && confirmAction()
                         div.remove()
                     }
                     } />
-                <Button
-                    buttonText='Nej'
-                    className='rejectButton'
-                    handleClick={() => {
-                        rejectAction && rejectAction()
-                        div.remove()
-                    }} />
             </div>
         </div>
         , div);
@@ -40,4 +34,4 @@ const UserConfirmation = ({ text, confirmAction, rejectAction, duration = 10 }) 
     }, (duration - 1) * 1000)
 }
 
-export default UserConfirmation;
+export default AlertBox;

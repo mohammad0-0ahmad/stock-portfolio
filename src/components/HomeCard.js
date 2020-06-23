@@ -81,8 +81,9 @@ const HomeCard = () => {
                         data={stockOverview.industries}
                         currency={stockOverview.currency}
                     />
+                }{stockOverview.totalBalance === '0' &&
+                    <MessageCard text='Inget innehav tillagt ännu' />
                 }
-                <MessageCard text='Inget innehav tillagt ännu' />
 
             </ContentItem>
         </Content>

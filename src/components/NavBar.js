@@ -30,7 +30,7 @@ const NavBar = () => {
       </NavLink>
       {navItems}
       <div className="line">_______________</div>
-      <LogoutButton handleClick={() => localStorage.clear()} />
+      <LogoutButton/>
     </nav>
   );
 };

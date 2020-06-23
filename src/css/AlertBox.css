@@ -1,4 +1,4 @@
-#UserConfirmation {
+#AlertBox {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -10,8 +10,8 @@
   display: flex;
   animation: showMe 0.5s 1;
 }
-#UserConfirmation > div {
-  border: 0.2vw solid var(--color11);
+#AlertBox > div {
+  border: 0.2vw solid;
   border-radius: 2vw;
   grid-template-rows: min-content auto min-content;
   padding: 2vw;
@@ -25,25 +25,34 @@
   text-align: center;
   overflow: hidden;
 }
-#UserConfirmation > div > * {
+#AlertBox.success > div {
+  border-color: #34bfa3;
+}
+#AlertBox.fail > div {
+  border-color: #dc473c;
+}
+#AlertBox > div > * {
   margin: 0 auto;
 }
-#UserConfirmation h1 {
+#AlertBox h1 {
   color: var(--color17);
   font-size: 2vw;
   align-self: flex-start;
 }
-#UserConfirmation #logo {
+#AlertBox #logo {
   font-size: 10vw;
   padding-bottom: 2vw;
-  color: #ffd98d;
 }
-#UserConfirmation #makeDecision {
+#AlertBox.success #logo {
+  color: #34bfa3;
+}
+#AlertBox.fail #logo {
+  color: #dc473c;
+}
+#AlertBox #makeDecision {
   display: flex;
   width: 30vw;
-}
-#UserConfirmation #makeDecision > *:last-child {
-  margin-left: auto;
+  justify-content: center;
 }
 /*Animation*/
 @keyframes showMe {
