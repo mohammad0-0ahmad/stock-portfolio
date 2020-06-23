@@ -244,11 +244,11 @@ User.login = ({ email, password }, result) => {
 }
 
 User.retrieveImg = (email, result) => {
-  try{
-  var img = fs.readFileSync(`${USERS_IMGS_PATH + email}/img.png`);
-  result(null,img)
-  }catch(err){
-    result( {message: 'Not found'},null)
+  try {
+    var img = fs.readFileSync(`${USERS_IMGS_PATH + email}/img.png`);
+    result(null, img)
+  } catch (err) {
+    result({ message: 'Not found' }, null)
   }
 }
-module.exports = User;
+module.exports = { User, isEmailAlreadyExist };

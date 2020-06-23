@@ -19,20 +19,24 @@
   font-size: 3vw;
   color: #ffffff;
 }
+#EnteryPage h1 > a {
+  font-size: 3vw;
+  color: #ffffff;
+}
 #EnteryPage .Button {
   margin-right: 1vw;
 }
-#login {
+#LoginForm {
   margin-left: 50%;
   padding-left: 0;
 }
-#login > form > * {
+#LoginForm > form > * {
   width: 100%;
 }
-#register {
+#RegisterForm {
   margin: 0;
 }
-#register > * {
+#RegisterForm > * {
   margin: 1vw 0;
 }
 #EnteryPage .oneLine {
@@ -63,7 +67,7 @@
   background-size: 90%;
   width: 37vw;
   height: 37vw;
-  animation: imgMovement 20s ease infinite;
+  animation: imgMovement 5s ease infinite;
   position: fixed;
   top: 50%;
   right: 0%;

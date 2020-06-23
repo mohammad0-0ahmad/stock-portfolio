@@ -9,8 +9,6 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path='/register' exact={true} render={() => <EnteryPage shownCard='Registrering' />} />
-        <Route path='/reset-password' exact={true} component={EnteryPage} />
         <Route path='/login' exact={true}>
           <Redirect to='/' />
         </Route>

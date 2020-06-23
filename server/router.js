@@ -2,6 +2,7 @@ const stocks = require("./controllers/stocks.controller");
 const User = require("./controllers/user.controller");
 const industries = require("./controllers/industries.controller");
 const Sessions = require("./controllers/sessions.controller");
+const ResetPasswordRequests = require("./controllers/resetPasswordRequests.controller")
 
 module.exports = (app) => {
     app.post("/stocks", stocks.findAllUserStocks);
@@ -16,5 +17,8 @@ module.exports = (app) => {
     app.post("/uploadImg", User.uploadImg);
     app.post("/login", User.login);
     app.post("/verify", Sessions.verifySession);
-    app.get("/img/:sessionId", User.getImg)
+    app.get("/img/:sessionId", User.getImg);
+    app.post("/resetPassword/request", ResetPasswordRequests.createRequest);
+    app.post("/resetPassword/check", ResetPasswordRequests.checkRequest);
+    app.post("/resetPassword/changePassword", ResetPasswordRequests.changePassword);
 };
