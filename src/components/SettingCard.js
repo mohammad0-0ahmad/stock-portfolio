@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/SettingCard.css'
 import Content from './Content';
 import ContentItem from './ContentItem'
@@ -31,14 +31,14 @@ const SettingCard = () => {
         passWord: 'henrik'
     }
 
-    const [firstName, setFirstName] = useState(person.firstName)
-    const [lastName, setLastName] = useState(person.lastName)
-    const [personNumber, setPersonNumber] = useState(person.personNumber)
-    const [adress, setAdress] = useState(person.adress)
-    const [city, setCity] = useState(person.city)
-    const [zipCode, setZipCode] = useState(person.zipCode)
-    const [phone, setPhone] = useState(person.phone)
-    const [mail, setMail] = useState(person.mail)
+    const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
+    const [personNumber, setPersonNumber] = useState('')
+    const [adress, setAdress] = useState('')
+    const [city, setCity] = useState('')
+    const [zipCode, setZipCode] = useState('')
+    const [phone, setPhone] = useState('')
+    const [mail, setMail] = useState('')
     const [passWord, setPassWord] = useState(person.passWord)
     const preferedIndustries = ['Bygg', 'Teknik', 'Hälsa', 'Dagligvaror', 'Råvaror', 'Finans', 'Fastigheter', 'Verkstad']
 
@@ -51,8 +51,26 @@ const SettingCard = () => {
     const [fastigheter, setFastigheter] = useState(true)
     const [verkstad, setVerkstad] = useState(true)
 
+    useEffect(() => {
+        fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
+            if (data.status) {
+                console.log('error')
+            }
+            else {
+                setFirstName(data[0].f_name)
+                setLastName(data[0].l_name)
+                setPersonNumber(data[0].p_nr)
+                setAdress(data[0].address)
+                setCity(data[0].city)
+                setZipCode(data[0].postal_code)
+                setPhone(data[0].telephone)
+                setMail(data[0].email)
 
-
+            }
+        })
+    }, [])
+    
+    
     const deleteData = () => {
 
         fetchJSON('/settings/deleteinfo', { session: localStorage.sessionId }, (data) => {

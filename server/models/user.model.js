@@ -53,7 +53,6 @@ User.getUserData = (result, email) => {
       return;
     }
     res = res.map((user) => new User(user))
-    console.log("userinfo", res);
 
     result(null, res);
 
@@ -70,8 +69,7 @@ User.deleteUserData = (result, email) => {
     }
     else {
       console.log("userinfo", res);
-      fs.rmdirSync(USERS_IMGS_PATH + { email }, { recursive: true });
-
+      fs.rmdirSync(USERS_IMGS_PATH +  email , { recursive: true });
 
 
     };
