@@ -10,7 +10,7 @@ const Stock = function (stock) {
     this.votingPower = stock.voting_power + '%';
 };
 
-Stock.getUserStocks = (result, owner) => {
+Stock.getUserStocks = (owner,result) => {
     const sql = `SELECT stocks.*,
     (SELECT vote_ability FROM stock_types WHERE symbol = type)*ownership AS voting_power 
     from (SELECT c.name AS company,s.value,s.type,s.amount,s.reg_nr,
@@ -23,7 +23,6 @@ Stock.getUserStocks = (result, owner) => {
             result(null, 'Wrong request...');
         } else {
             res = res.map((stock) => new Stock(stock));
-            console.log("stocks:", res);
             result(null, res);
         }
     });

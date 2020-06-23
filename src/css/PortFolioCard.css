@@ -1,0 +1,12 @@
+#control-bar {
+  display: flex;
+  margin-top: 2vw;
+  margin-bottom: 0;
+  padding: 1vw 0;
+  padding-right: 1vw;
+  padding-left: 1.5vw;
+  align-items: center;
+}
+#control-bar > div:last-child {
+  margin-left: auto;
+}

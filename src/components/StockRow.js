@@ -1,15 +1,16 @@
 import React from "react";
 
 const StockRow = ({ info }) => {
+
   return (
     <tr>
-      <td>{info.a}</td>
-      <td>{info.b}</td>
-      <td>{info.c}</td>
-      <td>{info.d}</td>
-      <td>{info.e}</td>
-      <td>{info.f}</td>
-      <td>{info.g}</td>
+      <td>{info.company}</td>
+      <td>{info.value}</td>
+      <td>{info.type}</td>
+      <td>{info.amount}</td>
+      <td>{info.nr}</td>
+      <td>{info.ownership}</td>
+      <td>{info.votingPower}</td>
     </tr>
   )
 }
