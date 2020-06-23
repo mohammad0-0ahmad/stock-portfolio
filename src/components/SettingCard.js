@@ -17,20 +17,6 @@ import { fetchJSON } from '../utilities/fetchData'
 const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser']
 const SettingCard = () => {
     const [selectedSettingSection, setSelectedSettingSection] = useState(SETTING_SUB_NAV_BAR_TITLES[0])
-    // Testing some components
-
-    let person = {
-        firstName: 'Magnus',
-        lastName: 'Persson',
-        phone: '079 946 3654',
-        mail: 'magnus.persson@hotmail.com',
-        adress: 'Lantmilsgatan 7',
-        zipCode: '415 01',
-        city: 'Göteborg',
-        personNumber: '780717-4444',
-        passWord: 'henrik'
-    }
-
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [personNumber, setPersonNumber] = useState('')
@@ -39,7 +25,7 @@ const SettingCard = () => {
     const [zipCode, setZipCode] = useState('')
     const [phone, setPhone] = useState('')
     const [mail, setMail] = useState('')
-    const [passWord, setPassWord] = useState(person.passWord)
+    const [passWord, setPassWord] = useState('')
     const preferedIndustries = ['Bygg', 'Teknik', 'Hälsa', 'Dagligvaror', 'Råvaror', 'Finans', 'Fastigheter', 'Verkstad']
 
     const [bygg, setBygg] = useState(true)
