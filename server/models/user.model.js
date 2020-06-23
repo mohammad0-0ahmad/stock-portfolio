@@ -60,7 +60,7 @@ User.getUserData = (result, email) => {
 };
 
 User.deleteUserData = (result, email) => {
-  const sql = `DELETE FROM users WHERE email = '${ email }'`
+  const sql = `DELETE FROM users WHERE email = '${email}'`
   connection.query(sql, (err, res) => {
     if (err) {
       console.log("Error", err);
@@ -69,23 +69,15 @@ User.deleteUserData = (result, email) => {
     }
     else {
       console.log("userinfo", res);
-      fs.rmdirSync(USERS_IMGS_PATH +  email , { recursive: true });
+      fs.rmdirSync(USERS_IMGS_PATH + email, { recursive: true });
 
 
     };
   })
 }
-User.changeUserData = async (result, query) => {
-  const currentEmail = 'magnus2@gmail.com'
-  let currentPersonalNumber;
-  let newPersonalNumber;
-  let validPersonalNumber;
-  let readyToChangePersonalNumber = true;
-  let newEmail;
-  let validMail;
-  let readyToChangeEmail = true;
 
-  let sql = `SELECT p_nr from users WHERE email = '${currentEmail}'`
+User.changeUserData = async (result, newData) => {
+  let sql = `SELECT p_nr from users WHERE email = '${newData.oldEmail}'`;
   connection.query(sql, async (err, res) => {
     if (err) {
       console.log("Error", err);
@@ -93,60 +85,40 @@ User.changeUserData = async (result, query) => {
       return;
     }
     else {
-      currentPersonalNumber = res[0].p_nr
-
-      currentPersonalNumber != query.p_nr ? newPersonalNumber = true : newPersonalNumber = false
+      let currentPersonalNumber = res[0].p_nr
+      let newPersonalNumber = false;
+      currentPersonalNumber != newData.personNumber ? newPersonalNumber = true : newPersonalNumber = false
+      let readyToUpdatePersonalNumber = true;
       if (newPersonalNumber) {
-        validPersonalNumber = utilities.updateFunctions.validPersonalNumber(query.p_nr)
-
-        if (validPersonalNumber) {
-          readyToChangePersonalNumber = ! await isPersonalNumberAlreadyExist(query.p_nr)
-        }
-        else {
-          readyToChangePersonalNumber = false
-        }
+        readyToUpdatePersonalNumber = ! await isPersonalNumberAlreadyExist(newData.personNumber)
       }
 
-      currentEmail !== query.email ? newEmail = true : newEmail = false
+      let newEmail = false;
+      let readyToUpdateEmail = true;
+
+      newData.oldEmail !== newData.email ? newEmail = true : newEmail = false
       if (newEmail) {
-        validMail = utilities.updateFunctions.validEmail(query.email)
-
-        if (validMail) {
-          readyToChangeEmail = ! await isEmailAlreadyExist(query.email)
-        }
-        else {
-          readyToChangeEmail = false
-        }
+        readyToUpdateEmail = ! await isEmailAlreadyExist(newData.email)
       }
-      const validPostalCode = utilities.updateFunctions.validPostalCode(query.postal_code)
-      const validTelephone = utilities.updateFunctions.validTelephone(query.telephone)
-
-      if (readyToChangePersonalNumber && readyToChangeEmail && validPostalCode && validTelephone) {
-        sql = `UPDATE users SET f_name='${query.f_name}', l_name='${query.l_name}',
-     p_nr='${query.p_nr}', address='${query.address}', city='${query.city}',
-       postal_code='${query.postal_code}', telephone='${query.telephone}', email='${query.email}' WHERE email = '${currentEmail}'`
+      if (readyToUpdateEmail && readyToUpdatePersonalNumber) {
+        const sql = `UPDATE users SET f_name='${newData.firstName}', l_name='${newData.lastName}',
+     p_nr='${newData.personNumber}', address='${newData.address}', city='${newData.city}',
+       postal_code='${newData.zipCode}', telephone='${newData.phone}', email='${newData.email}' WHERE email = '${newData.oldEmail}'`
         connection.query(sql, (err, res) => {
           if (err) {
             console.log("Error", err);
             result(null, err);
             return;
           }
+          else {
+            result(null, res);
+          }
 
-          result(null, res);
-
-        });
-      }
-      else {
-
-        result(null, {
-          status: false, msg: `Något är fel. Det kan vara personnumret eller mailet som är upptaget.
-        Det kan också vara så att du angett fel postnummer eller telefonnummer. Kontrollera all data igen!` })
+        })
       }
     }
-  });
-
-
-};
+  })
+}
 
 User.addNewUser = async (userData, result) => {
   const { email, password, f_name, l_name, p_nr, address, city, postal_code, telephone } = userData;

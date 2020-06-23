@@ -37,16 +37,31 @@ exports.changeInfo = async (req, res) => {
   const email = await getUserEmailBySessionId(sessionId)
   const newData = req.body
   newData.oldEmail = email
-  User.changeUserData((err, data) => {
-    if (err) {
-      res.status(500).send({
-        message: err.message,
-      });
-    } else {
-      res.send(data);
-    }
-  }, newData);
-};
+  newData.zipCode = newData.zipCode.split(" ").join("")
+  newData.phone = newData.phone.split(" ").join("")
+  const validPersonalNumber = utilities.updateFunctions.validPersonalNumber(newData.personNumber)
+  const validEmail = utilities.updateFunctions.validEmail(newData.email)
+  const validPostalCode = utilities.updateFunctions.validPostalCode(newData.zipCode)
+  const validTelephone = utilities.updateFunctions.validTelephone(newData.phone)
+    
+  if (validPersonalNumber && validEmail && validPostalCode && validTelephone) {
+
+    User.changeUserData((err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message,
+        });
+      } else {
+        res.send(data);
+      }
+    }, newData);
+  }
+  else {
+    res.send( {
+      status: false, msg: `Något är fel. Det kan vara personnumret eller mailet som är upptaget.
+        Det kan också vara så att du angett fel postnummer eller telefonnummer. Kontrollera all data igen!` })
+  }
+}
 
 exports.newAccount = (req, res) => {
   const validationRes = utilities.userRegisterationValidation(req.body);

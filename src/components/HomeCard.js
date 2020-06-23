@@ -17,6 +17,7 @@ import MessageCard from './MessageCard';
 const HomeCard = () => {
     var history = useHistory()
     const [firstName, setFirstName] = useState('')
+    const [lastName, setLastName] = useState('')
     const [personNumber, setPersonNumber] = useState('')
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
@@ -36,6 +37,7 @@ const HomeCard = () => {
             }
             else {
                 setFirstName(data[0].f_name)
+                setLastName(data[0].l_name)
                 setPersonNumber(data[0].p_nr)
                 setAddress(data[0].address)
                 setCity(data[0].city)
@@ -61,7 +63,7 @@ const HomeCard = () => {
         <Content title='Hem' welcomeBar={welcomeBar}>
             <ContentItem>
                 <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => history.push("/settings") }} />
-                <UserImgNamePN userData={{ img: userimg, name: firstName, personNr: personNumber }} />
+                <UserImgNamePN userData={{ img: userimg, name: firstName+' '+lastName, personNr: personNumber }} />
                 <PreferedIndustries industries={industries} />
                 <ContactInfo phone={phone} email={email} address={address} zipCode={zipCode} city={city} />
             </ContentItem>
