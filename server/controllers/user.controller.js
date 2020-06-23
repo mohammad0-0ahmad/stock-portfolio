@@ -32,7 +32,11 @@ exports.deleteInfo = async (req, res) => {
   }, email);
 };
 
-exports.changeInfo = (req, res) => {
+exports.changeInfo = async (req, res) => {
+  const sessionId = req.body.session
+  const email = await getUserEmailBySessionId(sessionId)
+  const newData = req.body
+  newData.oldEmail = email
   User.changeUserData((err, data) => {
     if (err) {
       res.status(500).send({
@@ -41,7 +45,7 @@ exports.changeInfo = (req, res) => {
     } else {
       res.send(data);
     }
-  }, req.query);
+  }, newData);
 };
 
 exports.newAccount = (req, res) => {

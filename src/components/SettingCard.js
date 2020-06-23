@@ -20,11 +20,11 @@ const SettingCard = () => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [personNumber, setPersonNumber] = useState('')
-    const [adress, setAdress] = useState('')
+    const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [zipCode, setZipCode] = useState('')
     const [phone, setPhone] = useState('')
-    const [mail, setMail] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [newPassword1, setNewPassword1] = useState('')
     const [newPassword2, setNewPassword2] = useState('')
@@ -50,11 +50,11 @@ const SettingCard = () => {
                 setFirstName(data[0].f_name)
                 setLastName(data[0].l_name)
                 setPersonNumber(data[0].p_nr)
-                setAdress(data[0].address)
+                setAddress(data[0].address)
                 setCity(data[0].city)
                 setZipCode(data[0].postal_code)
                 setPhone(data[0].telephone)
-                setMail(data[0].email)
+                setEmail(data[0].email)
 
             }
         })
@@ -72,10 +72,25 @@ const SettingCard = () => {
 
     }
     const changePassword = () => {
+        fetchJSON('/settings/changePassword', {
+            session: localStorage.sessionId, password: password,
+            newPassword1: newPassword1, newPassword2: newPassword2
+        }, (data) => {
 
-        fetchJSON('/settings/changePassword', {session: localStorage.sessionId, password: password, newPassword1: newPassword1, newPassword2: newPassword2},(data) => {
             if (data.status) {
                 console.log('Change password succesful')
+            } else {
+            }
+        })
+    }
+
+    const changeInfo = () => {
+        fetchJSON('/settings/changeInfo', {
+            session: localStorage.sessionId, firstName: firstName, lastName: lastName, personNumber: personNumber,
+            address: address, city: city, zipCode: zipCode, phone: phone, email: email, oldEmail: ''
+        }, (data) => {
+            if (data.status) {
+                console.log('Change info succesful')
             } else {
             }
         })
@@ -95,13 +110,13 @@ const SettingCard = () => {
                                 <LabelAndInput type="text" labelText="Efternamn" text={lastName} handleChange={setLastName} />
                             </div>
                             <LabelAndInput type="text" labelText="Personnummer" text={personNumber} handleChange={setPersonNumber} />
-                            <LabelAndInput type="text" labelText="Adress" text={adress} handleChange={setAdress} />
+                            <LabelAndInput type="text" labelText="Adress" text={address} handleChange={setAddress} />
                             <div className='oneLine'>
                                 <LabelAndInput type="text" labelText="Stad" text={city} handleChange={setCity} />
                                 <LabelAndInput type="text" labelText="Postnummer" text={zipCode} handleChange={setZipCode} />
                             </div>
                             <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={setPhone} />
-                            <LabelAndInput type="mail" labelText="Email" text={mail} handleChange={setMail} />
+                            <LabelAndInput type="mail" labelText="Email" text={email} handleChange={setEmail} />
                             <Button buttonText='Radera mitt konto' handleClick={() => {
                                 UserConfirmation(
                                     { text: 'Är du säker på att du vill radera all data?', confirmAction: () => { deleteData() } })
@@ -145,12 +160,18 @@ const SettingCard = () => {
                 <div id='saveSetteingChangesBar'>
                     <Button buttonText='Spara' handleClick={() => {
                         switch (selectedSettingSection) {
-                            case SETTING_SUB_NAV_BAR_TITLES[0]: { UserConfirmation(
-                                { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () => { console.log('hej') } }); break} 
-                            case SETTING_SUB_NAV_BAR_TITLES[1]: { UserConfirmation(
-                                { text: 'Är du säker på att du vill ändra lösenord?', confirmAction: () => { changePassword() } }); break } 
-                            case SETTING_SUB_NAV_BAR_TITLES[2]: { UserConfirmation(
-                                { text: 'Är du säker på att du vill ändra industrier?', confirmAction: () => { console.log('hej') } }); break } 
+                            case SETTING_SUB_NAV_BAR_TITLES[0]: {
+                                UserConfirmation(
+                                    { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () => { changeInfo() } }); break
+                            }
+                            case SETTING_SUB_NAV_BAR_TITLES[1]: {
+                                UserConfirmation(
+                                    { text: 'Är du säker på att du vill ändra lösenord?', confirmAction: () => { changePassword() } }); break
+                            }
+                            case SETTING_SUB_NAV_BAR_TITLES[2]: {
+                                UserConfirmation(
+                                    { text: 'Är du säker på att du vill ändra industrier?', confirmAction: () => { console.log('hej') } }); break
+                            }
                             default:
                         }
                     }}

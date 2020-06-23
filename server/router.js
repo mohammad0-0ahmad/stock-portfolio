@@ -11,7 +11,7 @@ module.exports = (app) => {
     app.post("/industries", industries.getIndustries);
     app.post("/changePreferredIndustries", industries.getChangePreferedIndustry)
     app.post("/settings/deleteinfo", User.deleteInfo);
-    app.post("/settings/changeinfo", User.changeInfo);
+    app.post("/settings/changeInfo", User.changeInfo);
     app.post("/settings/changePassword", User.changePassword);
     app.post("/register", User.newAccount);
     app.post("/uploadImg", User.uploadImg);
