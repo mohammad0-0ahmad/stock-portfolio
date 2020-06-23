@@ -1,6 +1,6 @@
 const stocks = require("../models/stocks.model");
 const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmail;
-
+const getUserStocksOverview = require("../models/stocksOverview.model").getUserStocksOverview
 exports.findAllUserStocks = async (req, res) => {
   const sessionId = req.body.session
   const email = await getUserEmailBySessionId(sessionId)
@@ -19,9 +19,11 @@ exports.findAllUserStocks = async (req, res) => {
   }
 };
 
-exports.userStocksOverview = (req, res) => {
-  if (req.query.owner) {
-    require("../models/stocksOverview.model").getUserStocksOverview((err, data) => {
+exports.userStocksOverview = async (req, res) => {
+  const sessionId = req.body.session
+  const email = await getUserEmailBySessionId(sessionId)
+  if (email) {
+    getUserStocksOverview(email, (err, data) => {
       if (err) {
         res.status(500).send({
           message: err.message,
@@ -29,7 +31,7 @@ exports.userStocksOverview = (req, res) => {
       } else {
         res.send(data);
       }
-    }, req.query.owner);
+    });
   } else {
     res.status(400).send('')
   }

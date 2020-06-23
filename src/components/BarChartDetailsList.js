@@ -2,16 +2,21 @@ import React from 'react'
 import '../css/BarChartDetailsList.css'
 import BarChartSectorDetails from './BarChartSectorDetails'
 
-const BarChartDetailsList = ({ data }) => {
-    const AMOUNT_SECTORS_TO_SHOW = 5
-    const dataArray = (data.length > AMOUNT_SECTORS_TO_SHOW ? data.slice(0, AMOUNT_SECTORS_TO_SHOW) : data)
+const BarChartDetailsList = ({ data, currency }) => {
     return (
         <div className='BarChartDetailsList'>
-            {dataArray.map(({ title, details, amount }, key) =>
-                <BarChartSectorDetails key={key} title={title} details={details} amount={amount} />
-            )}
+            {data &&
+                data.map(({ industry, companies, value }, key) =>
+                    <BarChartSectorDetails
+                        key={key}
+                        industry={industry}
+                        companies={companies}
+                        value={value}
+                        currency={currency}
+                    />
+                )
+            }
         </div>
     )
-
 }
 export default BarChartDetailsList; 

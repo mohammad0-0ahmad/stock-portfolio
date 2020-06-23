@@ -1,21 +1,21 @@
 import React from 'react'
 import '../css/BarChartSectorDetails.css'
 
-const BarChartSectorDetails = ({ title, details, amount }) => {
+const BarChartSectorDetails = ({ industry, companies, value, currency }) => {
     return (
         <div className='BarChartSectorDetails'>
             <div></div>
             <div>
                 <h3>
-                    {title}
+                    {industry}
                 </h3>
                 <p>
-                    {details}
+                    {companies}
                 </p>
             </div>
             <div>
-                <span>{amount}</span>
-                <span> SEK</span>
+                <span>{value}</span>
+                <span> {currency}</span>
             </div>
         </div>
     )

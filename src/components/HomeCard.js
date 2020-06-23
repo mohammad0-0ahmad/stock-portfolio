@@ -12,7 +12,7 @@ import BarChart from './BarChart'
 import BarChartDetailsList from './BarChartDetailsList'
 import { useHistory } from 'react-router-dom'
 import { fetchJSON } from '../utilities/fetchData'
-
+import MessageCard from './MessageCard';
 
 const HomeCard = () => {
     var history = useHistory()
@@ -24,6 +24,10 @@ const HomeCard = () => {
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [lastUpdate, setLastUpdate] = useState('')
+    const [stockOverview, setStockOverview] = useState({})
+    const [barChartData, setBarChartData] = useState([])
+
+    let industries = ['Tech', 'Finance', 'Health', 'Materials']
 
     useEffect(() => {
         fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
@@ -39,21 +43,20 @@ const HomeCard = () => {
                 setPhone(data[0].telephone)
                 setEmail(data[0].email)
                 setLastUpdate(data[0].l_update)
-
-
+            }
+        })
+        fetchJSON('/stocks_overview', { session: localStorage.sessionId }, (data) => {
+            console.log(data)
+            if (data.totalBalance) {
+                setStockOverview(data);
+                const barChartData = data.industries.map(industry => parseInt(industry.value.replace(/ /g, '')));
+                console.log(barChartData)
+                setBarChartData(barChartData)
             }
         })
     }, [])
-    let industries = ['Tech', 'Finance', 'Health', 'Materials']
-    const tabData = [
-        { title: 'Byggsektorn', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
-        { title: 'Medtech', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
-        { title: 'Fintech', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
-        { title: 'Industri', details: 'Företag 1, Företag 2 +4', amount: '32 244' },
-        { title: 'Övrigt', details: 'Företag 1, Företag 2 +4', amount: '32 244' }
-    ]
-    const welcomeBar = <WelcomeBar updated={lastUpdate} name={firstName} hasStocks={true} />
 
+    const welcomeBar = <WelcomeBar updated={lastUpdate} name={firstName} hasStocks={stockOverview.totalBalance !== '0'} />
     return (
         <Content title='Hem' welcomeBar={welcomeBar}>
             <ContentItem>
@@ -63,12 +66,27 @@ const HomeCard = () => {
                 <ContactInfo phone={phone} email={email} address={address} zipCode={zipCode} city={city} />
             </ContentItem>
             <ContentItem>
-                <ContetItemHeader key='0' title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', handleClick: () => history.push("/portfolio") }} />
-                <CurrentUpdate key='8' value="827,300 SEK" date="Uppdaterat 2020-02-26" />
-                <BarChart key='1' amountSectorsToShow={5} sectors={[50, 10, 20, 15, 20]} />
-                <BarChartDetailsList key='2' data={tabData} />
+                <ContetItemHeader title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', handleClick: () => history.push("/portfolio") }} />
+                <CurrentUpdate
+                    value={stockOverview.totalBalance}
+                    currency={stockOverview.currency}
+                    date={lastUpdate}
+                />
+                <BarChart
+                    amountSectorsToShow={5}
+                    sectors={barChartData}
+                />
+                {stockOverview.totalBalance !== '0' &&
+                    <BarChartDetailsList
+                        data={stockOverview.industries}
+                        currency={stockOverview.currency}
+                    />
+                }
+                <MessageCard text='Inget innehav tillagt ännu' />
+
             </ContentItem>
         </Content>
     )
 }
+
 export default HomeCard;

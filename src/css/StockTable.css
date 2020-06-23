@@ -22,5 +22,5 @@
   border-bottom: solid 0.1vw var(--color20);
 }
 .StockTable #emptyTableMessage{
-  min-height: 50vh;
+  height: 50vh;
 }
