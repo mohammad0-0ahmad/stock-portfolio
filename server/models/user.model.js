@@ -1,6 +1,5 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
-const utilities = require("../utilities/user.utilities")
 const fs = require("fs");
 const Sessions = require('./sessions.modell')
 
@@ -44,57 +43,55 @@ const User = function (user) {
 
 };
 
-User.getUserData = (result, email) => {
+User.getUserData = (email, result) => {
   const sql = `SELECT email, f_name, l_name, p_nr, address, city, postal_code, telephone, l_update FROM users WHERE email = '${email}'`
   connection.query(sql, (err, res) => {
     if (err) {
-      console.log("Error", err);
-      result(null, err);
-      return;
-    }
-    res = res.map((user) => new User(user))
-
-    result(null, res);
-
-  });
-};
-
-User.deleteUserData = (result, email) => {
-  const sql = `DELETE FROM users WHERE email = '${email}'`
-  connection.query(sql, (err, res) => {
-    if (err) {
-      console.log("Error", err);
-      result(null, err);
+      result(err, null);
       return;
     }
     else {
-      console.log("userinfo", res);
-      fs.rmdirSync(USERS_IMGS_PATH + email, { recursive: true });
+      res = res.map((user) => new User(user))
+      result(null, res[0]);
+    }
+  });
+};
 
+User.deleteUserData = (email, result) => {
+  const sql = `DELETE FROM users WHERE email = '${email}'`
+  connection.query(sql, (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+    else {
+      console.log(`${email} has been deleted.`);
+      fs.rmdirSync(USERS_IMGS_PATH + email, { recursive: true });
+      result(null, { status: true, msg: 'Ditt konto har raderats.' });
 
     };
   })
 }
 
-User.changeUserData = async (result, newData) => {
+User.changeUserData = async (newData, result) => {
   let sql = `SELECT p_nr from users WHERE email = '${newData.oldEmail}'`;
   connection.query(sql, async (err, res) => {
     if (err) {
       console.log("Error", err);
-      result(null, err);
+      result(err, null);
       return;
     }
     else {
       let currentPersonalNumber = res[0].p_nr
       let newPersonalNumber = false;
-      currentPersonalNumber != newData.personNumber ? newPersonalNumber = true : newPersonalNumber = false
+      let newEmail = false;
+      let readyToUpdateEmail = true;
       let readyToUpdatePersonalNumber = true;
+
+      currentPersonalNumber !== newData.personNumber ? newPersonalNumber = true : newPersonalNumber = false
       if (newPersonalNumber) {
         readyToUpdatePersonalNumber = ! await isPersonalNumberAlreadyExist(newData.personNumber)
       }
-
-      let newEmail = false;
-      let readyToUpdateEmail = true;
 
       newData.oldEmail !== newData.email ? newEmail = true : newEmail = false
       if (newEmail) {
@@ -102,19 +99,27 @@ User.changeUserData = async (result, newData) => {
       }
       if (readyToUpdateEmail && readyToUpdatePersonalNumber) {
         const sql = `UPDATE users SET f_name='${newData.firstName}', l_name='${newData.lastName}',
-     p_nr='${newData.personNumber}', address='${newData.address}', city='${newData.city}',
-       postal_code='${newData.zipCode}', telephone='${newData.phone}', email='${newData.email}' WHERE email = '${newData.oldEmail}'`
+        p_nr='${newData.personNumber}', address='${newData.address}', city='${newData.city}',
+       postal_code='${newData.postalCode}', telephone='${newData.phone}', email='${newData.email}' WHERE email = '${newData.oldEmail}'`
         connection.query(sql, (err, res) => {
           if (err) {
             console.log("Error", err);
-            result(null, err);
+            result(err, null);
             return;
           }
           else {
-            result(null, res);
+            result(null, { status: true, msg: 'Dina uppgifter har ändrats.' });
           }
 
         })
+      }
+      if (!readyToUpdatePersonalNumber) {
+        result(null, { status: false, msg: 'Detta personnummer existerar redan.' });
+        return
+      }
+      if (!readyToUpdateEmail) {
+        result(null, { status: false, msg: 'Denna email existerar redan.' });
+        return
       }
     }
   })
@@ -151,12 +156,12 @@ User.addNewUser = async (userData, result) => {
   }
 }
 
-User.changePassword = async (result, emailPassword) => {
+User.changePassword = async (emailPassword, result) => {
   let sql = `SELECT password from users WHERE email='${emailPassword.email}'`
   connection.query(sql, async (err, res) => {
     if (err) {
-      console.log("Error", err);
-      result(null, err);
+      console.log(err);
+      result(err, null);
       return;
     }
     else {
@@ -168,7 +173,7 @@ User.changePassword = async (result, emailPassword) => {
         connection.query(sql, async (err, res) => {
           if (err) {
             console.log("Error", err);
-            result(null, err);
+            result(err, null);
             return;
           }
           else {
@@ -177,7 +182,7 @@ User.changePassword = async (result, emailPassword) => {
         })
       }
       else {
-        result(null, { status: true, msg: 'Ditt gamla lösenord stämde inte.' });
+        result(null, { status: false, msg: 'Ditt gamla lösenord stämde inte.' });
       }
 
     }

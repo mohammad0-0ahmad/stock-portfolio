@@ -10,6 +10,7 @@ import Button from './Button'
 import userimg from '../imgs/user.png'
 import UserConfirmation from './UserConfirmation'
 import { fetchJSON } from '../utilities/fetchData'
+import AlertBox from './AlertBox'
 
 
 
@@ -22,7 +23,7 @@ const SettingCard = () => {
     const [personNumber, setPersonNumber] = useState('')
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
-    const [zipCode, setZipCode] = useState('')
+    const [postalCode, setPostalCode] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -43,31 +44,23 @@ const SettingCard = () => {
 
     useEffect(() => {
         fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
-            if (data.status) {
-                console.log('error')
-            }
-            else {
-                setFirstName(data[0].f_name)
-                setLastName(data[0].l_name)
-                setPersonNumber(data[0].p_nr)
-                setAddress(data[0].address)
-                setCity(data[0].city)
-                setZipCode(data[0].postal_code)
-                setPhone(data[0].telephone)
-                setEmail(data[0].email)
-
+            if (data.email) {
+                setFirstName(data.f_name)
+                setLastName(data.l_name)
+                setPersonNumber(data.p_nr)
+                setAddress(data.address)
+                setCity(data.city)
+                setPostalCode(data.postal_code)
+                setPhone(data.telephone)
+                setEmail(data.email)
             }
         })
     }, [])
 
 
     const deleteData = () => {
-
         fetchJSON('/settings/deleteinfo', { session: localStorage.sessionId }, (data) => {
-            if (data.status) {
-                console.log('Delete succesful')
-            } else {
-            }
+            AlertBox({ text: data.msg, success: data.status })
         })
 
     }
@@ -77,22 +70,17 @@ const SettingCard = () => {
             newPassword1: newPassword1, newPassword2: newPassword2
         }, (data) => {
 
-            if (data.status) {
-                console.log('Change password succesful')
-            } else {
-            }
+            AlertBox({ text: data.msg, success: data.status })
+
         })
     }
 
     const changeInfo = () => {
         fetchJSON('/settings/changeInfo', {
             session: localStorage.sessionId, firstName: firstName, lastName: lastName, personNumber: personNumber,
-            address: address, city: city, zipCode: zipCode, phone: phone, email: email, oldEmail: ''
+            address: address, city: city, postalCode: postalCode, phone: phone, email: email, oldEmail: ''
         }, (data) => {
-            if (data.status) {
-                console.log('Change info succesful')
-            } else {
-            }
+            AlertBox({ text: data.msg, success: data.status })
         })
     }
 
@@ -113,7 +101,7 @@ const SettingCard = () => {
                             <LabelAndInput type="text" labelText="Adress" text={address} handleChange={setAddress} />
                             <div className='oneLine'>
                                 <LabelAndInput type="text" labelText="Stad" text={city} handleChange={setCity} />
-                                <LabelAndInput type="text" labelText="Postnummer" text={zipCode} handleChange={setZipCode} />
+                                <LabelAndInput type="text" labelText="Postnummer" text={postalCode} handleChange={setPostalCode} />
                             </div>
                             <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={setPhone} />
                             <LabelAndInput type="mail" labelText="Email" text={email} handleChange={setEmail} />

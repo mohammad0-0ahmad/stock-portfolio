@@ -5,48 +5,8 @@ const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmai
 exports.getInfo = async (req, res) => {
   const sessionId = req.body.session
   const email = await getUserEmailBySessionId(sessionId)
-  User.getUserData((err, data) => {
-    if (err) {
-      res.status(500).send({
-        message: err.message,
-      });
-    } else {
-      res.send(data);
-    }
-  }, email);
-};
-
-
-exports.deleteInfo = async (req, res) => {
-  const sessionId = req.body.session
-  const email = await getUserEmailBySessionId(sessionId)
-
-  User.deleteUserData((err, data) => {
-    if (err) {
-      res.status(500).send({
-        message: err.message,
-      });
-    } else {
-      res.send(data);
-    }
-  }, email);
-};
-
-exports.changeInfo = async (req, res) => {
-  const sessionId = req.body.session
-  const email = await getUserEmailBySessionId(sessionId)
-  const newData = req.body
-  newData.oldEmail = email
-  newData.zipCode = newData.zipCode.split(" ").join("")
-  newData.phone = newData.phone.split(" ").join("")
-  const validPersonalNumber = utilities.updateFunctions.validPersonalNumber(newData.personNumber)
-  const validEmail = utilities.updateFunctions.validEmail(newData.email)
-  const validPostalCode = utilities.updateFunctions.validPostalCode(newData.zipCode)
-  const validTelephone = utilities.updateFunctions.validTelephone(newData.phone)
-    
-  if (validPersonalNumber && validEmail && validPostalCode && validTelephone) {
-
-    User.changeUserData((err, data) => {
+  if (email) {
+    User.getUserData(email, (err, data) => {
       if (err) {
         res.status(500).send({
           message: err.message,
@@ -54,12 +14,73 @@ exports.changeInfo = async (req, res) => {
       } else {
         res.send(data);
       }
-    }, newData);
+    });
   }
   else {
-    res.send( {
-      status: false, msg: `Något är fel. Det kan vara personnumret eller mailet som är upptaget.
-        Det kan också vara så att du angett fel postnummer eller telefonnummer. Kontrollera all data igen!` })
+    
+  }
+};
+
+
+exports.deleteInfo = async (req, res) => {
+  const sessionId = req.body.session
+  const email = await getUserEmailBySessionId(sessionId)
+  if (email) {
+    User.deleteUserData(email, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message,
+        });
+      } else {
+        res.send(data);
+      }
+    });
+  }
+  else {
+    
+
+  }
+};
+
+exports.changeInfo = async (req, res) => {
+  const sessionId = req.body.session
+  const email = await getUserEmailBySessionId(sessionId)
+  const newData = req.body
+  newData.oldEmail = email
+  newData.postalCode = newData.postalCode.split(" ").join("")
+  newData.phone = newData.phone.split(" ").join("")
+  const validPersonalNumber = utilities.updateFunctions.validPersonalNumber(newData.personNumber)
+  const validEmail = utilities.updateFunctions.validEmail(newData.email)
+  const validPostalCode = utilities.updateFunctions.validPostalCode(newData.postalCode)
+  const validTelephone = utilities.updateFunctions.validTelephone(newData.phone)
+
+  if (validPersonalNumber && validEmail && validPostalCode && validTelephone) {
+
+    User.changeUserData(newData, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message,
+        });
+      } else {
+        res.send(data);
+      }
+    });
+  }
+  if (!validPersonalNumber) {
+    res.send({
+      status: false, msg: `Personnumret är inte giltigt, var god försök igen.` })
+  }
+  if (!validEmail) {
+    res.send({
+      status: false, msg: `E-posten är inte giltig, var god försök igen.` })
+  }
+  if (!validPostalCode) {
+    res.send({
+      status: false, msg: `Postnumret är inte giltigt, var god försök igen.` })
+  }
+  if (!validTelephone) {
+    res.send({
+      status: false, msg: `Telefonnumret är inte giltigt, var god försök igen.` })
   }
 }
 
@@ -87,18 +108,18 @@ exports.changePassword = async (req, res) => {
   const sessionId = req.body.session
   const email = await getUserEmailBySessionId(sessionId)
   if (req.body.newPassword1 !== req.body.newPassword2) {
-    res.send('Var vänlig att se till så att du skriver ditt nya lösenord på exakt samma sätt två gånger.')
+    res.send({ status: false, msg: 'Var vänlig att se till så att du skriver ditt nya lösenord på exakt samma sätt två gånger.' })
     return
   }
   if (!utilities.updateFunctions.validPassword(req.body.newPassword1)) {
-    res.send('Ditt nya lösenord är inte giltigt, det måste innehålla stor bokstav, siffror och vara 8 bokstäver långt.')
+    res.send({ status: false, msg: 'Ditt nya lösenord är inte giltigt, det måste innehålla stor bokstav, siffror och vara 8 bokstäver långt.' })
     return
   }
 
 
-  const emailPassword = { 'email': email, 'oldPassword': req.body.password, 'newPassword': req.body.newPassword1 }
+  const emailAndPasswords = { 'email': email, 'oldPassword': req.body.password, 'newPassword': req.body.newPassword1 }
 
-  User.changePassword((err, data) => {
+  User.changePassword(emailAndPasswords, (err, data) => {
 
     if (err) {
       res.status(500).send({
@@ -107,7 +128,7 @@ exports.changePassword = async (req, res) => {
     } else {
       res.send(data);
     }
-  }, emailPassword);
+  });
 };
 
 exports.uploadImg = (req, res) => {

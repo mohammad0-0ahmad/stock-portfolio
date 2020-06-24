@@ -21,7 +21,7 @@ const HomeCard = () => {
     const [personNumber, setPersonNumber] = useState('')
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
-    const [zipCode, setZipCode] = useState('')
+    const [postalCode, setPostalCode] = useState('')
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [lastUpdate, setLastUpdate] = useState('')
@@ -32,19 +32,16 @@ const HomeCard = () => {
 
     useEffect(() => {
         fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
-            if (data.status) {
-                console.log('error')
-            }
-            else {
-                setFirstName(data[0].f_name)
-                setLastName(data[0].l_name)
-                setPersonNumber(data[0].p_nr)
-                setAddress(data[0].address)
-                setCity(data[0].city)
-                setZipCode(data[0].postal_code)
-                setPhone(data[0].telephone)
-                setEmail(data[0].email)
-                setLastUpdate(data[0].l_update)
+            if (data.email) {
+                setFirstName(data.f_name)
+                setLastName(data.l_name)
+                setPersonNumber(data.p_nr)
+                setAddress(data.address)
+                setCity(data.city)
+                setPostalCode(data.postal_code)
+                setPhone(data.telephone)
+                setEmail(data.email)
+                setLastUpdate(data.l_update)
             }
         })
         fetchJSON('/stocks_overview', { session: localStorage.sessionId }, (data) => {
@@ -65,7 +62,7 @@ const HomeCard = () => {
                 <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => history.push("/settings") }} />
                 <UserImgNamePN userData={{ img: userimg, name: firstName+' '+lastName, personNr: personNumber }} />
                 <PreferedIndustries industries={industries} />
-                <ContactInfo phone={phone} email={email} address={address} zipCode={zipCode} city={city} />
+                <ContactInfo phone={phone} email={email} address={address} postalCode={postalCode} city={city} />
             </ContentItem>
             <ContentItem>
                 <ContetItemHeader title={'Mitt Innehav'} button={{ buttonText: 'Min portfölj', handleClick: () => history.push("/portfolio") }} />
