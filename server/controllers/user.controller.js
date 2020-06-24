@@ -17,7 +17,7 @@ exports.getInfo = async (req, res) => {
     });
   }
   else {
-    
+
   }
 };
 
@@ -37,7 +37,7 @@ exports.deleteInfo = async (req, res) => {
     });
   }
   else {
-    
+
 
   }
 };
@@ -68,19 +68,23 @@ exports.changeInfo = async (req, res) => {
   }
   if (!validPersonalNumber) {
     res.send({
-      status: false, msg: `Personnumret är inte giltigt, var god försök igen.` })
+      status: false, msg: `Personnumret är inte giltigt, var god försök igen.`
+    })
   }
   if (!validEmail) {
     res.send({
-      status: false, msg: `E-posten är inte giltig, var god försök igen.` })
+      status: false, msg: `E-posten är inte giltig, var god försök igen.`
+    })
   }
   if (!validPostalCode) {
     res.send({
-      status: false, msg: `Postnumret är inte giltigt, var god försök igen.` })
+      status: false, msg: `Postnumret är inte giltigt, var god försök igen.`
+    })
   }
   if (!validTelephone) {
     res.send({
-      status: false, msg: `Telefonnumret är inte giltigt, var god försök igen.` })
+      status: false, msg: `Telefonnumret är inte giltigt, var god försök igen.`
+    })
   }
 }
 
@@ -99,7 +103,7 @@ exports.newAccount = (req, res) => {
   } else {
     res.send({
       status: validationRes.isValid,
-      msg: JSON.stringify(validationRes.msg)
+      msg: Object.values(validationRes.msg).toString().replace(/,/g,'\n')
     });
   }
 }

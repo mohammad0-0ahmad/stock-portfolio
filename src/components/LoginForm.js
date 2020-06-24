@@ -4,7 +4,7 @@ import LabelAndInput from './LabelAndInput'
 import { fetchJSON } from '../utilities/fetchData'
 import Button from './Button'
 import TextAsLink from './TextAsLink'
-
+import AlertBox from './AlertBox'
 
 const LoginForm = () => {
     const [userEmail, setUserEmail] = useState('');
@@ -18,7 +18,7 @@ const LoginForm = () => {
                 localStorage.setItem('sessionId', data.session)
                 history.push('/login');
             } else {
-                //show a response for user
+                AlertBox({ text: data.msg, success: data.status })
             }
         })
     }
@@ -36,6 +36,8 @@ const LoginForm = () => {
                     handleChange={setUserEmail}
                     type='email'
                     placeHolder='Skriv in ditt e-post'
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                    title='Ogiltigt e-postadress.'
                     required={true}
                 />
                 <LabelAndInput
@@ -45,6 +47,8 @@ const LoginForm = () => {
                     handleChange={setPassword}
                     type='password'
                     placeHolder='Skriv in ditt lösenord'
+                    pattern='(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\w\d]{8,}'
+                    title='Ogiltigt lösenord. Det måste vara upp till 8 siffror, även om det måste innehålla minst en siffra / versaler / gemener'
                     required={true} />
                 <div>
                     <Button

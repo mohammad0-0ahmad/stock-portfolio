@@ -5,6 +5,7 @@ import Button from './Button'
 import { fetchJSON } from '../utilities/fetchData'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons'
+import AlertBox from './AlertBox'
 
 const RegisterForm = () => {
     const history = useHistory();
@@ -26,12 +27,9 @@ const RegisterForm = () => {
             { email, password, f_name, l_name, p_nr, address, city, postal_code, telephone },
             (data) => {
                 if (data.status) {
-                    console.log(data.msg)
-                    //show a response for user
-                    history.push('/');
+                    AlertBox({ text: data.msg, success: data.status, confirmAction: () => history.push('/') })
                 } else {
-                    console.log(data.msg)
-                    //show a response for user
+                    AlertBox({ text: data.msg, success: data.status })
                 }
             })
     }
@@ -70,6 +68,8 @@ const RegisterForm = () => {
                     handleChange={setP_nr}
                     type='text'
                     placeHolder='Skriv in ditt personnummer'
+                    pattern="^\d{12}$"
+                    title='Ogiltigt personnummer. Den måste bestå av 12 siffror.'
                     required={true}
                 />
                 <LabelAndInput
@@ -98,6 +98,8 @@ const RegisterForm = () => {
                         handleChange={setPostal_code}
                         type='text'
                         placeHolder='Skriv in ditt postnummer'
+                        pattern="^\d{5}$"
+                        title='Ogiltigt postnummer. Den måste bestå av 5 siffror.'
                         required={true}
                     />
                 </div>
@@ -108,6 +110,8 @@ const RegisterForm = () => {
                     handleChange={setTelephone}
                     type='tel'
                     placeHolder='Skriv in ditt telefonnummer'
+                    pattern="^[0-9]{10,15}$"
+                    title='Ogiltigt telefonnummer.'
                     required={true}
                 />
                 <LabelAndInput
@@ -117,6 +121,8 @@ const RegisterForm = () => {
                     handleChange={setEmail}
                     type='email'
                     placeHolder='Skriv in ditt e-post'
+                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                    title='Ogiltigt e-postadress.'
                     required={true}
                 />
                 <LabelAndInput
@@ -126,6 +132,8 @@ const RegisterForm = () => {
                     handleChange={setPassword}
                     type='password'
                     placeHolder='Skriv in ditt lösenord'
+                    pattern='(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\w\d]{8,}'
+                    title='Ogiltigt lösenord. Det måste vara upp till 8 siffror, även om det måste innehålla minst en siffra / versaler / gemener'
                     required={true} />
                 <Button
                     buttonText='Registrea'

@@ -38,6 +38,7 @@
   color: var(--color17);
   font-size: 2vw;
   align-self: flex-start;
+  white-space: break-spaces;
 }
 #AlertBox #logo {
   font-size: 10vw;

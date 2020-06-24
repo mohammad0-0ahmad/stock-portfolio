@@ -15,7 +15,7 @@ exports.createRequest = (req, res) => {
             }
         })
     } else {
-        res.status(400).end();
+        res.status(400).send({status:false,msg:'Felaktig e-post adress.'});
     }
 }
 
