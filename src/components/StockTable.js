@@ -19,7 +19,7 @@ const StockTable = ({ rows }) => {
             <th>Aktietyp</th>
             <th>Antal aktier</th>
             <th>Aktienummer</th>
-            <th>Ägerandel</th>
+            <th>Ägarandel</th>
             <th>Röstvärde</th>
           </tr>
         </thead>

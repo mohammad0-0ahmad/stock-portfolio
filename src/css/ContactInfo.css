@@ -5,6 +5,10 @@
 .ContactInfo > p {
   color: var(--color8);
 }
+.ContactInfo > div > div > p {
+    white-space: pre;
+  }
+
 .ContactInfo > div {
   display: grid;
   grid-template-columns: auto 80%;
