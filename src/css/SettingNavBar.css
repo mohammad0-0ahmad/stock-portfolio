@@ -3,4 +3,10 @@
   justify-content: flex-start;
   border-bottom: solid 0.1vw var(--color20);
   padding: 0 1.5vw;
+  align-items: center;
+
+}
+#SettingNavBar button{
+margin-left: auto;
+white-space: nowrap;
 }

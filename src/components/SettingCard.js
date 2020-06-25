@@ -58,12 +58,7 @@ const SettingCard = () => {
     }, [])
 
 
-    const deleteData = () => {
-        fetchJSON('/settings/deleteinfo', { session: localStorage.sessionId }, (data) => {
-            AlertBox({ text: data.msg, success: data.status })
-        })
-
-    }
+    
     const changePassword = () => {
         fetchJSON('/settings/changePassword', {
             session: localStorage.sessionId, password: password,
@@ -105,10 +100,7 @@ const SettingCard = () => {
                             </div>
                             <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={setPhone} />
                             <LabelAndInput type="mail" labelText="Email" text={email} handleChange={setEmail} />
-                            <Button buttonText='Radera mitt konto' handleClick={() => {
-                                UserConfirmation(
-                                    { text: 'Är du säker på att du vill radera all data?', confirmAction: () => { deleteData() } })
-                            }} className='rejectButton' />
+                            
 
                         </div>
                     </>
