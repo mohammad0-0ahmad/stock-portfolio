@@ -13,3 +13,6 @@
   color: var(--color17);
   font-weight: 400;
 }
+.PreferedIndustries > div > p {
+  color: var(--color17);
+}

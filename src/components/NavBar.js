@@ -7,6 +7,7 @@ import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { faSuitcase } from "@fortawesome/free-solid-svg-icons";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
+import ColorModeSwitcher from './ColorModeSwitcher'
 
 const ICONS = [faHome, faSuitcase, faCog];
 const TEXTS = ['Hem', 'Min Portfölj', 'Inställningar'];
@@ -29,6 +30,7 @@ const NavBar = () => {
         <img src={Logo} alt="Logo" />
       </NavLink>
       {navItems}
+      <ColorModeSwitcher/>
       <div className="line">_______________</div>
       <LogoutButton/>
     </nav>

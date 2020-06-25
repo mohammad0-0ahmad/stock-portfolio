@@ -45,11 +45,9 @@ const HomeCard = () => {
             }
         })
         fetchJSON('/stocks_overview', { session: localStorage.sessionId }, (data) => {
-            console.log(data)
             if (data.totalBalance) {
                 setStockOverview(data);
                 const barChartData = data.industries.map(industry => parseInt(industry.value.replace(/ /g, '')));
-                console.log(barChartData)
                 setBarChartData(barChartData)
             }
         })
@@ -60,7 +58,7 @@ const HomeCard = () => {
         <Content title='Hem' welcomeBar={welcomeBar}>
             <ContentItem>
                 <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => history.push("/settings") }} />
-                <UserImgNamePN userData={{ img: userimg, name: firstName+' '+lastName, personNr: personNumber }} />
+                <UserImgNamePN userData={{ img: userimg, name: firstName + ' ' + lastName, personNr: personNumber }} />
                 <PreferedIndustries industries={industries} />
                 <ContactInfo phone={phone} email={email} address={address} postalCode={postalCode} city={city} />
             </ContentItem>

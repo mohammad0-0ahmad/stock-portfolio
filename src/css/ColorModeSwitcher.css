@@ -1,0 +1,51 @@
+#ColorModeSwitcher {
+  background-color: var(--color6);
+  margin: 0 auto;
+  margin-top: auto;
+  width: min-content;
+  color: #ebedf250;
+  display: grid;
+  padding: 0.25vw 0.5vw;
+  grid-auto-flow: column;
+  border-radius: 10vw;
+  text-align: center;
+  column-gap: 1vw;
+  cursor: pointer;
+  border: 0.08vw solid #00000000;
+  position: relative;
+}
+#ColorModeSwitcher:hover {
+  border: 0.08vw solid var(--color5);
+}
+#ColorModeSwitcher > div {
+  padding: 0.5vw;
+  font-size: 1.2vw;
+  z-index: 2;
+}
+#ColorModeSwitcher > div.light {
+  color: #fdcc6b;
+}
+#ColorModeSwitcher > div.dark {
+  color: #ebedf2;
+}
+#ColorModeSwitcher svg {
+  transition: 0s;
+}
+
+#ColorModeSwitcher > span {
+  background-color: var(--color4);
+  position: absolute;
+  z-index: 1;
+  width: 50%;
+  border-radius: 50%;
+  height: 100%;
+  transition: margin ease 1s;
+}
+#ColorModeSwitcher > span.dark {
+  margin-left: 50%;
+}
+
+/* effect while switching color mode*/
+* {
+  transition: color 1s, background-color 1s, border-color 1s;
+}

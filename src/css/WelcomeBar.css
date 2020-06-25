@@ -7,7 +7,7 @@
   display: flex;
   background-color: var(--color11);
   font-size: 1.2vw;
-  color: var(--color17);
+  color: var(--color17s);
 }
 #WelcomeBar > span {
   font-weight: bolder;

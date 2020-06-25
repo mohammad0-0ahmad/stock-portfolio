@@ -20,6 +20,7 @@
   font-weight: 300;
   font-family: unset;
   width: 100%;
+  background-color: var(--color2);
 }
 
 .LabelAndInput .showHiddenPassword {
@@ -35,7 +36,7 @@
 .LabelAndInput .showHiddenPassword:hover {
   opacity: 1 !important;
 }
-.LabelAndInputCheckboxItems  {
+.LabelAndInputCheckboxItems {
   display: grid;
   column-gap: 1vw;
   grid-auto-flow: column;
@@ -46,12 +47,10 @@
   color: var(--color17);
   font-size: 0.8vw;
 }
-.LabelAndInputCheckboxItems  input{
+.LabelAndInputCheckboxItems input {
   width: 1vw;
   height: 1vw;
 }
-
-
 
 /*other styles*/
 
