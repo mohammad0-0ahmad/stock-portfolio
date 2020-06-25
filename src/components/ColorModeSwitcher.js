@@ -5,7 +5,8 @@ import { faSun } from "@fortawesome/free-solid-svg-icons";
 import { faMoon } from "@fortawesome/free-solid-svg-icons";
 
 const ColorModeSwitcher = () => {
-    const [darkMode, setDarkMode] = useState(localStorage.darkMode === 'true' ? true : false)
+    const [darkMode, setDarkMode] = useState(localStorage.darkMode === 'true' ? true : false);
+
     const colors = [
         { name: '--color2', light: '#ffffff', dark: '#292929' },
         { name: '--color7', light: '#656565', dark: '#ffffff' },
@@ -18,6 +19,7 @@ const ColorModeSwitcher = () => {
         { name: '--color21', light: '#feebc4', dark: '#323231' },
         { name: '--color23', light: '#575962', dark: '#d4d4d4' }
     ]
+
     const switchColorMode = function (selectedMode) {
         for (var i = 0; i < colors.length; i++) {
             const value = selectedMode ? colors[i].dark : colors[i].light;
@@ -26,6 +28,7 @@ const ColorModeSwitcher = () => {
         localStorage.darkMode = selectedMode;
         setDarkMode(selectedMode)
     }
+
     useEffect(() => {
         if (darkMode) {
             switchColorMode(true)
@@ -34,9 +37,13 @@ const ColorModeSwitcher = () => {
 
     return (
         <div id='ColorModeSwitcher' onClick={() => switchColorMode(!darkMode)}>
-            <span className={darkMode ? 'dark' : ''}></span>
-            <div className={darkMode ? '' : 'light'}><FontAwesomeIcon icon={faSun} /></div>
-            <div className={darkMode ? 'dark' : ''}><FontAwesomeIcon icon={faMoon} /></div>
+            <span className={darkMode ? 'dark' : ''} />
+            <div className={darkMode ? '' : 'light'}>
+                <FontAwesomeIcon icon={faSun} />
+            </div>
+            <div className={darkMode ? 'dark' : ''}>
+                <FontAwesomeIcon icon={faMoon} />
+            </div>
         </div>
     )
 }

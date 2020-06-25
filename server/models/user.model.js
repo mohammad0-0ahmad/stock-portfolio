@@ -1,9 +1,7 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
 const fs = require("fs");
-const Sessions = require('./sessions.modell')
-
-
+const createSession = require('./sessions.model').createSession
 
 const USERS_IMGS_PATH = './fileSystem/files/usersImgs/';
 
@@ -18,6 +16,7 @@ const isEmailAlreadyExist = (email) => {
     })
   })
 }
+
 const isPersonalNumberAlreadyExist = (personalNumber) => {
   const sql = `SELECT CASE WHEN EXISTS (SELECT * FROM users WHERE p_nr='${personalNumber}' LIMIT 1) THEN 'true' ELSE 'false' END AS result`;
   return new Promise((resolve) => {
@@ -30,18 +29,22 @@ const isPersonalNumberAlreadyExist = (personalNumber) => {
   })
 }
 
-const User = function (user) {
-  this.email = user.email;
-  this.f_name = user.f_name;
-  this.l_name = user.l_name;
-  this.p_nr = JSON.stringify(user.p_nr);
-  this.address = user.address;
-  this.city = user.city;
-  this.postal_code = JSON.stringify(user.postal_code).substr(0, 3) + ' ' + JSON.stringify(user.postal_code).substr(3, 5);
-  this.telephone = '0' + JSON.stringify(user.telephone).substr(0, 2) + ' ' + JSON.stringify(user.telephone).substr(2, 3) + ' ' + JSON.stringify(user.telephone).substr(5, 5);
-  this.l_update = JSON.stringify(user.l_update).substring(1, 11);
+const User = function ({ email, f_name, l_name, p_nr, address, city, postal_code, telephone, l_update }) {
+  postal_code = postal_code.toString();
+  l_update = new Date(l_update)
+  const month = l_update.getMonth() + 1 < 10 ? '0' + (l_update.getMonth() + 1) : (l_update.getMonth() + 1);
+  l_update = l_update.getFullYear() + '-' + month + '-' + l_update.getDate();
 
-};
+  this.email = email;
+  this.f_name = f_name;
+  this.l_name = l_name;
+  this.p_nr = p_nr.toString();
+  this.address = address;
+  this.city = city;
+  this.postal_code = postal_code.substr(0, 3) + ' ' + postal_code.substr(3, postal_code.length - 3);
+  this.telephone = telephone.substr(0, 3) + ' ' + telephone.substr(3, 3) + ' ' + telephone.substr(6, telephone.length - 6);
+  this.l_update = l_update;
+}
 
 User.getUserData = (email, result) => {
   const sql = `SELECT email, f_name, l_name, p_nr, address, city, postal_code, telephone, l_update FROM users WHERE email = '${email}'`
@@ -51,11 +54,10 @@ User.getUserData = (email, result) => {
       return;
     }
     else {
-      res = res.map((user) => new User(user))
-      result(null, res[0]);
+      result(null, new User(res[0]));
     }
   });
-};
+}
 
 User.deleteUserData = (email, result) => {
   const sql = `DELETE FROM users WHERE email = '${email}'`
@@ -82,7 +84,7 @@ User.changeUserData = async (newData, result) => {
       return;
     }
     else {
-      let currentPersonalNumber = JSON.stringify(res[0].p_nr)
+      let currentPersonalNumber = res[0].p_nr.toString();
       let newPersonalNumber = false;
       let newEmail = false;
       let readyToUpdateEmail = true;
@@ -209,7 +211,7 @@ User.login = ({ email, password }, result) => {
     } else {
       if (res.length) {
         const correctPassword = await encrypt.compare(password, res[0].password);
-        const session = await Sessions.createSession(email);
+        const session = await createSession(email);
         if (correctPassword && session) {
           result(null, { status: true, session });
           return;
@@ -228,4 +230,5 @@ User.retrieveImg = (email, result) => {
     result({ message: 'Not found' }, null)
   }
 }
+
 module.exports = { User, isEmailAlreadyExist };

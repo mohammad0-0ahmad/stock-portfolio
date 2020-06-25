@@ -7,7 +7,7 @@ const TEXT = "Logga ut";
 const LogoutButton = () => {
   const history = useHistory()
 
-  const handelLogout = () => {
+  const handleLogout = () => {
     UserConfirmation({
       text:'Är du säker på att logga ut?',
       confirmAction: () => {
@@ -19,7 +19,7 @@ const LogoutButton = () => {
   return (
     <button
       className="logoutButton"
-      onClick={handelLogout}
+      onClick={handleLogout}
     >
       <img src={LogoutIcon} alt="Exist"></img>
       {TEXT}

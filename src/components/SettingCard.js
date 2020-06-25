@@ -33,43 +33,39 @@ const SettingCard = () => {
         let temp = [...preferredIndustries];
         temp[i].preferred = !temp[i].preferred;
         setPreferredIndustries(temp);
-      };
+    };
 
-      const showPreferredIndustries = () => {
+    const showPreferredIndustries = () => {
         return preferredIndustries.map((industry, i) => (
-          <LabelAndInput
-            key={i}
-            type="checkbox"
-            checked={industry.preferred}
-            labelText={industry.name}
-            handleChange={() => changePreferredIndustries(i)}
-          />
+            <LabelAndInput
+                key={i}
+                type="checkbox"
+                checked={industry.preferred}
+                labelText={industry.name}
+                handleChange={() => changePreferredIndustries(i)}
+            />
         ))
-      }
+    }
 
-      const uploadPreferredIndustriesChanges = () => {
+    const uploadPreferredIndustriesChanges = () => {
         fetchJSON(
-          "/changePreferredIndustries",
-          { session: localStorage.sessionId, industries:preferredIndustries},
-          (data) => {
-            if (data.status) {
-              AlertBox({ text:data.msg, success:data.status});
+            "/changePreferredIndustries",
+            { session: localStorage.sessionId, industries: preferredIndustries },
+            (data) => {
+                if (data.status) {
+                    AlertBox({ text: data.msg, success: data.status });
+                }
             }
-          }
         );
-      };
-
-      useEffect(() => {
-        fetchJSON("/industries", { session: localStorage.sessionId }, (data) => {
-          if (data.status) {
-            console.log("error");
-          } else {
-            setPreferredIndustries(data);
-          }
-        });
-      }, []);    
+    };
 
     useEffect(() => {
+        fetchJSON("/industries", { session: localStorage.sessionId }, (data) => {
+            if (data) {
+                setPreferredIndustries(data);
+            }
+        });
+
         fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
             if (data.email) {
                 setFirstName(data.f_name)
@@ -82,25 +78,21 @@ const SettingCard = () => {
                 setEmail(data.email)
             }
         })
-    }, [])
+    }, []);
 
-
-    
     const changePassword = () => {
         fetchJSON('/settings/changePassword', {
-            session: localStorage.sessionId, password: password,
-            newPassword1: newPassword1, newPassword2: newPassword2
+            session: localStorage.sessionId, 
+            password,newPassword1, newPassword2
         }, (data) => {
-
             AlertBox({ text: data.msg, success: data.status })
-
         })
     }
 
     const changeInfo = () => {
         fetchJSON('/settings/changeInfo', {
-            session: localStorage.sessionId, firstName: firstName, lastName: lastName, personNumber: personNumber,
-            address: address, city: city, postalCode: postalCode, phone: phone, email: email, oldEmail: ''
+            session: localStorage.sessionId, 
+            firstName, lastName, personNumber,address, city, postalCode, phone, email
         }, (data) => {
             AlertBox({ text: data.msg, success: data.status })
         })
@@ -122,13 +114,11 @@ const SettingCard = () => {
                             <LabelAndInput type="text" labelText="Personnummer" text={personNumber} handleChange={setPersonNumber} />
                             <LabelAndInput type="text" labelText="Adress" text={address} handleChange={setAddress} />
                             <div className='oneLine'>
-                                <LabelAndInput type="text" labelText="Stad" text={city} handleChange={setCity} />
+                                <LabelAndInput type="text" labelText="Postort" text={city} handleChange={setCity} />
                                 <LabelAndInput type="text" labelText="Postnummer" text={postalCode} handleChange={setPostalCode} />
                             </div>
                             <LabelAndInput type="text" labelText="Telefonnummer" text={phone} handleChange={setPhone} />
                             <LabelAndInput type="mail" labelText="Email" text={email} handleChange={setEmail} />
-                            
-
                         </div>
                     </>
                 }
@@ -145,23 +135,23 @@ const SettingCard = () => {
                 {
                     selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[2] &&
                     <>
-                        <p className='preferencesPreferedIndustriesContent'>Mina prefererade industrier att investera inom:</p>
-                        <div id='preferencesPreferedIndustries'>
+                        <p className='preferencesPreferredIndustriesContent'>Mina prefererade industrier att investera inom:</p>
+                        <div id='preferencesPreferredIndustries'>
                             {showPreferredIndustries()}
                         </div>
                         <p className='preferencesTipToUser'>Tips! Ifall du väljer att integrerar din bank så kan vi anpassa dina investeringar utefter din ekonomi och preferenser.</p>
-                        <div className='preferencesPreferedIndustriesContent oneLineLinkAndLabel'>
+                        <div className='preferencesPreferredIndustriesContent oneLineLinkAndLabel'>
                             <TextAsLink text='Integrera min bank' handleClick={() => console.log("test")} />
-                            <p className='preferencesPreferedIndustriesContent'>(detta kommer att skicka dig vidare etc....)</p>
+                            <p className='preferencesPreferredIndustriesContent'>(detta kommer att skicka dig vidare etc....)</p>
                         </div>
                     </>
                 }
-                <div id='saveSetteingChangesBar'>
+                <div id='saveSettingChangesBar'>
                     <Button buttonText='Spara' handleClick={() => {
                         switch (selectedSettingSection) {
                             case SETTING_SUB_NAV_BAR_TITLES[0]: {
                                 UserConfirmation(
-                                    { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () =>  changeInfo() }); break
+                                    { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () => changeInfo() }); break
                             }
                             case SETTING_SUB_NAV_BAR_TITLES[1]: {
                                 UserConfirmation(
@@ -174,11 +164,11 @@ const SettingCard = () => {
                             default:
                         }
                     }}
-
                         className='saveButton' />
                 </div>
             </ContentItem>
         </Content>
     )
 }
+
 export default SettingCard;

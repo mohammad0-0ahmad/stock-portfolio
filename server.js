@@ -12,10 +12,6 @@ app.use(fileUpload())
 
 require("./server/router")(app);
 
-// app.use(function (req, res) {
-//   res.redirect("/");
-// });
-
 app.listen(PORT, () => {
   console.log("Server is running on port " + PORT);
 });

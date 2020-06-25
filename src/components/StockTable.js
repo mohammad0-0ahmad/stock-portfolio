@@ -5,10 +5,6 @@ import MessageCard from './MessageCard'
 
 const StockTable = ({ rows }) => {
 
-  const renderRows = () => {
-    return rows.map((row, i) => <StockRow key={i} info={row} />);
-  }
-
   return (
     <div className="StockTable">
       <table>
@@ -25,7 +21,7 @@ const StockTable = ({ rows }) => {
         </thead>
         <tbody>
           {
-            renderRows()
+            rows.map((row, i) => <StockRow key={i} info={row} />)
           }
         </tbody>
       </table>
@@ -38,4 +34,5 @@ const StockTable = ({ rows }) => {
     </div>
   );
 }
+
 export default StockTable;

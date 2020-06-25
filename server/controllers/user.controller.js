@@ -1,6 +1,6 @@
 const User = require("../models/user.model").User;
-const utilities = require("../utilities/user.utilities");
-const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmail;
+const utilities = require("../utilities/dataValidation");
+const getUserEmailBySessionId = require("../models/sessions.model").getUserEmail;
 
 exports.getInfo = async (req, res) => {
   const sessionId = req.body.session
@@ -15,12 +15,10 @@ exports.getInfo = async (req, res) => {
         res.send(data);
       }
     });
+    return;
   }
-  else {
-
-  }
+  res.status(400).end();
 };
-
 
 exports.deleteInfo = async (req, res) => {
   const sessionId = req.body.session
@@ -35,10 +33,8 @@ exports.deleteInfo = async (req, res) => {
         res.send(data);
       }
     });
-  }
-  else {
-
-
+  } else {
+    res.status(400).end();
   }
 };
 
@@ -89,8 +85,8 @@ exports.changeInfo = async (req, res) => {
 }
 
 exports.newAccount = (req, res) => {
-  const validationRes = utilities.userRegisterationValidation(req.body);
-  if (req.body && validationRes.isValid) {
+  const validUserData = utilities.userRegisterationValidation(req.body);
+  if (req.body && validUserData.isValid) {
     User.addNewUser(req.body, (err, data) => {
       if (err) {
         res.status(500).send({
@@ -102,8 +98,8 @@ exports.newAccount = (req, res) => {
     });
   } else {
     res.send({
-      status: validationRes.isValid,
-      msg: Object.values(validationRes.msg).toString().replace(/,/g,'\n')
+      status: validUserData.isValid,
+      msg: Object.values(validUserData.msg).toString().replace(/,/g, '\n')
     });
   }
 }
@@ -113,16 +109,13 @@ exports.changePassword = async (req, res) => {
   const email = await getUserEmailBySessionId(sessionId)
   if (req.body.newPassword1 !== req.body.newPassword2) {
     res.send({ status: false, msg: 'Var vänlig att se till så att du skriver ditt nya lösenord på exakt samma sätt två gånger.' })
-    return
+    return;
   }
   if (!utilities.updateFunctions.validPassword(req.body.newPassword1)) {
     res.send({ status: false, msg: 'Ditt nya lösenord är inte giltigt, det måste innehålla stor bokstav, siffror och vara 8 bokstäver långt.' })
-    return
+    return;
   }
-
-
   const emailAndPasswords = { 'email': email, 'oldPassword': req.body.password, 'newPassword': req.body.newPassword1 }
-
   User.changePassword(emailAndPasswords, (err, data) => {
 
     if (err) {

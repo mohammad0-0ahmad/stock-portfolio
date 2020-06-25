@@ -6,7 +6,6 @@ import RegisterForm from './RegisterForm'
 import ResetPasswordRequestForm from './ResetPasswordRequestForm'
 import ResetPasswordForm from './ResetPasswordForm'
 
-
 const EnteryPage = () => {
     const history = useHistory();
 
@@ -21,9 +20,8 @@ const EnteryPage = () => {
                     <Redirect to='/404' />
                 </Switch>
                 <div
-                    className={`img  ${
-                        history.location.pathname === '/' ? 'leftSide' : ''
-                        }`} >
+                    className={history.location.pathname === '/' ? 'img leftSide' : 'img'}
+                >
                 </div>
             </div>
         </div>

@@ -8,4 +8,5 @@ const SettingNavItem = ({ text, selected, handleClick }) => {
     </div>
   );
 };
+
 export default SettingNavItem;

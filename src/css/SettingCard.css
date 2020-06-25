@@ -9,7 +9,7 @@
   width: calc(100% - 1vw) !important;
 }
 
-.preferencesPreferedIndustriesContent {
+.preferencesPreferredIndustriesContent {
   width: 30vw;
   color: var(--color8);
   font-size: 0.8vw;
@@ -19,7 +19,7 @@
   width: 30vw;
   font-size: 0.8vw;
 }
-#preferencesPreferedIndustries {
+#preferencesPreferredIndustries {
   display: grid;
   width: 25vw;
   grid-template-columns: auto auto;
@@ -29,7 +29,7 @@
   margin-left: 1vw;
   margin-bottom: -1vw;
 }
-#saveSetteingChangesBar {
+#saveSettingChangesBar {
   border-top: 0.1vw solid var(--color20);
 }
 .oneLineLinkAndLabel {

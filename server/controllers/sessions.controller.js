@@ -1,4 +1,4 @@
-const Sessions = require('../models/sessions.modell')
+const Sessions = require('../models/sessions.model')
 
 exports.verifySession = (req, res) => {
     Sessions.verification(req.body.session , (err, data) => {

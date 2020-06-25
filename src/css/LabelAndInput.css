@@ -47,10 +47,13 @@
   color: var(--color17);
   font-size: 0.8vw;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 .LabelAndInputCheckboxItems input {
   width: 1vw;
   height: 1vw;
+  margin-right: .7vw;
 }
 
 /*other styles*/

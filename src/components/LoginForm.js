@@ -9,7 +9,7 @@ const LoginForm = ({ history }) => {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
     
-    const handelLogin = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault();
         fetchJSON('/login', { email: userEmail, password }, (data) => {
             if (data.status) {
@@ -26,16 +26,16 @@ const LoginForm = ({ history }) => {
             <h1>
                 Inloggning
             </h1>
-            <form onSubmit={handelLogin}>
+            <form onSubmit={handleLogin}>
                 <LabelAndInput
                     className='logInLabelAndInput'
                     labelText='E-postadress'
                     text={userEmail}
                     handleChange={setUserEmail}
                     type='email'
-                    placeHolder='Skriv in ditt e-post'
+                    placeHolder='Skriv in din e-post'
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                    title='Ogiltigt e-postadress.'
+                    title='Ogiltig e-postadress.'
                     required={true}
                 />
                 <LabelAndInput
@@ -46,7 +46,7 @@ const LoginForm = ({ history }) => {
                     type='password'
                     placeHolder='Skriv in ditt lösenord'
                     pattern='(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\w\d]{8,}'
-                    title='Ogiltigt lösenord. Det måste vara upp till 8 siffror, även om det måste innehålla minst en siffra / versaler / gemener'
+                    title='Ogiltigt lösenord. Det måste vara minst 8 tecken och det måste innehålla minst en siffra / versaler / gemener'
                     required={true} />
                 <div>
                     <Button

@@ -5,20 +5,19 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const LabelAndInput = ({ text, labelText, handleChange, type, checked, placeHolder, className, pattern, title, required = false }) => {
-  const [visibleValue, setVissbleValue] = useState(false)
+  const [visibleValue, setVisibleValue] = useState(false)
 
   if (type === 'checkbox') {
     return (
       <div className='LabelAndInputCheckboxItems'>
-        <input
-          checked={checked}
-          type={type}
-          value={text}
-          onChange={(e) => handleChange(e.target.value)}
-          key={labelText}
-
-        />
         <label>
+          <input
+            checked={checked}
+            type={type}
+            value={text}
+            onChange={(e) => handleChange(e.target.value)}
+            key={labelText}
+          />
           {labelText}
         </label>
       </div>
@@ -34,7 +33,7 @@ const LabelAndInput = ({ text, labelText, handleChange, type, checked, placeHold
             <input
               checked={checked}
               type={
-                type !== 'password' ? type : (visibleValue === false ? 'password' : 'text')
+                type !== 'password' ? type : (!visibleValue ? 'password' : 'text')
               }
               value={text}
               onChange={(e) => handleChange(e.target.value)}
@@ -50,7 +49,7 @@ const LabelAndInput = ({ text, labelText, handleChange, type, checked, placeHold
               }
                 className='showHiddenPassword'
                 onClick={() => {
-                  setVissbleValue(!visibleValue)
+                  setVisibleValue(!visibleValue)
                 }}
               />
             }

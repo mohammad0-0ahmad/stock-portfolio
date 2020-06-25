@@ -5,7 +5,6 @@ import '../css/UserConfirmation.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons"
 
-
 const UserConfirmation = ({ text, confirmAction, rejectAction, duration = 10 }) => {
     var div = document.createElement('div');
     div.setAttribute('id', 'UserConfirmation');

@@ -1,7 +1,6 @@
 import React from "react";
 
 const StockRow = ({ info }) => {
-
   return (
     <tr>
       <td>{info.company}</td>
@@ -14,4 +13,5 @@ const StockRow = ({ info }) => {
     </tr>
   )
 }
+
 export default StockRow;

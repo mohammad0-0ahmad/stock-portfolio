@@ -73,4 +73,5 @@ const PortFolioCard = () => {
         </Content>
     )
 }
+
 export default PortFolioCard;

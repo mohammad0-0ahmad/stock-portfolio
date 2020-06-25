@@ -1,14 +1,15 @@
 import React from 'react'
 import '../css/NumericSelectList.css'
 
-const MIN_POSSIPLE_OPTION = 10;
-const MAX_POSSIPLE_OPTION = 50;
+const MIN_POSSIBLE_OPTION = 10;
+const MAX_POSSIBLE_OPTION = 50;
+
 const NumericSelectList = ({ firstIndex = 1, lastIndex, selected, handleSelect }) => {
 
     const options = () => {
         let result = [];
-        if (lastIndex > MIN_POSSIPLE_OPTION) {
-            for (let i = MIN_POSSIPLE_OPTION; i < lastIndex && i <= MAX_POSSIPLE_OPTION; i = i + MIN_POSSIPLE_OPTION) {
+        if (lastIndex > MIN_POSSIBLE_OPTION) {
+            for (let i = MIN_POSSIBLE_OPTION; i < lastIndex && i <= MAX_POSSIBLE_OPTION; i = i + MIN_POSSIBLE_OPTION) {
                 result.push(<option key={i} value={i}>{i}</option>)
             }
         }
@@ -18,16 +19,16 @@ const NumericSelectList = ({ firstIndex = 1, lastIndex, selected, handleSelect }
 
     const statusText = () => {
         if (!selected) {
-            selected = lastIndex < MIN_POSSIPLE_OPTION ? lastIndex : MIN_POSSIPLE_OPTION
+            selected = lastIndex < MIN_POSSIBLE_OPTION ? lastIndex : MIN_POSSIBLE_OPTION;
         }
-        firstIndex = Math.floor(firstIndex / MIN_POSSIPLE_OPTION) * MIN_POSSIPLE_OPTION + 1
+        firstIndex = Math.floor(firstIndex / MIN_POSSIBLE_OPTION) * MIN_POSSIBLE_OPTION + 1;
         let lastShownItemIndex;
-        if (lastIndex < MIN_POSSIPLE_OPTION) {
-            lastShownItemIndex = lastIndex
+        if (lastIndex < MIN_POSSIBLE_OPTION) {
+            lastShownItemIndex = lastIndex;
         } else if (firstIndex > selected) {
-            lastShownItemIndex = firstIndex + selected - 1 < lastIndex ? firstIndex + selected - 1 : lastIndex
+            lastShownItemIndex = firstIndex + selected - 1 < lastIndex ? firstIndex + selected - 1 : lastIndex;
         } else {
-            lastShownItemIndex = selected
+            lastShownItemIndex = selected;
         }
         return `Visar ${firstIndex} - ${lastShownItemIndex} av ${lastIndex} `
     }

@@ -1,11 +1,11 @@
-const Preferred_Industries = require("../models/industries.model");
-const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmail;
+const industries = require("../models/industries.model");
+const getUserEmailBySessionId = require("../models/sessions.model").getUserEmail;
 
 exports.getIndustries = async (req, res) => {
   const sessionId = req.body.session;
   const email = await getUserEmailBySessionId(sessionId);
   if (email) {
-    Preferred_Industries.getIndustries(email, (err, data) => {
+    industries.getIndustries(email, (err, data) => {
       if (err) {
         res.status(500).send({
           message: err.message,
@@ -19,12 +19,12 @@ exports.getIndustries = async (req, res) => {
   }
 };
 
-exports.changePreferedIndustry = async (req, res) => {
+exports.changePreferredIndustry = async (req, res) => {
   const sessionId = req.body.session;
   const industries = req.body.industries
   const email = await getUserEmailBySessionId(sessionId);
   if (email) {
-    Preferred_Industries.change({ email, industries }, (err, data) => {
+    industries.change({ email, industries }, (err, data) => {
       if (err) {
         res.status(500).send({
           message: err.message,

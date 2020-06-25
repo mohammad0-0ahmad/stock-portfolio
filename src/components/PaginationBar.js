@@ -10,7 +10,7 @@ const EMPTY_BUTTON = <PaginationButton text='' disabled={true} />;
 const PaginationBar = ({ amountPages, selected = 1, handleSelect }) => {
     const previousPage = selected > 1 ? selected - 1 : 1;
     const nextPage = selected !== amountPages ? selected + 1 : amountPages;
-    
+
     let buttonToShow = [];
     let morePagesBefore, morePagesAfter;
 
@@ -43,6 +43,7 @@ const PaginationBar = ({ amountPages, selected = 1, handleSelect }) => {
             />
         )
     }
+
     return (
         <div className='PaginationBar'>
             <PaginationButton text='<<' handleClick={() => { handleSelect(1) }} />
@@ -55,4 +56,5 @@ const PaginationBar = ({ amountPages, selected = 1, handleSelect }) => {
         </div>
     )
 }
+
 export default PaginationBar;

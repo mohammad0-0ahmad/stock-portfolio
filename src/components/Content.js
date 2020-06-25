@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/Content.css'
 
-const Content = ({ title, lastUpdate, welcomeBar, children }) => {
+const Content = ({ title, lastUpdate, welcomeBar = '', children }) => {
     return (
         <div id="Content" >
             <header>
@@ -14,7 +14,9 @@ const Content = ({ title, lastUpdate, welcomeBar, children }) => {
                     </p>
                 }
             </header>
-            {welcomeBar && welcomeBar}
+            {
+                welcomeBar
+            }
             <div id="contentItems">
                 {
                     children

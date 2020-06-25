@@ -8,13 +8,13 @@ exports.getUserStocksOverview = (owner, result) => {
     connection.query(sql, (err, res) => {
         if (err) {
             console.log("Error:", err.message);
-            result(null, 'Wrong request...');
+            result('Wrong request...', null);
         } else {
             res = reorganizeStocksOverview(res)
             result(null, res);
         }
     });
-};
+}
 
 const reorganizeStocksOverview = (data) => {
     if (data.length) {

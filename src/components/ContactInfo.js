@@ -1,13 +1,25 @@
 import React from 'react'
 import "../css/ContactInfo.css";
 
-const ContactInfo = ({ phone, email, address, postalCode, city }) => {
+const ContactInfo = ({ phone, email, address = ' ', postalCode, city = ' ' }) => {
     return (
         <div className='ContactInfo'>
             <p>Kontaktuppgifter</p>
             <div>
-                <div><p>Telefon:</p><br /><p>Mail:</p><br /><p>Adress:</p><br /><p>Postnummer:</p><br /><p>Postort:</p><br /></div>
-                <div><p>{phone }</p><br /><p>{email}</p><br /><p>{address ? address : ' '}</p><br /><p>{postalCode}</p><br /><p>{city ? city : ' '}</p><br /></div>
+                <div>
+                    <p>Telefon:</p>
+                    <p>Mail:</p>
+                    <p>Adress:</p>
+                    <p>Postnummer:</p>
+                    <p>Postort:</p>
+                </div>
+                <div>
+                    <p>{phone}</p>
+                    <p>{email}</p>
+                    <p>{address}</p>
+                    <p>{postalCode}</p>
+                    <p>{city}</p>
+                </div>
             </div>
         </div>
     )

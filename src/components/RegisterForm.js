@@ -19,7 +19,7 @@ const RegisterForm = ({ history }) => {
     const [password, setPassword] = useState('');
 
 
-    const handelRegister = (e) => {
+    const handleRegister = (e) => {
         e.preventDefault();
         fetchJSON(
             '/register',
@@ -36,10 +36,12 @@ const RegisterForm = ({ history }) => {
     return (
         <div id='RegisterForm'>
             <h1>
-                <NavLink to='/'><FontAwesomeIcon className='backToLogIn' icon={faArrowAltCircleLeft} /></NavLink>
+                <NavLink to='/'>
+                    <FontAwesomeIcon className='backToLogIn' icon={faArrowAltCircleLeft} />
+                </NavLink>
                 Registrering
             </h1>
-            <form onSubmit={handelRegister}>
+            <form onSubmit={handleRegister}>
                 <div className='oneLine'>
                     <LabelAndInput
                         className='logInLabelAndInput'
@@ -119,9 +121,9 @@ const RegisterForm = ({ history }) => {
                     text={email}
                     handleChange={setEmail}
                     type='email'
-                    placeHolder='Skriv in ditt e-post'
+                    placeHolder='Skriv in din e-post'
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                    title='Ogiltigt e-postadress.'
+                    title='Ogiltig e-postadress.'
                     required={true}
                 />
                 <LabelAndInput
@@ -132,7 +134,7 @@ const RegisterForm = ({ history }) => {
                     type='password'
                     placeHolder='Skriv in ditt lösenord'
                     pattern='(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\w\d]{8,}'
-                    title='Ogiltigt lösenord. Det måste vara upp till 8 siffror, även om det måste innehålla minst en siffra / versaler / gemener'
+                    title='Ogiltigt lösenord. Det måste vara minst 8 tecken och det måste innehålla minst en siffra / versaler / gemener'
                     required={true} />
                 <Button
                     buttonText='Registrea'

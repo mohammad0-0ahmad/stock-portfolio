@@ -2,6 +2,7 @@ import React from "react";
 import "../css/NavItem.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
+
 const NavItem = ({ text, icon, link, exact }) => {
   return (
     <NavLink
@@ -14,4 +15,5 @@ const NavItem = ({ text, icon, link, exact }) => {
     </NavLink>
   );
 };
+
 export default NavItem;

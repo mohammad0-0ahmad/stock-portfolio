@@ -7,7 +7,6 @@ import { fetchJSON } from '../utilities/fetchData'
 import AlertBox from './AlertBox'
 import { useHistory } from "react-router-dom";
 
-
 const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
   const history = useHistory();
 
@@ -27,21 +26,27 @@ const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
     })
   }
 
-  return <nav id="SettingNavBar">{navItem}<Button buttonText='Radera mitt konto' handleClick={() => {
-    AlertBox({
-      text: 'Varning!\n Du kommer inte kunna få tillbaka ditt konto.',
-      success: false,
-      confirmAction: () =>
-        UserConfirmation(
-          {
-            text: 'Är du säker på att du vill radera ditt konto?', confirmAction: () => {
-              deleteData();
-              localStorage.removeItem('sessionId');
-              history.push('/logout');
-            }
-          })
-    })
-  }} className='rejectButton' /></nav>;
+  return <nav id="SettingNavBar">
+    {navItem}
+    <Button
+      buttonText='Radera mitt konto'
+      className='rejectButton'
+      handleClick={() => {
+        AlertBox({
+          text: 'Varning!\n Du kommer inte kunna få tillbaka ditt konto.',
+          success: false,
+          confirmAction: () =>
+            UserConfirmation(
+              {
+                text: 'Är du säker på att du vill radera ditt konto?', confirmAction: () => {
+                  deleteData();
+                  localStorage.removeItem('sessionId');
+                  history.push('/logout');
+                }
+              })
+        })
+      }} />
+  </nav>;
 };
 
 export default SettingNavBar;

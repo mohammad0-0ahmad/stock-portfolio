@@ -1,11 +1,8 @@
 const connection = require("./db");
 
-const Preferred_Industry = function (industry) {
-  this.industry = industry.industry_name;
-  this.value = industry.user_email;
-};
+const PreferredIndustry = {}
 
-Preferred_Industry.getIndustries = (email, result) => {
+PreferredIndustry.getIndustries = (email, result) => {
   const sql = `SELECT i.name, 
     case WHEN EXISTS (SELECT * FROM preferred_industries WHERE user_email = '${email}' AND industry_name = i.name LIMIT 1) 
     THEN 'true' ELSE 'false' END AS preferred 
@@ -24,7 +21,7 @@ Preferred_Industry.getIndustries = (email, result) => {
   });
 };
 
-Preferred_Industry.change = ({ email, industries }, result) => {
+PreferredIndustry.change = ({ email, industries }, result) => {
   let preferredIndustries = industries.filter(
     (industry) => industry.preferred === true
   );
@@ -56,4 +53,5 @@ Preferred_Industry.change = ({ email, industries }, result) => {
     }
   });
 };
-module.exports = Preferred_Industry;
+
+module.exports = PreferredIndustry;

@@ -6,14 +6,14 @@
   color: var(--color8);
 }
 .ContactInfo > div > div > p {
-    white-space: pre;
-  }
-
+  white-space: pre;
+  margin: 1vw 0;
+}
 .ContactInfo > div {
   display: grid;
   grid-template-columns: auto 80%;
   grid-row-gap: 2vw;
-  padding-top: 2vw;
+  padding-top: 1vw;
 }
 .ContactInfo > div > div {
   color: var(--color17);

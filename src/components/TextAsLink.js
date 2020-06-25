@@ -1,10 +1,10 @@
 import React from 'react'
 import '../css/TextAsLink.css'
 
-const TextAsLink = ({ text, handleClick, className }) => {
+const TextAsLink = ({ text, handleClick, className = '' }) => {
     return (
         <p
-            className={`TextAsLink  ${className ? className : ''}`}
+            className={`TextAsLink ${className}`}
             onClick={handleClick}
         >
             {text}

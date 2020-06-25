@@ -4,8 +4,11 @@ import '../css/ContentItem.css'
 const ContentItem = ({ children }) => {
     return (
         <div className='ContentItem'>
-            {children}
+            {
+                children
+            }
         </div>
     )
 }
+
 export default ContentItem;

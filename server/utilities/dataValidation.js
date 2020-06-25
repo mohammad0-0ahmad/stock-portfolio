@@ -1,3 +1,4 @@
+
 const validEmail = (email) => {
     /* source: https://www.w3resource.com/javascript/form/email-validation.php */
     if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -115,4 +116,6 @@ exports.updateFunctions = {
     validTelephone,
 }
 //temp
+
 exports.isValidEmail = validEmail;
+exports.isValidPassword = validPassword;

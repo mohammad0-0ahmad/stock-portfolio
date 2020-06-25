@@ -1,5 +1,6 @@
 import React from "react";
 import '../css/CurrentUpdate.css'
+
 const CurrentUpdate = ({ value, date, currency }) => {
     return (
         <div className='CurrentUpdate'>

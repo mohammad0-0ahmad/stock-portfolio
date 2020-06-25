@@ -1,5 +1,5 @@
 const stocks = require("../models/stocks.model");
-const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmail;
+const getUserEmailBySessionId = require("../models/sessions.model").getUserEmail;
 const getUserStocksOverview = require("../models/stocksOverview.model").getUserStocksOverview
 exports.findAllUserStocks = async (req, res) => {
   const sessionId = req.body.session

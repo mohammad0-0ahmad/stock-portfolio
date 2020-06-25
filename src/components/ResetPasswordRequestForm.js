@@ -10,7 +10,7 @@ import AlertBox from './AlertBox'
 const ResetPasswordRequestForm = ({ history }) => {
     const [email, setEmail] = useState('');
 
-    const handelResetPasswordRequest = (e) => {
+    const handleResetPasswordRequest = (e) => {
         e.preventDefault();
         fetchJSON('/resetPassword/request', { email }, (data) => {
             AlertBox({ text: data.msg, success: data.status, confirmAction: () => history.push('/') })
@@ -20,19 +20,21 @@ const ResetPasswordRequestForm = ({ history }) => {
     return (
         <div>
             <h1>
-                <NavLink to='/'><FontAwesomeIcon className='backToLogIn' icon={faArrowAltCircleLeft} /></NavLink>
+                <NavLink to='/'>
+                    <FontAwesomeIcon className='backToLogIn' icon={faArrowAltCircleLeft} />
+                </NavLink>
                 Återställ lösenord
             </h1>
-            <form onSubmit={handelResetPasswordRequest}>
+            <form onSubmit={handleResetPasswordRequest}>
                 <LabelAndInput
                     className='logInLabelAndInput'
                     labelText='E-postadress'
                     text={email}
                     handleChange={setEmail}
                     type='email'
-                    placeHolder='Skriv in ditt e-post'
+                    placeHolder='Skriv in din e-post'
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
-                    title='Ogiltigt e-postadress.'
+                    title='Ogiltig e-postadress.'
                     required={true}
                 />
                 <Button

@@ -11,4 +11,5 @@ const ContentItemHeader = ({ title, button }) => {
         </div>
     )
 }
+
 export default ContentItemHeader;

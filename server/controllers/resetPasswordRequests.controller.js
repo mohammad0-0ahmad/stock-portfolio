@@ -1,6 +1,6 @@
 const model = require('../models/resetPasswordRequests.model')
-const isValidEmail = require('../utilities/user.utilities').isValidEmail;
-const utilities = require("../utilities/user.utilities");
+const isValidEmail = require('../utilities/dataValidation').isValidEmail;
+const isValidPassword = require('../utilities/dataValidation').isValidPassword;
 
 exports.createRequest = (req, res) => {
     const email = req.body.email;
@@ -15,7 +15,7 @@ exports.createRequest = (req, res) => {
             }
         })
     } else {
-        res.status(400).send({status:false,msg:'Felaktig e-post adress.'});
+        res.status(400).send({ status: false, msg: 'Felaktig e-post adress.' });
     }
 }
 
@@ -35,7 +35,7 @@ exports.changePassword = async (req, res) => {
         res.send({ status: false, msg: 'Var vänlig att se till så att du skriver ditt nya lösenord på exakt samma sätt två gånger.' })
         return
     }
-    if (!utilities.updateFunctions.validPassword(newPassword)) {
+    if (!isValidPassword(newPassword)) {
         res.send({ status: false, msg: 'Ditt nya lösenord är ogiltigt, det måste innehålla stor bokstav, siffror och vara 8 bokstäver långt.' })
         return
     }

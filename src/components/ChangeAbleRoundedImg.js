@@ -6,12 +6,12 @@ const ChangeAbleRoundedImg = ({ src, alt, handleClick }) => {
     //temp
     const [shownImg, setShownImg] = useState(src)
 
-    const handelImgChanging = () => {
+    const handleImgChanging = () => {
         const input = document.getElementById('changeUserImg');
         input.click();
     }
 
-    const handelChange = (e) => {
+    const handleChange = (e) => {
         var img = e.target.files[0];
         var reader = new FileReader();
         let imgAsSrcValue;
@@ -25,9 +25,9 @@ const ChangeAbleRoundedImg = ({ src, alt, handleClick }) => {
 
     return (
         <div className='ChangeAbleRoundedImg'>
-            <input type='file' id='changeUserImg' accept="image/png,image/jpeg" onChange={handelChange} />
+            <input type='file' id='changeUserImg' accept="image/png,image/jpeg" onChange={handleChange} />
             <RoundedImg src={shownImg} alt={alt} id='USERACCOUNTIMG' />
-            <button onClick={handelImgChanging}></button>
+            <button onClick={handleImgChanging}></button>
         </div>
     )
 }

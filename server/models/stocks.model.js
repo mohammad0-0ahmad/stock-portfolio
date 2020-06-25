@@ -2,7 +2,7 @@ const connection = require("./db");
 
 const Stock = function (stock) {
     this.company = stock.company;
-    this.value = (stock.value).toLocaleString('en').replace(',', ' ') + ' SEK';
+    this.value = (stock.value).toLocaleString('en').replace(/,/g,' ') + ' SEK';
     this.type = stock.type;
     this.amount = stock.amount + ' St';
     this.nr = stock.reg_nr;
@@ -10,7 +10,7 @@ const Stock = function (stock) {
     this.votingPower = stock.voting_power + '%';
 };
 
-Stock.getUserStocks = (owner,result) => {
+Stock.getUserStocks = (owner, result) => {
     const sql = `SELECT stocks.*,
     (SELECT vote_ability FROM stock_types WHERE symbol = type)*ownership AS voting_power 
     from (SELECT c.name AS company,s.value,s.type,s.amount,s.reg_nr,

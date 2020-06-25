@@ -26,8 +26,6 @@ const HomeCard = ({ history }) => {
     const [stockOverview, setStockOverview] = useState({})
     const [barChartData, setBarChartData] = useState([])
 
-    let industries = ['Tech', 'Finance', 'Health', 'Materials']
-
     useEffect(() => {
         fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
             if (data.email) {
@@ -42,6 +40,7 @@ const HomeCard = ({ history }) => {
                 setLastUpdate(data.l_update)
             }
         })
+
         fetchJSON('/stocks_overview', { session: localStorage.sessionId }, (data) => {
             if (data.totalBalance) {
                 setStockOverview(data);
@@ -57,7 +56,7 @@ const HomeCard = ({ history }) => {
             <ContentItem>
                 <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => history.push("/settings") }} />
                 <UserImgNamePN userData={{ img: userimg, name: firstName + ' ' + lastName, personNr: personNumber }} />
-                <PreferedIndustries industries={industries} />
+                <PreferedIndustries />
                 <ContactInfo phone={phone} email={email} address={address} postalCode={postalCode} city={city} />
             </ContentItem>
             <ContentItem>

@@ -16,8 +16,8 @@ const checkRequest = (requestId) => {
             }
         })
     })
-
 }
+
 const deleteRequest = (requestId) => {
     const sql = `DELETE FROM reset_password_requests WHERE id='${requestId}'`;
     connection.query(sql, (err) => {
@@ -45,9 +45,7 @@ const getEmailByRequestId = (requestId) => {
 exports.makeRequest = async ({ email, host }, result) => {
     if (await isEmailExist(email)) {
         let id = await encrypt.hash(Math.floor(Date.now()) + email);
-        console.log(id)
         id = await id.replace(/[\/?]/g,'');
-        console.log(id)
         const sql = `INSERT INTO reset_password_requests (id,user_email) VALUES ('${id}','${email}')`
         connection.query(sql, (err) => {
             if (err) {
@@ -61,7 +59,7 @@ exports.makeRequest = async ({ email, host }, result) => {
         console.log(`${email} doesn't belong to any account.`)
     }
     // a mail will not be sent to unregistered email.
-    result(null, { status: true, msg: 'Ett mejl är skickat till ditt e-postadress.\nKolla in i din e-postinkorg.' })
+    result(null, { status: true, msg: 'Ett mejl är skickat till din e-postadress.\nKolla in i din e-postinkorg.' })
 }
 
 exports.isValidRequest = async (requestId, result) => {
@@ -73,7 +71,7 @@ exports.setNewPassword = async ({ requestId, newPassword }, result) => {
     if (validRequest) {
         const email = await getEmailByRequestId(requestId);
         const newHashedPassword = await encrypt.hash(newPassword);
-        const sql = `UPDATE users set password='${newHashedPassword}' WHERE email='${email}'`
+        const sql = `UPDATE users SET password='${newHashedPassword}' WHERE email='${email}'`
         connection.query(sql, (err) => {
             if (err) {
                 console.log("Error", err);
