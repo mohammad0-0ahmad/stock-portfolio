@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import '../css/SettingNavBar.css'
 import SettingNavItem from "./SettingNavItem";
 import Button from './Button'
 import UserConfirmation from './UserConfirmation'
 import { fetchJSON } from '../utilities/fetchData'
 import AlertBox from './AlertBox'
+import { useHistory } from "react-router-dom";
+
 
 const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
+  const history = useHistory();
+
   let navItem = items.map((item) => (
     <SettingNavItem
       key={item}
@@ -19,14 +23,25 @@ const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
   ));
   const deleteData = () => {
     fetchJSON('/settings/deleteinfo', { session: localStorage.sessionId }, (data) => {
-        AlertBox({ text: data.msg, success: data.status })
+      AlertBox({ text: data.msg, success: data.status })
     })
+  }
 
-}
   return <nav id="SettingNavBar">{navItem}<Button buttonText='Radera mitt konto' handleClick={() => {
-    UserConfirmation(
-        { text: 'Är du säker på att du vill radera all data?', confirmAction: () => { deleteData() } })
-}} className='rejectButton' /></nav>;
+    AlertBox({
+      text: 'Varning!\n Du kommer inte kunna få tillbaka ditt konto.',
+      success: false,
+      confirmAction: () =>
+        UserConfirmation(
+          {
+            text: 'Är du säker på att du vill radera ditt konto?', confirmAction: () => {
+              deleteData();
+              localStorage.removeItem('sessionId');
+              history.push('/logout');
+            }
+          })
+    })
+  }} className='rejectButton' /></nav>;
 };
 
 export default SettingNavBar;

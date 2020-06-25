@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
 
 
-const AlertBox = ({ text, confirmAction, success = true, duration = 1000 }) => {
+const AlertBox = ({ text, confirmAction, success = true, duration = 10 }) => {
     var div = document.createElement('div');
     div.setAttribute('id', 'AlertBox');
     div.setAttribute('class', success ? 'success' : 'fail');

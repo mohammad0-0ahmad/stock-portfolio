@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import LabelAndInput from './LabelAndInput'
 import Button from './Button'
 import { fetchJSON } from '../utilities/fetchData'
@@ -7,8 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons'
 import AlertBox from './AlertBox'
 
-const RegisterForm = () => {
-    const history = useHistory();
+const RegisterForm = ({ history }) => {
     const [f_name, setF_name] = useState('');
     const [l_name, setL_name] = useState('');
     const [p_nr, setP_nr] = useState('');

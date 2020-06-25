@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import '../css/Dashboard.css'
 import NavBar from './NavBar'
 import HomeCard from './HomeCard'
@@ -7,16 +7,14 @@ import PortFolio from './PortFolioCard';
 import SettingCard from './SettingCard';
 import { fetchJSON } from '../utilities/fetchData'
 
-const Dashboard = () => {
-    const history = useHistory()
-
+const Dashboard = ({ history }) => {
     useEffect(() => {
         document.documentElement.scrollTop = 0
     })
 
     fetchJSON('/verify', { session: localStorage.sessionId }, (data) => {
-        if(!data.status){
-            localStorage.clear()
+        if (!data.status) {
+            localStorage.removeItem('sessionId');
             history.push('/logout')
         }
     })

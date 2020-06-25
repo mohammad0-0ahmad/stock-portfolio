@@ -11,8 +11,8 @@ const LogoutButton = () => {
     UserConfirmation({
       text:'Är du säker på att logga ut?',
       confirmAction: () => {
-        localStorage.clear();
-        history.push('/');
+        localStorage.removeItem('sessionId');
+        history.push('/logout');
       }
     })
   }

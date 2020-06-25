@@ -10,12 +10,10 @@ import ContactInfo from './ContactInfo'
 import CurrentUpdate from './CurrentUpdate'
 import BarChart from './BarChart'
 import BarChartDetailsList from './BarChartDetailsList'
-import { useHistory } from 'react-router-dom'
 import { fetchJSON } from '../utilities/fetchData'
 import MessageCard from './MessageCard';
 
-const HomeCard = () => {
-    var history = useHistory()
+const HomeCard = ({ history }) => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [personNumber, setPersonNumber] = useState('')

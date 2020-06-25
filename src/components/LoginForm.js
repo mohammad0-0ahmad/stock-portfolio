@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
-import { useHistory } from "react-router-dom";
 import LabelAndInput from './LabelAndInput'
 import { fetchJSON } from '../utilities/fetchData'
 import Button from './Button'
 import TextAsLink from './TextAsLink'
 import AlertBox from './AlertBox'
 
-const LoginForm = () => {
+const LoginForm = ({ history }) => {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();
-
+    
     const handelLogin = (e) => {
         e.preventDefault();
         fetchJSON('/login', { email: userEmail, password }, (data) => {

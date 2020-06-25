@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import LabelAndInput from './LabelAndInput';
 import Button from './Button'
 import { fetchJSON } from '../utilities/fetchData'
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import AlertBox from './AlertBox'
 
-const ResetPasswordForm = () => {
-    const history = useHistory()
-
+const ResetPasswordForm = ({ history }) => {
     const { request } = useParams('request')
     const [newPassword, setNewPassword] = useState('');
     const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
