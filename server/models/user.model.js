@@ -82,7 +82,7 @@ User.changeUserData = async (newData, result) => {
       return;
     }
     else {
-      let currentPersonalNumber = res[0].p_nr
+      let currentPersonalNumber = JSON.stringify(res[0].p_nr)
       let newPersonalNumber = false;
       let newEmail = false;
       let readyToUpdateEmail = true;
