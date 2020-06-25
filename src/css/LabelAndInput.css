@@ -46,6 +46,7 @@
 .LabelAndInputCheckboxItems > label {
   color: var(--color17);
   font-size: 0.8vw;
+  white-space: nowrap;
 }
 .LabelAndInputCheckboxItems input {
   width: 1vw;

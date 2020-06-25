@@ -9,7 +9,7 @@ module.exports = (app) => {
     app.post("/stocks_overview", stocks.userStocksOverview);
     app.post("/userinfo", User.getInfo);
     app.post("/industries", industries.getIndustries);
-    app.post("/changePreferredIndustries", industries.getChangePreferedIndustry)
+    app.post("/changePreferredIndustries", industries.changePreferedIndustry)
     app.post("/settings/deleteinfo", User.deleteInfo);
     app.post("/settings/changeInfo", User.changeInfo);
     app.post("/settings/changePassword", User.changePassword);

@@ -1,8 +1,11 @@
 const Preferred_Industries = require("../models/industries.model");
+const getUserEmailBySessionId = require("../models/sessions.modell").getUserEmail;
 
-exports.getIndustries = (req, res) => {
-  if (req.query.owner) {
-    Preferred_Industries.getIndustries((err, data) => {
+exports.getIndustries = async (req, res) => {
+  const sessionId = req.body.session;
+  const email = await getUserEmailBySessionId(sessionId);
+  if (email) {
+    Preferred_Industries.getIndustries(email, (err, data) => {
       if (err) {
         res.status(500).send({
           message: err.message,
@@ -10,14 +13,18 @@ exports.getIndustries = (req, res) => {
       } else {
         res.send(data);
       }
-    }, req.query.owner);
+    });
   } else {
     res.status(400).send("");
   }
 };
 
-exports.getChangePreferedIndustry = (req, res) => {
-    Preferred_Industries.getChange((err, data) => {
+exports.changePreferedIndustry = async (req, res) => {
+  const sessionId = req.body.session;
+  const industries = req.body.industries
+  const email = await getUserEmailBySessionId(sessionId);
+  if (email) {
+    Preferred_Industries.change({ email, industries }, (err, data) => {
       if (err) {
         res.status(500).send({
           message: err.message,
@@ -25,5 +32,6 @@ exports.getChangePreferedIndustry = (req, res) => {
       } else {
         res.send(data);
       }
-    }, req.body);
-};
+    });
+  }
+}

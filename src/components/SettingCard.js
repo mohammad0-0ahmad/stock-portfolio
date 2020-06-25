@@ -12,10 +12,8 @@ import UserConfirmation from './UserConfirmation'
 import { fetchJSON } from '../utilities/fetchData'
 import AlertBox from './AlertBox'
 
-
-
-
 const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser']
+
 const SettingCard = () => {
     const [selectedSettingSection, setSelectedSettingSection] = useState(SETTING_SUB_NAV_BAR_TITLES[0])
     const [firstName, setFirstName] = useState('')
@@ -29,18 +27,47 @@ const SettingCard = () => {
     const [password, setPassword] = useState('')
     const [newPassword1, setNewPassword1] = useState('')
     const [newPassword2, setNewPassword2] = useState('')
+    const [preferredIndustries, setPreferredIndustries] = useState([]);
 
+    const changePreferredIndustries = (i) => {
+        let temp = [...preferredIndustries];
+        temp[i].preferred = !temp[i].preferred;
+        setPreferredIndustries(temp);
+      };
 
-    const preferedIndustries = ['Bygg', 'Teknik', 'Hälsa', 'Dagligvaror', 'Råvaror', 'Finans', 'Fastigheter', 'Verkstad']
+      const showPreferredIndustries = () => {
+        return preferredIndustries.map((industry, i) => (
+          <LabelAndInput
+            key={i}
+            type="checkbox"
+            checked={industry.preferred}
+            labelText={industry.name}
+            handleChange={() => changePreferredIndustries(i)}
+          />
+        ))
+      }
 
-    const [bygg, setBygg] = useState(true)
-    const [teknik, setTeknik] = useState(false)
-    const [hälsa, setHälsa] = useState(true)
-    const [dagligvaror, setDagligvaror] = useState(false)
-    const [råvaror, setRåvaror] = useState(true)
-    const [finans, setFinans] = useState(false)
-    const [fastigheter, setFastigheter] = useState(true)
-    const [verkstad, setVerkstad] = useState(true)
+      const uploadPreferredIndustriesChanges = () => {
+        fetchJSON(
+          "/changePreferredIndustries",
+          { session: localStorage.sessionId, industries:preferredIndustries},
+          (data) => {
+            if (data.status) {
+              AlertBox({ text:data.msg, success:data.status});
+            }
+          }
+        );
+      };
+
+      useEffect(() => {
+        fetchJSON("/industries", { session: localStorage.sessionId }, (data) => {
+          if (data.status) {
+            console.log("error");
+          } else {
+            setPreferredIndustries(data);
+          }
+        });
+      }, []);    
 
     useEffect(() => {
         fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
@@ -120,21 +147,13 @@ const SettingCard = () => {
                     <>
                         <p className='preferencesPreferedIndustriesContent'>Mina prefererade industrier att investera inom:</p>
                         <div id='preferencesPreferedIndustries'>
-                            <LabelAndInput type='checkbox' checked={bygg} labelText={preferedIndustries[0]} handleChange={(e) => { setBygg(!bygg) }} />
-                            <LabelAndInput type='checkbox' checked={teknik} labelText={preferedIndustries[1]} handleChange={(e) => { setTeknik(!teknik) }} />
-                            <LabelAndInput type='checkbox' checked={hälsa} labelText={preferedIndustries[2]} handleChange={(e) => { setHälsa(!hälsa) }} />
-                            <LabelAndInput type='checkbox' checked={dagligvaror} labelText={preferedIndustries[3]} handleChange={(e) => { setDagligvaror(!dagligvaror) }} />
-                            <LabelAndInput type='checkbox' checked={råvaror} labelText={preferedIndustries[4]} handleChange={(e) => { setRåvaror(!råvaror) }} />
-                            <LabelAndInput type='checkbox' checked={finans} labelText={preferedIndustries[5]} handleChange={(e) => { setFinans(!finans) }} />
-                            <LabelAndInput type='checkbox' checked={fastigheter} labelText={preferedIndustries[6]} handleChange={(e) => { setFastigheter(!fastigheter) }} />
-                            <LabelAndInput type='checkbox' checked={verkstad} labelText={preferedIndustries[7]} handleChange={(e) => { setVerkstad(!verkstad) }} />
+                            {showPreferredIndustries()}
                         </div>
                         <p className='preferencesTipToUser'>Tips! Ifall du väljer att integrerar din bank så kan vi anpassa dina investeringar utefter din ekonomi och preferenser.</p>
                         <div className='preferencesPreferedIndustriesContent oneLineLinkAndLabel'>
                             <TextAsLink text='Integrera min bank' handleClick={() => console.log("test")} />
                             <p className='preferencesPreferedIndustriesContent'>(detta kommer att skicka dig vidare etc....)</p>
                         </div>
-
                     </>
                 }
                 <div id='saveSetteingChangesBar'>
@@ -142,15 +161,15 @@ const SettingCard = () => {
                         switch (selectedSettingSection) {
                             case SETTING_SUB_NAV_BAR_TITLES[0]: {
                                 UserConfirmation(
-                                    { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () => { changeInfo() } }); break
+                                    { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () =>  changeInfo() }); break
                             }
                             case SETTING_SUB_NAV_BAR_TITLES[1]: {
                                 UserConfirmation(
-                                    { text: 'Är du säker på att du vill ändra lösenord?', confirmAction: () => { changePassword() } }); break
+                                    { text: 'Är du säker på att du vill ändra lösenord?', confirmAction: () => changePassword() }); break
                             }
                             case SETTING_SUB_NAV_BAR_TITLES[2]: {
                                 UserConfirmation(
-                                    { text: 'Är du säker på att du vill ändra industrier?', confirmAction: () => { console.log('hej') } }); break
+                                    { text: 'Är du säker på att du vill ändra industrier?', confirmAction: () => uploadPreferredIndustriesChanges() }); break
                             }
                             default:
                         }

@@ -5,25 +5,28 @@ const Preferred_Industry = function (industry) {
   this.value = industry.user_email;
 };
 
-Preferred_Industry.getIndustries = (result, email) => {
+Preferred_Industry.getIndustries = (email, result) => {
   const sql = `SELECT i.name, 
     case WHEN EXISTS (SELECT * FROM preferred_industries WHERE user_email = '${email}' AND industry_name = i.name LIMIT 1) 
-    THEN 'true' ELSE 'false' END AS preffered 
+    THEN 'true' ELSE 'false' END AS preferred 
     from industries AS i`;
   connection.query(sql, (err, res) => {
     if (err) {
       console.log("Error:", err.message);
       result(null, "Wrong request...");
     } else {
-      console.log("industries:", res);
+      res = res.map((row) => {
+        row.preferred = row.preferred === "true" ? true : false;
+        return row;
+      });
       result(null, res);
     }
   });
 };
 
-Preferred_Industry.getChange = (result, { email, industries }) => {
+Preferred_Industry.change = ({ email, industries }, result) => {
   let preferredIndustries = industries.filter(
-    (industry) => industry.preffered === true
+    (industry) => industry.preferred === true
   );
   preferredIndustries = preferredIndustries.map((industry) => [
     email,
@@ -34,21 +37,22 @@ Preferred_Industry.getChange = (result, { email, industries }) => {
   connection.query(sql, (err, res) => {
     if (err) {
       console.log("Error:", err.message);
-      result(null, "Wrong request...");
+      result("Wrong request...", null);
     } else {
       if (preferredIndustries.length) {
         const sql = `INSERT INTO preferred_industries VALUES ?`;
         connection.query(sql, [preferredIndustries], (err, res) => {
           if (err) {
             console.log("Error:", err.message);
-            result(null, "Wrong request...");
-          } else {
-            result(null, "Done");
+            result("Wrong request...", err);
+            return;
           }
         });
-      }else{
-        result(null, "Done");
       }
+      result(null, {
+        status: true,
+        msg: "Det gick bra med att byta dina föredragna industrier.",
+      });
     }
   });
 };
