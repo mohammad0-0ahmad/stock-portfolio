@@ -38,7 +38,7 @@ exports.userRegisterationValidation = (userData) => {
     if (userData.email) {
         if (!validEmail(userData.email)) {
             isValid = false;
-            msg.email = `${userData.email} är ogiltigt epost.`;
+            msg.email = `${userData.email} är en ogiltig epost.`;
         }
     } else {
         isValid = false;
@@ -48,7 +48,7 @@ exports.userRegisterationValidation = (userData) => {
     if (userData.password) {
         if (!validPassword(userData.password)) {
             isValid = false;
-            msg.password = `${userData.password} är ogiltigt lösenord.`;
+            msg.password = `${userData.password} är ett ogiltigt lösenord.`;
         }
     } else {
         isValid = false;
@@ -68,7 +68,7 @@ exports.userRegisterationValidation = (userData) => {
     if (userData.p_nr) {
         if (!validPersonalNumber(userData.p_nr)) {
             isValid = false;
-            msg.p_nr = `${userData.p_nr} är inte 12 siffrig personnummer.`;
+            msg.p_nr = `${userData.p_nr} är inte ett tolvsiffrigt personnummer.`;
         }
     } else {
         isValid = false;
@@ -86,7 +86,7 @@ exports.userRegisterationValidation = (userData) => {
     if (userData.postal_code) {
         if (!validPostalCode(userData.postal_code)) {
             isValid = false;
-            msg.postal_code = `${userData.postal_code} är inte 5 siffrig postnummer.`;
+            msg.postal_code = `${userData.postal_code} är inte ett femsiffrigt postnummer.`;
         }
     } else {
         isValid = false;
@@ -95,7 +95,7 @@ exports.userRegisterationValidation = (userData) => {
     if (userData.telephone) {
         if (!validTelephone(userData.telephone)) {
             isValid = false;
-            msg.telephone = `${userData.telephone} är ogiltigt telefonnummer.`;
+            msg.telephone = `${userData.telephone} är ett ogiltigt telefonnummer.`;
         }
     } else {
         isValid = false;
@@ -108,14 +108,53 @@ exports.userRegisterationValidation = (userData) => {
         msg
     }
 }
-exports.updateFunctions = {
-    validEmail,
-    validPassword,
-    validPersonalNumber,
-    validPostalCode,
-    validTelephone,
+exports.userChangeDataValidation = (newData) => {
+    let isValid = true;
+    let msg = {};
+    if (newData.email) {
+        if (!validEmail(newData.email)) {
+            isValid = false;
+            msg.email = `${newData.email} är en ogiltig epostadress.`;
+        }
+    } else {
+        isValid = false;
+        msg.email = `E-post är obligatoriskt.`;
+    }
+    if (newData.personNumber) {
+        if (!validPersonalNumber(newData.personNumber)) {
+            isValid = false;
+            msg.personNumber = `${newData.personNumber} är inte ett tolvsiffrigt personnummer.`;
+        }
+    } else {
+        isValid = false;
+        msg.personNumber = `Personnummer är obligatoriskt.`;
+    }
+    if (newData.postalCode) {
+        if (!validPostalCode(newData.postalCode)) {
+            isValid = false;
+            msg.postalCode = `${newData.postalCode} är inte ett femsiffrigt postnummer.`;
+        }
+    } else {
+        isValid = false;
+        msg.postalCode = `PostNummer är obligatoriskt.`;
+    }
+    if (newData.phone) {
+        if (!validTelephone(newData.phone)) {
+            isValid = false;
+            msg.phone = `${newData.phone} är ett ogiltigt telefonnummer.`;
+        }
+    } else {
+        isValid = false;
+        msg.phone = `Telefonnummer är obligatoriskt.`;
+    }
+    if (isValid)
+        return { isValid };
+    else return {
+        isValid,
+        msg
+    }
 }
-//temp
+  
 
 exports.isValidEmail = validEmail;
 exports.isValidPassword = validPassword;

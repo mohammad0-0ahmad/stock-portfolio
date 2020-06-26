@@ -70,7 +70,7 @@ const RegisterForm = ({ history }) => {
                     type='text'
                     placeHolder='Skriv in ditt personnummer'
                     pattern="^\d{12}$"
-                    title='Ogiltigt personnummer. Den måste bestå av 12 siffror.'
+                    title='Ogiltigt personnummer. Det måste bestå av 12 siffror.'
                     required={true}
                 />
                 <LabelAndInput
@@ -100,7 +100,7 @@ const RegisterForm = ({ history }) => {
                         type='text'
                         placeHolder='Skriv in ditt postnummer'
                         pattern="^\d{5}$"
-                        title='Ogiltigt postnummer. Den måste bestå av 5 siffror.'
+                        title='Ogiltigt postnummer. Det måste bestå av 5 siffror.'
                         required={true}
                     />
                 </div>
@@ -137,7 +137,7 @@ const RegisterForm = ({ history }) => {
                     title='Ogiltigt lösenord. Det måste vara minst 8 tecken och det måste innehålla minst en siffra / versaler / gemener'
                     required={true} />
                 <Button
-                    buttonText='Registrea'
+                    buttonText='Registrera'
                     className='logInButton'
                     type='submit'
                 />

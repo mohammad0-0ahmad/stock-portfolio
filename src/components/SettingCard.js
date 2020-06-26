@@ -92,7 +92,7 @@ const SettingCard = () => {
     const changeInfo = () => {
         fetchJSON('/settings/changeInfo', {
             session: localStorage.sessionId, 
-            firstName, lastName, personNumber,address, city, postalCode, phone, email
+            firstName, lastName, personNumber, address, city, postalCode, phone, email
         }, (data) => {
             AlertBox({ text: data.msg, success: data.status })
         })

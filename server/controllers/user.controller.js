@@ -45,13 +45,9 @@ exports.changeInfo = async (req, res) => {
   newData.oldEmail = email
   newData.postalCode = newData.postalCode.split(" ").join("")
   newData.phone = newData.phone.split(" ").join("")
-  const validPersonalNumber = utilities.updateFunctions.validPersonalNumber(newData.personNumber)
-  const validEmail = utilities.updateFunctions.validEmail(newData.email)
-  const validPostalCode = utilities.updateFunctions.validPostalCode(newData.postalCode)
-  const validTelephone = utilities.updateFunctions.validTelephone(newData.phone)
-
-  if (validPersonalNumber && validEmail && validPostalCode && validTelephone) {
-
+  const validUserData = utilities.userChangeDataValidation(newData);
+  
+  if (validUserData.isValid) {
     User.changeUserData(newData, (err, data) => {
       if (err) {
         res.status(500).send({
@@ -62,26 +58,14 @@ exports.changeInfo = async (req, res) => {
       }
     });
   }
-  if (!validPersonalNumber) {
+  else {
     res.send({
-      status: false, msg: `Personnumret är inte giltigt, var god försök igen.`
+      status: validUserData.isValid,
+      msg: Object.values(validUserData.msg).toString().replace(/,/g, '\n')
+
     })
   }
-  if (!validEmail) {
-    res.send({
-      status: false, msg: `E-posten är inte giltig, var god försök igen.`
-    })
-  }
-  if (!validPostalCode) {
-    res.send({
-      status: false, msg: `Postnumret är inte giltigt, var god försök igen.`
-    })
-  }
-  if (!validTelephone) {
-    res.send({
-      status: false, msg: `Telefonnumret är inte giltigt, var god försök igen.`
-    })
-  }
+  
 }
 
 exports.newAccount = (req, res) => {
