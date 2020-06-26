@@ -4,13 +4,12 @@ import WelcomeBar from './WelcomeBar'
 import ContentItem from './ContentItem'
 import ContetItemHeader from './ContentItemHeader'
 import UserImgNamePN from './UserImgNamePN'
-import userimg from '../imgs/user.png'
 import PreferedIndustries from './PreferedIndustries'
 import ContactInfo from './ContactInfo'
 import CurrentUpdate from './CurrentUpdate'
 import BarChart from './BarChart'
 import BarChartDetailsList from './BarChartDetailsList'
-import { fetchJSON } from '../utilities/fetchData'
+import { fetchJSON, fetchImg } from '../utilities/fetchData'
 import MessageCard from './MessageCard';
 
 const HomeCard = ({ history }) => {
@@ -25,6 +24,7 @@ const HomeCard = ({ history }) => {
     const [lastUpdate, setLastUpdate] = useState('')
     const [stockOverview, setStockOverview] = useState({})
     const [barChartData, setBarChartData] = useState([])
+    const [userImg, setUserImg] = useState('')
 
     useEffect(() => {
         fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
@@ -48,6 +48,10 @@ const HomeCard = ({ history }) => {
                 setBarChartData(barChartData)
             }
         })
+
+        fetchImg('/img', (data) => {
+            setUserImg(data)
+        })
     }, [])
 
     const welcomeBar = <WelcomeBar updated={lastUpdate} name={firstName} hasStocks={stockOverview.totalBalance !== '0'} />
@@ -55,7 +59,7 @@ const HomeCard = ({ history }) => {
         <Content title='Hem' welcomeBar={welcomeBar}>
             <ContentItem>
                 <ContetItemHeader title={'Min Profil'} button={{ buttonText: 'Redigera', handleClick: () => history.push("/settings") }} />
-                <UserImgNamePN userData={{ img: userimg, name: firstName + ' ' + lastName, personNr: personNumber }} />
+                <UserImgNamePN userData={{ img: userImg, name: firstName + ' ' + lastName, personNr: personNumber }} />
                 <PreferedIndustries />
                 <ContactInfo phone={phone} email={email} address={address} postalCode={postalCode} city={city} />
             </ContentItem>

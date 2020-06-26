@@ -1,13 +1,13 @@
 import React from 'react'
 import '../css/UserImgNamePN.css'
-import RoundedImg from './RoundedImg'
+import UserImg from './UserImg'
 
 const UserImgNamePN = ({ userData }) => {
     const { img, name, personNr } = userData
 
     return (
         <div className='UserImgNamePN'>
-            <RoundedImg src={img} alt='User picture' />
+            <UserImg src={img} alt='User picture' />
             <div>
                 <h2>{name}</h2>
                 <p>Person Nr/Organisations Nr</p>

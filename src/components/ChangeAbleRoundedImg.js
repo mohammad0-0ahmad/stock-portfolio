@@ -1,32 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../css/ChangeAbleRoundedImg.css'
-import RoundedImg from './RoundedImg'
+import UserImg from './UserImg'
 
-const ChangeAbleRoundedImg = ({ src, alt, handleClick }) => {
-    //temp
-    const [shownImg, setShownImg] = useState(src)
+const ChangeAbleRoundedImg = ({ src, alt, handleImgChange }) => {
 
     const handleImgChanging = () => {
         const input = document.getElementById('changeUserImg');
         input.click();
     }
 
-    const handleChange = (e) => {
+    const handleChange = async (e) => {
         var img = e.target.files[0];
-        var reader = new FileReader();
-        let imgAsSrcValue;
-        reader.onload = function () {
-            imgAsSrcValue = reader.result
-            setShownImg(imgAsSrcValue);
-        };
-        reader.readAsDataURL(img);
-        handleClick(e.target.files[0], imgAsSrcValue);
+        if (img) {
+            handleImgChange(img);
+        }
     }
 
     return (
         <div className='ChangeAbleRoundedImg'>
             <input type='file' id='changeUserImg' accept="image/png,image/jpeg" onChange={handleChange} />
-            <RoundedImg src={shownImg} alt={alt} id='USERACCOUNTIMG' />
+            <UserImg src={src} alt={alt} id='USERACCOUNTIMG' />
             <button onClick={handleImgChanging}></button>
         </div>
     )

@@ -12,7 +12,7 @@ module.exports = (app) => {
     app.post("/industries", industries.getIndustries);
     app.post("/login", User.login);
     app.post("/verify", Sessions.verifySession);
-    app.get("/img/:sessionId", User.getImg);
+    app.post("/img/", User.getImg);
     app.post("/resetPassword/check", ResetPasswordRequests.checkRequest);
 
     /////////////////////////////////////////////////////////////////////
@@ -22,7 +22,7 @@ module.exports = (app) => {
     app.post("/settings/changeInfo", User.changeInfo);
     app.post("/settings/changePassword", User.changePassword);
     app.post("/resetPassword/changePassword", ResetPasswordRequests.changePassword);
-    
+
     /////////////////////////////////////////////////////////////////////
     // Create data.
     app.post("/register", User.newAccount);

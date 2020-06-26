@@ -191,7 +191,8 @@ User.changePassword = async (emailPassword, result) => {
   });
 }
 
-User.changeImg = async (img, email, result) => {
+User.changeImg = async ({ img, email }, result) => {
+  fs.rmdirSync(USERS_IMGS_PATH + email, { recursive: true });
   fs.mkdirSync(USERS_IMGS_PATH + email, { recursive: true })
   img.mv(`${USERS_IMGS_PATH + email}/img.${img.name.split('.').pop()}`, (err) => {
     if (err) {
@@ -223,12 +224,19 @@ User.login = ({ email, password }, result) => {
 }
 
 User.retrieveImg = (email, result) => {
-  try {
-    var img = fs.readFileSync(`${USERS_IMGS_PATH + email}/img.png`);
-    result(null, img)
-  } catch (err) {
-    result({ message: 'Not found' }, null)
-  }
+  fs.readdir(USERS_IMGS_PATH + email, function (err, files) {
+    if (err) {
+      result({ message: 'Not found' }, null);
+      return;
+    } else {
+      try {
+        var img = fs.readFileSync(`${USERS_IMGS_PATH + email}/${files[0]}`);
+        result(null, { name: files[0], img })
+      } catch (err) {
+        result({ message: 'Not found' }, null)
+      }
+    }
+  })
 }
 
 module.exports = { User, isEmailAlreadyExist };

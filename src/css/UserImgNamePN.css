@@ -4,9 +4,9 @@
   align-items: center;
 }
 
-.UserImgNamePN > .RoundedImg {
+.UserImgNamePN > .UserImg {
   height: 8.5vw;
-    width: 9vw;
+  width: 9vw;
 }
 
 .UserImgNamePN > div {
