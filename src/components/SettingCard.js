@@ -7,9 +7,8 @@ import ChangeAbleRoundedImg from './ChangeAbleRoundedImg';
 import LabelAndInput from './LabelAndInput';
 import TextAsLink from './TextAsLink'
 import Button from './Button'
-import userimg from '../imgs/user.png'
 import UserConfirmation from './UserConfirmation'
-import { fetchJSON } from '../utilities/fetchData'
+import { fetchJSON, uploadImg, fetchImg } from '../utilities/fetchData'
 import AlertBox from './AlertBox'
 
 const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser']
@@ -27,7 +26,59 @@ const SettingCard = () => {
     const [password, setPassword] = useState('')
     const [newPassword1, setNewPassword1] = useState('')
     const [newPassword2, setNewPassword2] = useState('')
-    const [preferredIndustries, setPreferredIndustries] = useState([]);
+    const [preferredIndustries, setPreferredIndustries] = useState([])
+    const [userImg, setUserImg] = useState('/img')
+
+    useEffect(() => {
+        fetchJSON("/industries", { session: localStorage.sessionId }, (data) => {
+            if (data) {
+                setPreferredIndustries(data);
+            }
+        });
+
+        fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
+            if (data.email) {
+                setFirstName(data.f_name)
+                setLastName(data.l_name)
+                setPersonNumber(data.p_nr)
+                setAddress(data.address)
+                setCity(data.city)
+                setPostalCode(data.postal_code)
+                setPhone(data.telephone)
+                setEmail(data.email)
+            }
+        })
+
+        fetchImg('/img', (data) => {
+            setUserImg({ img: data, imgFile: false })
+        })
+    }, []);
+
+    const changeInfo = async () => {
+        let uploadImgRes;
+        if (userImg.imgFile) {
+            await uploadImg('/uploadImg', userImg.imgFile, (data) => uploadImgRes = data);
+        }
+        fetchJSON('/settings/changeInfo', {
+            session: localStorage.sessionId,
+            firstName, lastName, personNumber, address, city, postalCode, phone, email
+        }, (data) => {
+            if (uploadImgRes) {
+                AlertBox({ text: `${data.msg}\n${uploadImgRes.msg}`, success: data.status && uploadImgRes.status })
+            } else {
+                AlertBox({ text: data.msg, success: data.status })
+            }
+        })
+    }
+
+    const changePassword = () => {
+        fetchJSON('/settings/changePassword', {
+            session: localStorage.sessionId,
+            password, newPassword1, newPassword2
+        }, (data) => {
+            AlertBox({ text: data.msg, success: data.status })
+        })
+    }
 
     const changePreferredIndustries = (i) => {
         let temp = [...preferredIndustries];
@@ -59,45 +110,6 @@ const SettingCard = () => {
         );
     };
 
-    useEffect(() => {
-        fetchJSON("/industries", { session: localStorage.sessionId }, (data) => {
-            if (data) {
-                setPreferredIndustries(data);
-            }
-        });
-
-        fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
-            if (data.email) {
-                setFirstName(data.f_name)
-                setLastName(data.l_name)
-                setPersonNumber(data.p_nr)
-                setAddress(data.address)
-                setCity(data.city)
-                setPostalCode(data.postal_code)
-                setPhone(data.telephone)
-                setEmail(data.email)
-            }
-        })
-    }, []);
-
-    const changePassword = () => {
-        fetchJSON('/settings/changePassword', {
-            session: localStorage.sessionId, 
-            password,newPassword1, newPassword2
-        }, (data) => {
-            AlertBox({ text: data.msg, success: data.status })
-        })
-    }
-
-    const changeInfo = () => {
-        fetchJSON('/settings/changeInfo', {
-            session: localStorage.sessionId, 
-            firstName, lastName, personNumber, address, city, postalCode, phone, email
-        }, (data) => {
-            AlertBox({ text: data.msg, success: data.status })
-        })
-    }
-
     return (
         <Content title='Inställningar' id='SettingCard'>
             <ContentItem>
@@ -105,7 +117,11 @@ const SettingCard = () => {
                 {
                     selectedSettingSection === SETTING_SUB_NAV_BAR_TITLES[0] &&
                     <>
-                        <ChangeAbleRoundedImg src={userimg} handleClick={() => { console.log("change") }} alt='User picture' />
+                        <ChangeAbleRoundedImg
+                            src={userImg.img}
+                            handleImgChange={img => setUserImg({ img: URL.createObjectURL(img), imgFile: img })}
+                            alt='User picture'
+                        />
                         <div>
                             <div className='oneLine'>
                                 <LabelAndInput type="text" labelText="Förnamn" text={firstName} handleChange={setFirstName} />
@@ -141,7 +157,7 @@ const SettingCard = () => {
                         </div>
                         <p className='preferencesTipToUser'>Tips! Ifall du väljer att integrerar din bank så kan vi anpassa dina investeringar utefter din ekonomi och preferenser.</p>
                         <div className='preferencesPreferredIndustriesContent oneLineLinkAndLabel'>
-                            <TextAsLink text='Integrera min bank' handleClick={() => console.log("test")} />
+                            <TextAsLink text='Integrera min bank' />
                             <p className='preferencesPreferredIndustriesContent'>(detta kommer att skicka dig vidare etc....)</p>
                         </div>
                     </>

@@ -112,16 +112,22 @@ exports.changePassword = async (req, res) => {
   });
 };
 
-exports.uploadImg = (req, res) => {
-  User.changeImg(req.files.img, req.query.email, (err, data) => {
-    if (err) {
-      res.status(500).send({
-        message: err.message,
-      });
-    } else {
-      res.send(data);
-    }
-  })
+exports.uploadImg = async (req, res) => {
+  const email = req.body.session ? await getUserEmailBySessionId(req.body.session) : false;
+  const img = req.files.img;
+  if (email && img) {
+    User.changeImg({ img, email }, (err, data) => {
+      if (err) {
+        res.status(500).send({
+          message: err.message,
+        });
+      } else {
+        res.send(data);
+      }
+    })
+  } else {
+    res.status(403).end();
+  }
 }
 
 exports.login = (req, res) => {
@@ -139,7 +145,7 @@ exports.login = (req, res) => {
 }
 
 exports.getImg = async (req, res) => {
-  const email = req.params.sessionId ? await getUserEmailBySessionId(req.params.sessionId) : false
+  const email = req.body.session ? await getUserEmailBySessionId(req.body.session) : false
   if (email) {
     User.retrieveImg(email, (err, data) => {
       if (err) {
@@ -147,7 +153,7 @@ exports.getImg = async (req, res) => {
           message: err.message,
         });
       } else {
-        res.writeHead(200, { 'Content-Type': 'image/png' }).end(data, 'binary');
+        res.writeHead(200, { 'Content-Disposition': `inline;filename=${data.name}` }).end(data.img);
       }
     })
   } else {
