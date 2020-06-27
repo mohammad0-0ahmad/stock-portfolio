@@ -4,7 +4,7 @@ exports.getUserStocksOverview = (owner, result) => {
     const sql = `SELECT c.industry,GROUP_CONCAT(DISTINCT c.name SEPARATOR ',') AS companies,SUM(s.value) AS value FROM stocks AS s, companies AS c 
     WHERE s.company_id = c.id 
     AND s.owner = '${owner}'
-    GROUP BY c.industry  ORDER BY s.value DESC`;
+    GROUP BY c.industry  ORDER BY SUM(s.value) DESC`;
     connection.query(sql, (err, res) => {
         if (err) {
             console.log("Error:", err.message);
