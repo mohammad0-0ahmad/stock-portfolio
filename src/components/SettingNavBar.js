@@ -21,7 +21,7 @@ const SettingNavBar = ({ items, selected = items[0], handleSelect }) => {
     />
   ));
   const deleteData = () => {
-    fetchJSON('/settings/deleteinfo', { session: localStorage.sessionId }, (data) => {
+    fetchJSON('/settings/deleteinfo', null, (data) => {
       AlertBox({ text: data.msg, success: data.status })
     })
   }

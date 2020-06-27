@@ -27,7 +27,7 @@ const HomeCard = ({ history }) => {
     const [userImg, setUserImg] = useState('')
 
     useEffect(() => {
-        fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
+        fetchJSON('/userinfo', null, (data) => {
             if (data.email) {
                 setFirstName(data.f_name)
                 setLastName(data.l_name)
@@ -41,7 +41,7 @@ const HomeCard = ({ history }) => {
             }
         })
 
-        fetchJSON('/stocks_overview', { session: localStorage.sessionId }, (data) => {
+        fetchJSON('/stocks_overview', null, (data) => {
             if (data.totalBalance) {
                 setStockOverview(data);
                 const barChartData = data.industries.map(industry => parseInt(industry.value.replace(/ /g, '')));

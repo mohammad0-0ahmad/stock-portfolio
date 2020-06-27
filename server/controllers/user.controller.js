@@ -46,7 +46,7 @@ exports.changeInfo = async (req, res) => {
   newData.postalCode = newData.postalCode.split(" ").join("")
   newData.phone = newData.phone.split(" ").join("")
   const validUserData = utilities.userChangeDataValidation(newData);
-  
+
   if (validUserData.isValid) {
     User.changeUserData(newData, (err, data) => {
       if (err) {
@@ -65,7 +65,7 @@ exports.changeInfo = async (req, res) => {
 
     })
   }
-  
+
 }
 
 exports.newAccount = (req, res) => {
@@ -91,17 +91,21 @@ exports.newAccount = (req, res) => {
 exports.changePassword = async (req, res) => {
   const sessionId = req.body.session
   const email = await getUserEmailBySessionId(sessionId)
-  if (req.body.newPassword1 !== req.body.newPassword2) {
+  const { password, newPassword1, newPassword2 } = req.body
+  if (!password || !newPassword1 || !newPassword1) {
+    res.send({ status: false, msg: 'De tre inputfälten måste fyllas för att kunna byta ditt lösenord!' })
+    return;
+  }
+  if (newPassword1 !== newPassword2) {
     res.send({ status: false, msg: 'Var vänlig att se till så att du skriver ditt nya lösenord på exakt samma sätt två gånger.' })
     return;
   }
-  if (!utilities.updateFunctions.validPassword(req.body.newPassword1)) {
+  if (!utilities.isValidPassword(newPassword1)) {
     res.send({ status: false, msg: 'Ditt nya lösenord är inte giltigt, det måste innehålla stor bokstav, siffror och vara 8 bokstäver långt.' })
     return;
   }
-  const emailAndPasswords = { 'email': email, 'oldPassword': req.body.password, 'newPassword': req.body.newPassword1 }
+  const emailAndPasswords = { 'email': email, 'oldPassword': password, 'newPassword': newPassword1 }
   User.changePassword(emailAndPasswords, (err, data) => {
-
     if (err) {
       res.status(500).send({
         message: err.message,

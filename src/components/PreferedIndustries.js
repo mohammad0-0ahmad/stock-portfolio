@@ -6,7 +6,7 @@ const PreferedIndustries = () => {
   const [userIndustries, setUserIndustries] = useState([]);
 
   useEffect(() => {
-    fetchJSON("/industries", { session: localStorage.sessionId }, (data) => {
+    fetchJSON("/industries", null, (data) => {
       if (data) {
         setUserIndustries(data.filter((industry) => industry.preferred));
       }

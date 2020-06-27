@@ -3,20 +3,20 @@ import ReactDOM from 'react-dom'
 import Button from './Button'
 import '../css/AlertBox.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationCircle, faCheckCircle } from "@fortawesome/free-solid-svg-icons"
+import { faExclamationCircle, faCheckCircle, faTimesCircle } from "@fortawesome/free-solid-svg-icons"
 
-const AlertBox = ({ text, confirmAction, success = true, duration = 10 }) => {
+const AlertBox = ({ text, confirmAction, success = '', duration = 10 }) => {
     var div = document.createElement('div');
     div.setAttribute('id', 'AlertBox');
-    div.setAttribute('class', success ? 'success' : 'fail');
+    div.setAttribute('class', success ? 'success' : success === '' ? 'info' : 'fail');
     ReactDOM.render(
         <div>
-            <FontAwesomeIcon icon={success ? faCheckCircle : faExclamationCircle} id='logo' />
+            <FontAwesomeIcon icon={success ? faCheckCircle : success === '' ? faExclamationCircle : faTimesCircle} id='logo' />
             <h1>{text}</h1>
             <div id='makeDecision'>
                 <Button
                     buttonText='Okej'
-                    className={success ? 'confirmButton' : 'rejectButton'}
+                    className={success ? 'confirmButton' : success === '' ? 'confirmButton' : 'rejectButton'}
                     handleClick={() => {
                         confirmAction && confirmAction()
                         div.remove()

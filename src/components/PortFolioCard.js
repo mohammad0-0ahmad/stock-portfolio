@@ -16,18 +16,18 @@ const PortFolioCard = () => {
     const amountPages = stocks.length % rowsPerPage === 0 ? Math.floor(stocks.length / rowsPerPage) : Math.floor(stocks.length / rowsPerPage) + 1;
 
     useEffect(() => {
-        fetchJSON('/stocks', { session: localStorage.sessionId }, (data) => {
+        fetchJSON('/stocks', null, (data) => {
             if (data) {
                 setStocks(data)
             }
         });
 
-        fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
+        fetchJSON('/userinfo', null, (data) => {
             if (data.l_update) {
                 setLastUpdate(data.l_update)
             }
         });
-        
+
     }, [])
 
     useEffect(() => {

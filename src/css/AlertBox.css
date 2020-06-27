@@ -31,6 +31,9 @@
 #AlertBox.fail > div {
   border-color: #dc473c;
 }
+#AlertBox.info > div {
+  border-color: #fdcc6b;
+}
 #AlertBox > div > * {
   margin: 0 auto;
 }
@@ -49,6 +52,9 @@
 }
 #AlertBox.fail #logo {
   color: #dc473c;
+}
+#AlertBox.info #logo {
+  color: #fdcc6b;
 }
 #AlertBox #makeDecision {
   display: flex;

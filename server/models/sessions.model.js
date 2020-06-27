@@ -1,7 +1,7 @@
 const connection = require("./db");
 const encrypt = require("../utilities/encrypt")
-const SESSION_LENGTH = 24; // hours
-const SESSION_END_TIME = Date.now() - 3600 * SESSION_LENGTH * 1000;
+const SESSION_LENGTH = 6; // hours
+const SESSION_END_TIME = Date.now() - (3600 * SESSION_LENGTH * 1000);
 
 exports.createSession = (email) => {
     return new Promise(async (resolve) => {
@@ -26,7 +26,7 @@ exports.verification = (sessionId, result) => {
     connection.query(sql, (err, res) => {
         if (!err) {
             if (res.length) {
-                if (res[0].start_time > SESSION_END_TIME) {
+                if (res[0].start_time.getTime() > SESSION_END_TIME) {
                     this.updateSessionStartTime(sessionId)
                     result(null, { status: true })
                     return;

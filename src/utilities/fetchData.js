@@ -1,14 +1,21 @@
-export const fetchJSON = (url, body, action, method) => {
+export const fetchJSON = (url, body, action) => {
+    if (body === null || body === undefined) {
+        body = {}
+    }
+    if (localStorage.sessionId) {
+        body.session = localStorage.sessionId;
+    }
+    body = JSON.stringify(body);
     fetch(url, {
-        method: method ? method : 'POST',
+        method: 'POST',
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
+        body
     })
         .then(res => res.json())
         .then(data => action(data))
-        .catch();
+        .catch(e => { });
 }
 
 export const fetchImg = (url, action) => {
@@ -19,10 +26,10 @@ export const fetchImg = (url, action) => {
         },
         body: JSON.stringify({ session: localStorage.sessionId })
     })
-        .then((res) => res.blob())
+        .then(res => res.blob())
         .then(blob => URL.createObjectURL(blob))
-        .then((data) => action(data))
-        .catch();
+        .then(data => action(data))
+        .catch(e => { });
 }
 
 export const uploadImg = (url, imgFile, action) => {
@@ -37,7 +44,7 @@ export const uploadImg = (url, imgFile, action) => {
     )
         .then(response => response.json())
         .then(data => action(data))
-        .catch();
+        .catch(e => { });
 }
 
 export default { fetchJSON }

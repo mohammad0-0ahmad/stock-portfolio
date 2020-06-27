@@ -9,10 +9,10 @@
   font-family: monospace;
   font-weight: 600;
   font-size: 0.7vw;
-  transition: 0.3s;
 }
 .PaginationButton:hover {
   background-color: var(--color21);
+  transition: 0.3s;
 }
 #selectedPaginationButton {
   background-color: var(--color3);

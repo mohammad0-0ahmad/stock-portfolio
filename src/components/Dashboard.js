@@ -9,12 +9,12 @@ import { fetchJSON } from '../utilities/fetchData'
 
 const Dashboard = () => {
     const history = useHistory()
-    
+
     useEffect(() => {
         document.documentElement.scrollTop = 0
     })
 
-    fetchJSON('/verify', { session: localStorage.sessionId }, (data) => {
+    fetchJSON('/verify', null, (data) => {
         if (!data.status) {
             localStorage.removeItem('sessionId');
             history.push('/logout')

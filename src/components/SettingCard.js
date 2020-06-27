@@ -15,6 +15,8 @@ const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser'
 
 const SettingCard = () => {
     const [selectedSettingSection, setSelectedSettingSection] = useState(SETTING_SUB_NAV_BAR_TITLES[0])
+
+    const [userImg, setUserImg] = useState('/img')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [personNumber, setPersonNumber] = useState('')
@@ -27,16 +29,17 @@ const SettingCard = () => {
     const [newPassword1, setNewPassword1] = useState('')
     const [newPassword2, setNewPassword2] = useState('')
     const [preferredIndustries, setPreferredIndustries] = useState([])
-    const [userImg, setUserImg] = useState('/img')
+
+    const [modifiedInfo, setModifiedInfo] = useState(true)
+    const [modifiedPassword, setModifiedPassword] = useState(true)
+    const [modifiedPreferredIndustries, setModifiedPreferredIndustries] = useState(true)
 
     useEffect(() => {
-        fetchJSON("/industries", { session: localStorage.sessionId }, (data) => {
-            if (data) {
-                setPreferredIndustries(data);
-            }
-        });
+        fetchImg('/img', (data) => {
+            setUserImg({ img: data, imgFile: false })
+        })
 
-        fetchJSON('/userinfo', { session: localStorage.sessionId }, (data) => {
+        fetchJSON('/userinfo', null, (data) => {
             if (data.email) {
                 setFirstName(data.f_name)
                 setLastName(data.l_name)
@@ -47,37 +50,77 @@ const SettingCard = () => {
                 setPhone(data.telephone)
                 setEmail(data.email)
             }
+            setModifiedInfo(false)
+            setModifiedPassword(false)
         })
 
-        fetchImg('/img', (data) => {
-            setUserImg({ img: data, imgFile: false })
-        })
+        fetchJSON("/industries", null, (data) => {
+            if (data) {
+                setPreferredIndustries(data);
+            }
+            setModifiedPreferredIndustries(false)
+        });
     }, []);
 
-    const changeInfo = async () => {
-        let uploadImgRes;
-        if (userImg.imgFile) {
-            await uploadImg('/uploadImg', userImg.imgFile, (data) => uploadImgRes = data);
+    useEffect(() => {
+        if (!modifiedInfo) {
+            setModifiedInfo(true)
         }
-        fetchJSON('/settings/changeInfo', {
-            session: localStorage.sessionId,
-            firstName, lastName, personNumber, address, city, postalCode, phone, email
-        }, (data) => {
-            if (uploadImgRes) {
-                AlertBox({ text: `${data.msg}\n${uploadImgRes.msg}`, success: data.status && uploadImgRes.status })
-            } else {
-                AlertBox({ text: data.msg, success: data.status })
-            }
-        })
+    }, [firstName, lastName, personNumber, address, city, postalCode, phone, email])
+
+    useEffect(() => {
+        if (!modifiedPassword) {
+            setModifiedPassword(true)
+        }
+    }, [password, newPassword1, newPassword2])
+
+    useEffect(() => {
+        if (!modifiedPreferredIndustries) {
+            setModifiedPreferredIndustries(true)
+        }
+    }, [preferredIndustries])
+
+    const changeInfo = () => {
+        if (modifiedInfo || userImg.imgFile) {
+            UserConfirmation({
+                text: 'Är du säker på att du vill uppdatera din personliga information?',
+                confirmAction: async () => {
+                    let uploadImgRes;
+                    if (userImg.imgFile) {
+                        await uploadImg('/uploadImg', userImg.imgFile, (data) => uploadImgRes = data);
+                    }
+                    fetchJSON('/settings/changeInfo',
+                        { firstName, lastName, personNumber, address, city, postalCode, phone, email },
+                        (data) => {
+                            if (uploadImgRes) {
+                                AlertBox({ text: `${data.msg}\n${uploadImgRes.msg}`, success: data.status && uploadImgRes.status })
+                            } else {
+                                AlertBox({ text: data.msg, success: data.status })
+                            }
+                        })
+                }
+            })
+        } else {
+            AlertBox({ text: 'Du får ändra din personliga uppgifter först!' })
+        }
     }
 
     const changePassword = () => {
-        fetchJSON('/settings/changePassword', {
-            session: localStorage.sessionId,
-            password, newPassword1, newPassword2
-        }, (data) => {
-            AlertBox({ text: data.msg, success: data.status })
-        })
+        if (modifiedPassword) {
+            UserConfirmation(
+                {
+                    text: 'Är du säker på att du vill ändra lösenord?',
+                    confirmAction: () => {
+                        fetchJSON('/settings/changePassword', {
+                            password, newPassword1, newPassword2
+                        }, (data) => {
+                            AlertBox({ text: data.msg, success: data.status })
+                        })
+                    }
+                })
+        } else {
+            AlertBox({ text: 'Du får ändra ditt lösenord först!' })
+        }
     }
 
     const changePreferredIndustries = (i) => {
@@ -85,6 +128,27 @@ const SettingCard = () => {
         temp[i].preferred = !temp[i].preferred;
         setPreferredIndustries(temp);
     };
+
+    const uploadPreferredIndustriesChanges = () => {
+        if (modifiedPreferredIndustries) {
+            UserConfirmation(
+                {
+                    text: 'Är du säker på att du vill ändra industrier?', confirmAction: () => {
+                        fetchJSON(
+                            "/changePreferredIndustries",
+                            { industries: preferredIndustries },
+                            (data) => {
+                                if (data.status) {
+                                    AlertBox({ text: data.msg, success: data.status });
+                                }
+                            }
+                        );
+                    }
+                });
+        } else {
+            AlertBox({ text: 'Du får ändra dina föredragna industrier först!' })
+        }
+    }
 
     const showPreferredIndustries = () => {
         return preferredIndustries.map((industry, i) => (
@@ -97,18 +161,6 @@ const SettingCard = () => {
             />
         ))
     }
-
-    const uploadPreferredIndustriesChanges = () => {
-        fetchJSON(
-            "/changePreferredIndustries",
-            { session: localStorage.sessionId, industries: preferredIndustries },
-            (data) => {
-                if (data.status) {
-                    AlertBox({ text: data.msg, success: data.status });
-                }
-            }
-        );
-    };
 
     return (
         <Content title='Inställningar' id='SettingCard'>
@@ -165,19 +217,10 @@ const SettingCard = () => {
                 <div id='saveSettingChangesBar'>
                     <Button buttonText='Spara' handleClick={() => {
                         switch (selectedSettingSection) {
-                            case SETTING_SUB_NAV_BAR_TITLES[0]: {
-                                UserConfirmation(
-                                    { text: 'Är du säker på att du vill uppdatera din personliga information?', confirmAction: () => changeInfo() }); break
-                            }
-                            case SETTING_SUB_NAV_BAR_TITLES[1]: {
-                                UserConfirmation(
-                                    { text: 'Är du säker på att du vill ändra lösenord?', confirmAction: () => changePassword() }); break
-                            }
-                            case SETTING_SUB_NAV_BAR_TITLES[2]: {
-                                UserConfirmation(
-                                    { text: 'Är du säker på att du vill ändra industrier?', confirmAction: () => uploadPreferredIndustriesChanges() }); break
-                            }
-                            default:
+                            case SETTING_SUB_NAV_BAR_TITLES[0]: changeInfo(); break;
+                            case SETTING_SUB_NAV_BAR_TITLES[1]: changePassword(); break;
+                            case SETTING_SUB_NAV_BAR_TITLES[2]: uploadPreferredIndustriesChanges(); break;
+                            default: ;
                         }
                     }}
                         className='saveButton' />

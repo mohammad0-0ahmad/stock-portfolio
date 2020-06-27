@@ -8,14 +8,14 @@ import AlertBox from './AlertBox'
 const LoginForm = ({ history }) => {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+
     const handleLogin = (e) => {
         e.preventDefault();
         fetchJSON('/login', { email: userEmail, password }, (data) => {
             if (data.status) {
                 localStorage.setItem('sessionId', data.session)
                 history.push('/login');
-            } else {
+            } else if (data.status !== undefined) {
                 AlertBox({ text: data.msg, success: data.status })
             }
         })
@@ -45,8 +45,6 @@ const LoginForm = ({ history }) => {
                     handleChange={setPassword}
                     type='password'
                     placeHolder='Skriv in ditt lösenord'
-                    pattern='(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])[\w\d]{8,}'
-                    title='Ogiltigt lösenord. Det måste vara minst 8 tecken och det måste innehålla minst en siffra / versaler / gemener'
                     required={true} />
                 <div>
                     <Button
