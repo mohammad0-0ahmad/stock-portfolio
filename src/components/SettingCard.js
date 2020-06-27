@@ -16,7 +16,7 @@ const SETTING_SUB_NAV_BAR_TITLES = ['Min Profil', 'Byt lösenord', 'Preferenser'
 const SettingCard = () => {
     const [selectedSettingSection, setSelectedSettingSection] = useState(SETTING_SUB_NAV_BAR_TITLES[0])
 
-    const [userImg, setUserImg] = useState('/img')
+    const [userImg, setUserImg] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [personNumber, setPersonNumber] = useState('')
@@ -87,7 +87,12 @@ const SettingCard = () => {
                 confirmAction: async () => {
                     let uploadImgRes;
                     if (userImg.imgFile) {
-                        await uploadImg('/uploadImg', userImg.imgFile, (data) => uploadImgRes = data);
+                        await uploadImg('/uploadImg', userImg.imgFile, (data) => {
+                            uploadImgRes = data
+                            if (data.status) {
+                                setUserImg({ img: userImg.img, imgFile: false });
+                            }
+                        });
                     }
                     fetchJSON('/settings/changeInfo',
                         { firstName, lastName, personNumber, address, city, postalCode, phone, email },
@@ -96,6 +101,9 @@ const SettingCard = () => {
                                 AlertBox({ text: `${data.msg}\n${uploadImgRes.msg}`, success: data.status && uploadImgRes.status })
                             } else {
                                 AlertBox({ text: data.msg, success: data.status })
+                            }
+                            if (data.status) {
+                                setModifiedInfo(false);
                             }
                         })
                 }
@@ -115,6 +123,12 @@ const SettingCard = () => {
                             password, newPassword1, newPassword2
                         }, (data) => {
                             AlertBox({ text: data.msg, success: data.status })
+                            if (data.status) {
+                                setPassword('')
+                                setNewPassword1('')
+                                setNewPassword2('')
+                                setModifiedPassword(false)
+                            }
                         })
                     }
                 })
@@ -140,6 +154,7 @@ const SettingCard = () => {
                             (data) => {
                                 if (data.status) {
                                     AlertBox({ text: data.msg, success: data.status });
+                                    setModifiedPreferredIndustries(false);
                                 }
                             }
                         );
