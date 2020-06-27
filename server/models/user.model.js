@@ -141,7 +141,7 @@ User.addNewUser = async (userData, result) => {
       address,
       city,
       postal_code: parseInt(postal_code),
-      telephone: parseInt(telephone)
+      telephone: telephone
     }
     const sql = 'INSERT INTO users SET ?';
     connection.query(sql, newUser, (err, res) => {
@@ -149,7 +149,6 @@ User.addNewUser = async (userData, result) => {
         console.log("Error", err);
         result(null, err);
       } else {
-        console.log("userinfo", res);
         result(null, { status: true, msg: 'Ditt konto har skapats.' });
       }
     });

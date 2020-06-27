@@ -25,7 +25,6 @@ const ResetPasswordForm = ({ history }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         fetchJSON('/resetPassword/changePassword', { request, newPassword, newPasswordConfirmation }, (data) => {
-            console.log(data)
             if (data.status) {
                 AlertBox({ text: data.msg, success: data.status, confirmAction: () => history.push('/') });
             } else {
