@@ -113,7 +113,9 @@ User.changeUserData = async (newData, result) => {
           else {
             result(null, { status: true, msg: 'Dina uppgifter har ändrats.' });
             if (newEmail) {
-              fs.renameSync(USERS_IMGS_PATH + oldEmail, USERS_IMGS_PATH + email);
+              try {
+                fs.renameSync(USERS_IMGS_PATH + oldEmail, USERS_IMGS_PATH + email);
+              } catch (error) {}
             }
           }
         })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LabelAndInput from './LabelAndInput'
 import { fetchJSON } from '../utilities/fetchData'
 import Button from './Button'
@@ -8,6 +8,10 @@ import AlertBox from './AlertBox'
 const LoginForm = ({ history }) => {
     const [userEmail, setUserEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    useEffect(() => {
+        document.title = 'Inlogning';
+    }, [])
 
     const handleLogin = (e) => {
         e.preventDefault();

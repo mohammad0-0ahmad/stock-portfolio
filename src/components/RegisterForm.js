@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from "react-router-dom";
 import LabelAndInput from './LabelAndInput'
 import Button from './Button'
@@ -18,6 +18,9 @@ const RegisterForm = ({ history }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    useEffect(() => {
+        document.title = 'Registrering';
+    }, [])
 
     const handleRegister = (e) => {
         e.preventDefault();

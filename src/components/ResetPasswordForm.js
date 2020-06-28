@@ -11,6 +11,8 @@ const ResetPasswordForm = ({ history }) => {
     const [newPasswordConfirmation, setNewPasswordConfirmation] = useState('');
 
     useEffect(() => {
+        document.title = 'Återställ lösenord';
+
         if (request) {
             fetchJSON('/resetPassword/check', { request }, (data) => {
                 if (!data.status) {
@@ -57,7 +59,7 @@ const ResetPasswordForm = ({ history }) => {
                     type='password'
                     placeHolder='Bekräfta ditt nya lösenord'
                     pattern={newPassword}
-                    title='Den stämmer inte med det nya lösenordet.'
+                    title='Detta värde måste stämma med det nya lösenordet.'
                     required={true} />
                 <Button
                     buttonText='Återställ'

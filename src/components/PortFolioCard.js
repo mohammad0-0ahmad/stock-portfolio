@@ -16,6 +16,8 @@ const PortFolioCard = () => {
     const amountPages = stocks.length % rowsPerPage === 0 ? Math.floor(stocks.length / rowsPerPage) : Math.floor(stocks.length / rowsPerPage) + 1;
 
     useEffect(() => {
+        document.title = 'Min Portfölj';
+
         fetchJSON('/stocks', null, (data) => {
             if (data) {
                 setStocks(data)

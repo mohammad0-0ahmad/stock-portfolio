@@ -35,6 +35,8 @@ const SettingCard = () => {
     const [modifiedPreferredIndustries, setModifiedPreferredIndustries] = useState(true)
 
     useEffect(() => {
+        document.title = 'Inställningar';
+
         fetchImg('/img', (data) => {
             setUserImg({ img: data, imgFile: false })
         })

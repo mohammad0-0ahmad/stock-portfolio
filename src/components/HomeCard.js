@@ -27,6 +27,8 @@ const HomeCard = ({ history }) => {
     const [userImg, setUserImg] = useState('')
 
     useEffect(() => {
+        document.title = 'Hem';
+
         fetchJSON('/userinfo', null, (data) => {
             if (data.email) {
                 setFirstName(data.f_name)

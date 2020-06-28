@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from "react-router-dom";
 import LabelAndInput from './LabelAndInput'
 import Button from './Button'
@@ -9,6 +9,10 @@ import AlertBox from './AlertBox'
 
 const ResetPasswordRequestForm = ({ history }) => {
     const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        document.title = 'Återställ lösenord';
+    }, [])
 
     const handleResetPasswordRequest = (e) => {
         e.preventDefault();

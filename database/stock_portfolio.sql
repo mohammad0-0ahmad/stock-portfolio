@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2020 at 02:41 PM
+-- Generation Time: Jun 28, 2020 at 12:04 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -143,26 +143,26 @@ INSERT INTO `stocks` (`reg_nr`, `amount`, `value`, `type`, `owner`, `company_id`
 (3, 4079, 458577, 'A', 'magnus@gmail.com', 7),
 (4, 1247, 759840, 'A', 'magnus@gmail.com', 11),
 (5, 1979, 59411, 'A', 'magnus@gmail.com', 5),
-(6, 1647, 963104, 'A', 'magnus@gmail.com', 9),
+(6, 1647, 63104, 'A', 'magnus@gmail.com', 9),
 (7, 4127, 175020, 'A', 'magnus@gmail.com', 8),
 (8, 2280, 595736, 'B', 'magnus@gmail.com', 12),
-(9, 3114, 814228, 'A', 'magnus@gmail.com', 6),
-(11, 1455, 500000, 'A', 'magnus@gmail.com', 1),
+(9, 3114, 414228, 'A', 'magnus@gmail.com', 6),
+(11, 1455, 50000, 'A', 'magnus@gmail.com', 1),
 (12, 1908, 377914, 'B', 'magnus@gmail.com', 2),
-(13, 2673, 249221, 'C', 'magnus@gmail.com', 8),
+(13, 2673, 49221, 'C', 'magnus@gmail.com', 8),
 (14, 1473, 197872, 'C', 'magnus@gmail.com', 4),
 (16, 4104, 935044, 'C', 'magnus@gmail.com', 6),
 (17, 658, 102838, 'B', 'magnus@gmail.com', 5),
 (20, 3761, 794949, 'C', 'magnus@gmail.com', 3),
 (23, 938, 581135, 'A', 'magnus@gmail.com', 3),
-(24, 359, 786097, 'A', 'magnus@gmail.com', 10),
+(24, 359, 86097, 'A', 'magnus@gmail.com', 10),
 (27, 125, 798189, 'A', 'magnus@gmail.com', 4),
 (28, 2541, 830412, 'B', 'magnus@gmail.com', 4),
-(30, 1134, 296994, 'B', 'magnus@gmail.com', 6),
+(30, 1134, 96994, 'B', 'magnus@gmail.com', 6),
 (37, 3382, 208888, 'B', 'magnus@gmail.com', 1),
 (38, 1550, 72173, 'C', 'magnus@gmail.com', 10),
-(40, 3096, 210882, 'C', 'magnus@gmail.com', 5),
-(42, 4521, 825734, 'B', 'magnus@gmail.com', 8),
+(40, 3096, 10882, 'C', 'magnus@gmail.com', 5),
+(42, 4521, 25734, 'B', 'magnus@gmail.com', 8),
 (48, 166, 540381, 'C', 'magnus@gmail.com', 11);
 
 -- --------------------------------------------------------
@@ -294,14 +294,14 @@ ALTER TABLE `stocks`
 -- Constraints for table `companies`
 --
 ALTER TABLE `companies`
-  ADD CONSTRAINT `companies_ibfk_1` FOREIGN KEY (`industry`) REFERENCES `industries` (`name`);
+  ADD CONSTRAINT `companies_ibfk_1` FOREIGN KEY (`industry`) REFERENCES `industries` (`name`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `preferred_industries`
 --
 ALTER TABLE `preferred_industries`
-  ADD CONSTRAINT `preferred_industries_ibfk_1` FOREIGN KEY (`user_email`) REFERENCES `users` (`email`),
-  ADD CONSTRAINT `preferred_industries_ibfk_2` FOREIGN KEY (`industry_name`) REFERENCES `industries` (`name`);
+  ADD CONSTRAINT `preferred_industries_ibfk_1` FOREIGN KEY (`user_email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `preferred_industries_ibfk_2` FOREIGN KEY (`industry_name`) REFERENCES `industries` (`name`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `reset_password_requests`
@@ -319,9 +319,9 @@ ALTER TABLE `sessions`
 -- Constraints for table `stocks`
 --
 ALTER TABLE `stocks`
-  ADD CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`type`) REFERENCES `stock_types` (`symbol`),
+  ADD CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`type`) REFERENCES `stock_types` (`symbol`) ON UPDATE CASCADE,
   ADD CONSTRAINT `stocks_ibfk_2` FOREIGN KEY (`owner`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `stocks_ibfk_3` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+  ADD CONSTRAINT `stocks_ibfk_3` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,4 +1,16 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project has developed as a school assignment.<br />
+
+Setup:<br />
+1- Mysql db has been used so it should be imported in the local mysql server for example Xampp.<br />
+Note! Database file can be found inside database folder.<br />
+2- Install dependencies. "yarn install"<br />
+3- Then execute "yarn start" to start node js & react apps at once.<br />
+
+Live demo:<br />
+Note!<br/>
+It could be slow because of it is hosted by free host and database is not exist at the same server.<br/>
+
+https://react-stock-portfolio.herokuapp.com/
 
 ## Available Scripts
 
