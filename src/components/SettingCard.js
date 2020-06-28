@@ -19,7 +19,7 @@ const SettingCard = () => {
     const [userImg, setUserImg] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
-    const [personNumber, setPersonNumber] = useState('')
+    const [personalNumber, setPersonalNumber] = useState('')
     const [address, setAddress] = useState('')
     const [city, setCity] = useState('')
     const [postalCode, setPostalCode] = useState('')
@@ -43,7 +43,7 @@ const SettingCard = () => {
             if (data.email) {
                 setFirstName(data.f_name)
                 setLastName(data.l_name)
-                setPersonNumber(data.p_nr)
+                setPersonalNumber(data.p_nr)
                 setAddress(data.address)
                 setCity(data.city)
                 setPostalCode(data.postal_code)
@@ -66,7 +66,7 @@ const SettingCard = () => {
         if (!modifiedInfo) {
             setModifiedInfo(true)
         }
-    }, [firstName, lastName, personNumber, address, city, postalCode, phone, email])
+    }, [firstName, lastName, personalNumber, address, city, postalCode, phone, email])
 
     useEffect(() => {
         if (!modifiedPassword) {
@@ -95,7 +95,7 @@ const SettingCard = () => {
                         });
                     }
                     fetchJSON('/settings/changeInfo',
-                        { firstName, lastName, personNumber, address, city, postalCode, phone, email },
+                        { firstName, lastName, personalNumber, address, city, postalCode, phone, email },
                         (data) => {
                             if (uploadImgRes) {
                                 AlertBox({ text: `${data.msg}\n${uploadImgRes.msg}`, success: data.status && uploadImgRes.status })
@@ -194,7 +194,7 @@ const SettingCard = () => {
                                 <LabelAndInput type="text" labelText="Förnamn" text={firstName} handleChange={setFirstName} />
                                 <LabelAndInput type="text" labelText="Efternamn" text={lastName} handleChange={setLastName} />
                             </div>
-                            <LabelAndInput type="text" labelText="Personnummer" text={personNumber} handleChange={setPersonNumber} />
+                            <LabelAndInput type="text" labelText="Personnummer" text={personalNumber} handleChange={setPersonalNumber} />
                             <LabelAndInput type="text" labelText="Adress" text={address} handleChange={setAddress} />
                             <div className='oneLine'>
                                 <LabelAndInput type="text" labelText="Postort" text={city} handleChange={setCity} />

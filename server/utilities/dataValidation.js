@@ -32,70 +32,72 @@ const validTelephone = (telephone) => {
 }
 
 exports.userRegisterationValidation = (userData) => {
+    const { password, email, f_name, l_name, address, postal_code, city, telephone, p_nr } = userData
+
     let isValid = true;
     let msg = {};
 
-    if (userData.email) {
-        if (!validEmail(userData.email)) {
+    if (email) {
+        if (!validEmail(email)) {
             isValid = false;
-            msg.email = `${userData.email} är en ogiltig epost.`;
+            msg.email = `${email} är en ogiltig epost.`;
         }
     } else {
         isValid = false;
         msg.email = `E-post är obligatoriskt.`;
     }
 
-    if (userData.password) {
-        if (!validPassword(userData.password)) {
+    if (password) {
+        if (!validPassword(password)) {
             isValid = false;
-            msg.password = `${userData.password} är ett ogiltigt lösenord.`;
+            msg.password = `${password} är ett ogiltigt lösenord.`;
         }
     } else {
         isValid = false;
         msg.password = `Lösenord är obligatoriskt.`;
     }
 
-    if (!userData.f_name) {
+    if (!f_name) {
         isValid = false;
         msg.f_name = `Förnamn är obligatoriskt.`;
     }
 
-    if (!userData.l_name) {
+    if (!l_name) {
         isValid = false;
         msg.l_name = `Efternamn är obligatoriskt.`;
     }
 
-    if (userData.p_nr) {
-        if (!validPersonalNumber(userData.p_nr)) {
+    if (p_nr) {
+        if (!validPersonalNumber(p_nr)) {
             isValid = false;
-            msg.p_nr = `${userData.p_nr} är inte ett tolvsiffrigt personnummer.`;
+            msg.p_nr = `${p_nr} är inte ett tolvsiffrigt personnummer.`;
         }
     } else {
         isValid = false;
         msg.p_nr = `Personnummer är obligatoriskt.`;
     }
 
-    if (!userData.address) {
+    if (!address) {
         isValid = false;
         msg.address = `Adressen är obligatoriskt.`;
     }
-    if (!userData.city) {
+    if (!city) {
         isValid = false;
         msg.city = `Postort är obligatoriskt.`;
     }
-    if (userData.postal_code) {
-        if (!validPostalCode(userData.postal_code)) {
+    if (postal_code) {
+        if (!validPostalCode(postal_code)) {
             isValid = false;
-            msg.postal_code = `${userData.postal_code} är inte ett femsiffrigt postnummer.`;
+            msg.postal_code = `${postal_code} är inte ett femsiffrigt postnummer.`;
         }
     } else {
         isValid = false;
         msg.postal_code = `PostNummer är obligatoriskt.`;
     }
-    if (userData.telephone) {
-        if (!validTelephone(userData.telephone)) {
+    if (telephone) {
+        if (!validTelephone(telephone)) {
             isValid = false;
-            msg.telephone = `${userData.telephone} är ett ogiltigt telefonnummer.`;
+            msg.telephone = `${telephone} är ett ogiltigt telefonnummer.`;
         }
     } else {
         isValid = false;
@@ -109,39 +111,41 @@ exports.userRegisterationValidation = (userData) => {
     }
 }
 exports.userChangeDataValidation = (newData) => {
+    const { personalNumber, email, postalCode, phone } = newData
+
     let isValid = true;
     let msg = {};
-    if (newData.email) {
-        if (!validEmail(newData.email)) {
+    if (email) {
+        if (!validEmail(email)) {
             isValid = false;
-            msg.email = `${newData.email} är en ogiltig epostadress.`;
+            msg.email = `${email} är en ogiltig epostadress.`;
         }
     } else {
         isValid = false;
         msg.email = `E-post är obligatoriskt.`;
     }
-    if (newData.personNumber) {
-        if (!validPersonalNumber(newData.personNumber)) {
+    if (personalNumber) {
+        if (!validPersonalNumber(personalNumber)) {
             isValid = false;
-            msg.personNumber = `${newData.personNumber} är inte ett tolvsiffrigt personnummer.`;
+            msg.personalNumber = `${personalNumber} är inte ett tolvsiffrigt personnummer.`;
         }
     } else {
         isValid = false;
-        msg.personNumber = `Personnummer är obligatoriskt.`;
+        msg.personalNumber = `Personnummer är obligatoriskt.`;
     }
-    if (newData.postalCode) {
-        if (!validPostalCode(newData.postalCode)) {
+    if (postalCode) {
+        if (!validPostalCode(postalCode)) {
             isValid = false;
-            msg.postalCode = `${newData.postalCode} är inte ett femsiffrigt postnummer.`;
+            msg.postalCode = `${postalCode} är inte ett femsiffrigt postnummer.`;
         }
     } else {
         isValid = false;
         msg.postalCode = `PostNummer är obligatoriskt.`;
     }
-    if (newData.phone) {
-        if (!validTelephone(newData.phone)) {
+    if (phone) {
+        if (!validTelephone(phone)) {
             isValid = false;
-            msg.phone = `${newData.phone} är ett ogiltigt telefonnummer.`;
+            msg.phone = `${phone} är ett ogiltigt telefonnummer.`;
         }
     } else {
         isValid = false;
@@ -154,7 +158,7 @@ exports.userChangeDataValidation = (newData) => {
         msg
     }
 }
-  
+
 
 exports.isValidEmail = validEmail;
 exports.isValidPassword = validPassword;

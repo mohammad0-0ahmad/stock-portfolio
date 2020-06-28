@@ -92,7 +92,7 @@ exports.changePassword = async (req, res) => {
   const sessionId = req.body.session
   const email = await getUserEmailBySessionId(sessionId)
   const { password, newPassword1, newPassword2 } = req.body
-  if (!password || !newPassword1 || !newPassword1) {
+  if (!password || !newPassword1 || !newPassword2) {
     res.send({ status: false, msg: 'De tre inputfälten måste fyllas för att kunna byta ditt lösenord!' })
     return;
   }

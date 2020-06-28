@@ -76,7 +76,8 @@ User.deleteUserData = (email, result) => {
 }
 
 User.changeUserData = async (newData, result) => {
-  let sql = `SELECT p_nr from users WHERE email = '${newData.oldEmail}'`;
+  const { oldEmail, personalNumber, email, firstName, lastName, address, postalCode, city, phone } = newData
+  let sql = `SELECT p_nr from users WHERE email = '${oldEmail}'`;
   connection.query(sql, async (err, res) => {
     if (err) {
       console.log("Error", err);
@@ -90,19 +91,19 @@ User.changeUserData = async (newData, result) => {
       let readyToUpdateEmail = true;
       let readyToUpdatePersonalNumber = true;
 
-      currentPersonalNumber !== newData.personNumber ? newPersonalNumber = true : newPersonalNumber = false
+      currentPersonalNumber !== personalNumber ? newPersonalNumber = true : newPersonalNumber = false
       if (newPersonalNumber) {
-        readyToUpdatePersonalNumber = ! await isPersonalNumberAlreadyExist(newData.personNumber)
+        readyToUpdatePersonalNumber = ! await isPersonalNumberAlreadyExist(personalNumber)
       }
 
-      newData.oldEmail !== newData.email ? newEmail = true : newEmail = false
+      oldEmail !== email ? newEmail = true : newEmail = false
       if (newEmail) {
-        readyToUpdateEmail = ! await isEmailAlreadyExist(newData.email)
+        readyToUpdateEmail = ! await isEmailAlreadyExist(email)
       }
       if (readyToUpdateEmail && readyToUpdatePersonalNumber) {
-        const sql = `UPDATE users SET f_name='${newData.firstName}', l_name='${newData.lastName}',
-        p_nr='${newData.personNumber}', address='${newData.address}', city='${newData.city}',
-       postal_code='${newData.postalCode}', telephone='${newData.phone}', email='${newData.email}' WHERE email = '${newData.oldEmail}'`
+        const sql = `UPDATE users SET f_name='${firstName}', l_name='${lastName}',
+        p_nr='${personalNumber}', address='${address}', city='${city}',
+       postal_code='${postalCode}', telephone='${phone}', email='${email}' WHERE email = '${oldEmail}'`
         connection.query(sql, (err, res) => {
           if (err) {
             console.log("Error", err);
@@ -111,17 +112,21 @@ User.changeUserData = async (newData, result) => {
           }
           else {
             result(null, { status: true, msg: 'Dina uppgifter har ändrats.' });
+            if (newEmail) {
+              fs.renameSync(USERS_IMGS_PATH + oldEmail, USERS_IMGS_PATH + email);
+            }
           }
-
         })
       }
-      if (!readyToUpdatePersonalNumber) {
-        result(null, { status: false, msg: 'Detta personnummer existerar redan.' });
-        return
-      }
-      if (!readyToUpdateEmail) {
-        result(null, { status: false, msg: 'Denna email existerar redan.' });
-        return
+      else {
+        let messageToUser = ''
+        if (!readyToUpdatePersonalNumber) {
+          messageToUser = 'Detta personnummer existerar redan. \n';
+        }
+        if (!readyToUpdateEmail) {
+          messageToUser += 'Denna email existerar redan.';
+        }
+        result(null, { status: false, msg: messageToUser });
       }
     }
   })
